@@ -1,5 +1,4 @@
 export const largestProduct = (str, num) => {
-// const largestProduct = (str, num) => {
   if (num < 0) throw new Error('Invalid input.');
   if (num > str.length) throw new Error('Slice size is too big.');
   if (num === 0 && str === '') return 1;

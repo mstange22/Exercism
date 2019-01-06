@@ -1,0 +1,11 @@
+build/
+node_modules/
+.exercism/
+.pytest_cache/
+__pycache__/
+.vscode/
+*.yaml
+.eslintrc
+.DS_Store
+cpp-test/
+CMakeLists.txt

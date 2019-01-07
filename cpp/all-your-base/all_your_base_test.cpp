@@ -12,6 +12,7 @@ BOOST_AUTO_TEST_CASE(test1) {
                                     out_digits.begin(), out_digits.end());
 }
 
+#if defined(EXERCISM_RUN_ALL_TESTS)
 BOOST_AUTO_TEST_CASE(single_bit_one_to_decimal) {
     vector<unsigned int> in_digits{1};
     vector<unsigned int> expected{1};
@@ -119,7 +120,6 @@ BOOST_AUTO_TEST_CASE(leading_zeros) {
     BOOST_REQUIRE_EQUAL_COLLECTIONS(expected.begin(), expected.end(),
                                     out_digits.begin(), out_digits.end());
 }
-#if defined(EXERCISM_RUN_ALL_TESTS)
 
 BOOST_AUTO_TEST_CASE(first_base_is_one) {
     vector<unsigned int> in_digits{};

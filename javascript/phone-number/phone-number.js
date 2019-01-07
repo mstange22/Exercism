@@ -1,23 +1,25 @@
-class PhoneNumber {
+export default class PhoneNumber {
   constructor(number) {
-    this.strippedNumber = number.replace(/[^\d]/g, '');
-    if (this.strippedNumber.length !== 10) {
-      if (this.strippedNumber.length === 11 && this.strippedNumber[0] === '1') {
-        this.strippedNumber = this.strippedNumber.slice(1);
+    this.phoneNumber = this.processNumber(number);
+  }
+
+  processNumber(number) {
+    let strippedNumber = number.replace(/[^\d]/g, '');
+    if (strippedNumber.length !== 10) {
+      if (strippedNumber.length === 11 && strippedNumber[0] === '1') {
+        strippedNumber = strippedNumber.slice(1);
       } else {
-        this.strippedNumber = null;
-        return;
+        return null;
       }
     }
     // check for 0 or 1 in 1st or 4th position
-    if (/^[01]+|^[\d]{3}[01]+/.test(this.strippedNumber)) {
-      this.strippedNumber = null;
+    if (/^[01]+|^[\d]{3}[01]+/.test(strippedNumber)) {
+      return null;
     }
+    return strippedNumber;
   }
 
   number() {
-    return this.strippedNumber;
+    return this.phoneNumber;
   }
 }
-
-export default PhoneNumber;

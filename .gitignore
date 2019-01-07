@@ -9,3 +9,5 @@ __pycache__/
 .DS_Store
 cpp-test/
 CMakeLists.txt
+.dart_tool/
+.packages

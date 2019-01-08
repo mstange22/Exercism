@@ -6,9 +6,8 @@ export default class Zipper {
   }
   
   static fromTree(tree) {
-    // deep copy object for zipper
-    const treeCopy = JSON.parse(JSON.stringify(tree));
-    return new Zipper(treeCopy);
+    // use deep copy object for zipper
+    return new Zipper(JSON.parse(JSON.stringify(tree)));
   }
 
   toTree() {

@@ -6,7 +6,9 @@ export default class Zipper {
   }
   
   static fromTree(tree) {
-    return new Zipper(tree);
+    // deep copy object for zipper
+    const treeCopy = JSON.parse(JSON.stringify(tree));
+    return new Zipper(treeCopy);
   }
 
   toTree() {
@@ -35,7 +37,7 @@ export default class Zipper {
   }
 
   setLeft(left) {
-    this.focus.left = Object.assign({}, left);
+    this.focus.left = left;
     return this;
   }
 

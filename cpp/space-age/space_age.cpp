@@ -1,9 +1,6 @@
 #include "space_age.h"
 
-space_age::space_age::space_age(double seconds) {
-  earth_seconds = seconds;
-  earth_years = seconds / 31557600;
-}
+space_age::space_age::space_age(double seconds): earth_seconds(seconds), earth_years(seconds / 31557600) {}
 
 double space_age::space_age::seconds() const {
   return earth_seconds;

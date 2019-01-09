@@ -3,8 +3,8 @@
 
 namespace space_age {
   class space_age {
-    double earth_seconds;
-    double earth_years;
+    const double earth_seconds;
+    const double earth_years;
     public:
       space_age(double);
       double seconds() const;

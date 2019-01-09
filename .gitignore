@@ -11,3 +11,8 @@ cpp-test/
 CMakeLists.txt
 .dart_tool/
 .packages
+.gradle/
+.settings/
+bin/
+.classpath
+.project

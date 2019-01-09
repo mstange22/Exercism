@@ -1,24 +1,24 @@
-// export default class Zipper {
-function bt(value, left, right) {
-  return {
-    value,
-    left,
-    right,
-  };
-}
+export default class Zipper {
+// function bt(value, left, right) {
+//   return {
+//     value,
+//     left,
+//     right,
+//   };
+// }
 
-function leaf(value) {
-  return bt(value, null, null);
-}
+// function leaf(value) {
+//   return bt(value, null, null);
+// }
 
-const t1 = bt(1, bt(2, null, leaf(3)), leaf(4));
-const t2 = bt(1, bt(5, null, leaf(3)), leaf(4));
-const t3 = bt(1, bt(2, leaf(5), leaf(3)), leaf(4));
-const t4 = bt(1, leaf(2), leaf(4));
-const t5 = bt(1, bt(2, null, leaf(3)), bt(6, leaf(7), leaf(8)));
-const t6 = bt(1, bt(2, null, leaf(5)), leaf(4));
+// const t1 = bt(1, bt(2, null, leaf(3)), leaf(4));
+// const t2 = bt(1, bt(5, null, leaf(3)), leaf(4));
+// const t3 = bt(1, bt(2, leaf(5), leaf(3)), leaf(4));
+// const t4 = bt(1, leaf(2), leaf(4));
+// const t5 = bt(1, bt(2, null, leaf(3)), bt(6, leaf(7), leaf(8)));
+// const t6 = bt(1, bt(2, null, leaf(5)), leaf(4));
 
-class Zipper {
+// class Zipper {
   constructor(tree) {
     this.zipper = [0, tree];
     this.focus = 1;
@@ -33,7 +33,8 @@ class Zipper {
   }
 
   static fromTree(tree) {
-    return new Zipper(tree);
+    const treeCopy = JSON.parse(JSON.stringify(tree));
+    return new Zipper(treeCopy);
   }
 
   toTree(index = 1) {
@@ -70,33 +71,33 @@ class Zipper {
     return this;
   }
 
-  // setLeft(tree) {
-  //   this.zipper[this.focus * 2] = tree;
-  //   this.zipper[this.focus].left = this.zipper[this.focus * 2];
-  //   if (tree) {
-  //     this.zipper.push(tree.left);
-  //     this.zipper.push(tree.right);
-  //   } else {
-  //     this.zipper[this.focus * 2 * 2] = null;
-  //     this.zipper[(this.focus * 2 * 2) + 1] = null;
-  //   }
-  //   return this;
-  // }
+  setLeft(tree) {
+    this.zipper[this.focus * 2] = tree;
+    this.zipper[this.focus].left = this.zipper[this.focus * 2];
+    if (tree) {
+      this.zipper.push(tree.left);
+      this.zipper.push(tree.right);
+    } else {
+      this.zipper[this.focus * 2 * 2] = null;
+      this.zipper[(this.focus * 2 * 2) + 1] = null;
+    }
+    return this;
+  }
 
-  // setRight(tree) {
-  //   this.zipper[(this.focus * 2) + 1] = tree;
-  //   this.zipper[this.focus].right = this.zipper[(this.focus * 2) + 1];
-  //   if (tree) {
-  //     this.zipper.push(tree.left);
-  //     this.zipper.push(tree.right);
-  //   } else {
-  //     this.zipper[((this.focus * 2) + 1) * 2] = null;
-  //     this.zipper[(((this.focus * 2) + 1) * 2) + 1] = null;
-  //   }
-  //   return this;
-  // }
+  setRight(tree) {
+    this.zipper[(this.focus * 2) + 1] = tree;
+    this.zipper[this.focus].right = this.zipper[(this.focus * 2) + 1];
+    if (tree) {
+      this.zipper.push(tree.left);
+      this.zipper.push(tree.right);
+    } else {
+      this.zipper[((this.focus * 2) + 1) * 2] = null;
+      this.zipper[(((this.focus * 2) + 1) * 2) + 1] = null;
+    }
+    return this;
+  }
 };
 
-const zipper = Zipper.fromTree(t1);
-console.log('res:', JSON.stringify(zipper.left().right().setValue(5).toTree(), null, 2));
-console.log('expected:', JSON.stringify(t6, null, 2));
+// const zipper = Zipper.fromTree(t1);
+// console.log('res:', JSON.stringify(zipper.left().right().setValue(5).toTree(), null, 2));
+// console.log('expected:', JSON.stringify(t6, null, 2));

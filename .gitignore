@@ -16,3 +16,4 @@ CMakeLists.txt
 bin/
 .classpath
 .project
+.keep

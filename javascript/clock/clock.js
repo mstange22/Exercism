@@ -1,5 +1,5 @@
 class Clock {
-  constructor(hours = 0, minutes = 0) {
+  constructor(hours, minutes) {
     this.hours = hours;
     this.minutes = minutes;
   }
@@ -38,6 +38,6 @@ class Clock {
   }
 }
 
-const at = (hours = '00', minutes = '00') => new Clock(hours, minutes);
+const at = (hours = 0, minutes = 0) => new Clock(hours, minutes);
 
 export default at;

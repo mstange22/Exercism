@@ -1,14 +1,14 @@
 package isogram
 
-import "strings"
+import "unicode"
 
 // IsIsogram determines if a word has a repeating char.
 func IsIsogram(s string) bool {
-	charMap := map[string]bool{}
+	charMap := map[rune]bool{}
 
-	for i := range s {
-		newChar := strings.ToLower(string(s[i]))
-		if newChar != "-" && newChar != " " {
+	for _, char := range s {
+		newChar := unicode.ToLower(char)
+		if unicode.IsLetter(char) {
 			if charMap[newChar] {
 				return false
 			}

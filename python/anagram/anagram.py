@@ -1,4 +1,4 @@
-def isAnagram(w1, w2):
+def is_anagram(w1, w2):
   if len(w1) != len(w2) or w1 == w2:
     return False
   for i in w1:
@@ -8,4 +8,4 @@ def isAnagram(w1, w2):
   return len(w2) == 0
 
 def find_anagrams(word, candidates):
-  return [c for c in candidates if isAnagram(word.lower(), c.lower())]
+  return [c for c in candidates if is_anagram(word.lower(), c.lower())]

@@ -3,7 +3,7 @@ import java.util.Map;
 
 class IsogramChecker {
     boolean isIsogram(String phrase) {
-        Map hm = new HashMap();
+        Map<Character, Boolean> hm = new HashMap<>();
         for (int i = 0; i < phrase.length(); i++) {
             char c = Character.toLowerCase(phrase.charAt(i));
             if (c >= 'a' && c <= 'z') {

@@ -4,8 +4,7 @@ class Anagram {
   }
 
   isAnagram(testWord) {
-    if (testWord.length !== this.word.length || testWord === this.word) return false;
-    return this.word.split('').sort().join('') === testWord.split('').sort().join('');
+    return testWord !== this.word && this.word.split('').sort().join('') === testWord.split('').sort().join('');
   }
 
   matches(list) {

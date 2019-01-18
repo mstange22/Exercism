@@ -1,15 +1,11 @@
 class Anagram {
   constructor(word) {
-    this.word = word;
+    this.word = word.toLowerCase();
   }
 
   isAnagram(testWord) {
-    if (testWord.length !== this.word.length || testWord === this.word.toLowerCase()) return false;
-    for (let i = 0; i < this.word.length; i++) {
-      if (!testWord.includes(this.word[i].toLowerCase())) return false;
-      else testWord = testWord.replace(this.word[i].toLowerCase(), '');
-    }
-    return true;
+    if (testWord.length !== this.word.length || testWord === this.word) return false;
+    return this.word.split('').sort().join('') === testWord.split('').sort().join('');
   }
 
   matches(list) {

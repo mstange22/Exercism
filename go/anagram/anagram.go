@@ -1,25 +1,23 @@
 package anagram
 
 import (
-	"sort"
 	"strings"
 )
-
-// SortString sorts strings.
-func SortString(w string) string {
-	s := strings.Split(w, "")
-	sort.Strings(s)
-	return strings.Join(s, "")
-}
 
 // Detect detects anagrams.
 func Detect(s string, candidates []string) []string {
 	res := []string{}
 	s = strings.ToLower(s)
 	for _, c := range candidates {
-		lowerC := strings.ToLower(c)
-		if lowerC != s {
-			if SortString(s) == SortString(lowerC) {
+		temp := strings.ToLower(c)
+		if temp != s && len(temp) == len(s) {
+			for _, char := range s {
+				if !strings.Contains(temp, string(char)) {
+					break
+				}
+				temp = strings.Replace(temp, string(char), "", 1)
+			}
+			if len(temp) == 0 {
 				res = append(res, c)
 			}
 		}

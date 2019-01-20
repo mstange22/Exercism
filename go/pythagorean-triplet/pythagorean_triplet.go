@@ -1,7 +1,6 @@
 package pythagorean
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -11,7 +10,7 @@ type Triplet [3]int
 // Range returns a list of all Pythagorean triplets with sides in the
 // range min to max inclusive.
 func Range(min, max int) (res []Triplet) {
-	for a := min; a < max; a++ {
+	for a := min; a < max-1; a++ {
 		for b := a + 1; b <= max; b++ {
 			c := math.Sqrt(float64((a * a)) + float64((b * b)))
 			if c == math.Trunc(c) && int(math.Trunc(c)) <= max {
@@ -31,7 +30,5 @@ func Sum(p int) (res []Triplet) {
 			res = append(res, triplet)
 		}
 	}
-
-	fmt.Println(res)
 	return res
 }

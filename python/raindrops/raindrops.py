@@ -7,4 +7,4 @@ def raindrops(number):
   if number % 7 == 0:
     res += 'Plong'
   
-  return (len(res) > 0 and res) or str(number)
+  return res or str(number)

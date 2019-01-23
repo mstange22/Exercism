@@ -1,20 +1,15 @@
 class Diamond {
   List<String> rows(String letter) {
-    List<String> res = [];
-    var diff = letter.codeUnitAt(0) - 'A'.codeUnitAt(0);
-    var currentLetter = 'A';
+    var res = <String>[];
+    var a = 'A'.codeUnitAt(0);
+    var diff = letter.codeUnitAt(0) - a;
 
-    for (int i = 0; i <= diff; i++) {
-      String outer = ' ' * (diff - i);
-      String inner = ' ' * ((2 * (i - 1)) + 1);
-      res.add(outer + currentLetter + inner + (i > 0 ? currentLetter : '') + outer);
-      currentLetter = String.fromCharCode(currentLetter.codeUnitAt(0) + 1);
+    for (var i = 0; i <= diff; i++) {
+      var halfRow = ' ' * (diff - i) + String.fromCharCode(a + i) + ' ' * i;
+      var list = halfRow.runes.map((r) => String.fromCharCode(r)).toList();
+      res.add(list.followedBy(list.reversed.skip(1)).join());
     }
-
-    // Build remaining diamond by reflecting first half.
-    for (int i = res.length - 2; i >= 0; i--) {
-      res.add(res[i]);
-    }
-    return res;
+    // append bottom half of diamond
+    return res.followedBy(res.reversed.skip(1)).toList();
   }
 }

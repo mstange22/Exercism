@@ -5,7 +5,7 @@ import "errors"
 // ErrStop is an error for stop codons.
 var ErrStop = errors.New("stop codon")
 
-// ErrInvalidBase is an error for invalid strings
+// ErrInvalidBase is an error for invalid strings.
 var ErrInvalidBase = errors.New("invalid base")
 
 var m = map[string]string{
@@ -19,7 +19,7 @@ var m = map[string]string{
 	"UAA": "STOP", "UAG": "STOP", "UGA": "STOP",
 }
 
-// FromCodon returns a nucleotide sequence
+// FromCodon returns a nucleotide sequence.
 func FromCodon(codon string) (string, error) {
 	if _, ok := m[codon]; ok {
 		if m[codon] == "STOP" {
@@ -30,7 +30,7 @@ func FromCodon(codon string) (string, error) {
 	return "", ErrInvalidBase
 }
 
-// FromRNA returns an array of nucleotide sequences
+// FromRNA returns an array of nucleotide sequences.
 func FromRNA(protein string) ([]string, error) {
 	res := []string{}
 	for i := 0; i < len(protein)-2; i += 3 {

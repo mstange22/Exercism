@@ -10,21 +10,41 @@ type Lists [][]int
 type Strings []string
 
 // Keep is the subset of the collection that meets the condition.
-func (i Ints) Keep(func(int) bool) (res Ints) {
+func (ints Ints) Keep(f func(int) bool) (res Ints) {
+	for _, n := range ints {
+		if f(n) {
+			res = append(res, n)
+		}
+	}
 	return
 }
 
 // Discard is the subset of the collection that does not meet the condition.
-func (i Ints) Discard(func(int) bool) (res Ints) {
+func (ints Ints) Discard(f func(int) bool) (res Ints) {
+	for _, n := range ints {
+		if !f(n) {
+			res = append(res, n)
+		}
+	}
 	return
 }
 
 // Keep is the subset of the collection that meets the condition.
-func (li Lists) Keep(func([]int) bool) (res Lists) {
+func (lists Lists) Keep(f func([]int) bool) (res Lists) {
+	for _, l := range lists {
+		if f(l) {
+			res = append(res, l)
+		}
+	}
 	return
 }
 
 // Keep is the subset of the collection that meets the condition.
-func (s Strings) Keep(func(string) bool) (res Strings) {
+func (strs Strings) Keep(f func(string) bool) (res Strings) {
+	for _, s := range strs {
+		if f(s) {
+			res = append(res, s)
+		}
+	}
 	return
 }

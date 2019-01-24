@@ -6,9 +6,9 @@ import "regexp"
 func Bracket(s string) bool {
 	bracketStack := []string{}
 	for _, r := range s {
-		brackets := regexp.MustCompile("[\\[\\]\\{\\}\\(\\)]")
+		brackets := regexp.MustCompile(`[\[\]\{\}\(\)]`)
 		if brackets.MatchString(string(r)) {
-			open := regexp.MustCompile("[\\[\\{\\(]")
+			open := regexp.MustCompile(`[\[\{\(]`)
 			if open.MatchString(string(r)) {
 				bracketStack = append(bracketStack, string(r))
 			} else {

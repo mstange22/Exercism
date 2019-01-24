@@ -38,25 +38,26 @@ func Build(records []Record) (*Node, error) {
 	// initialize Node pointer array
 	Nodes := make([]*Node, len(records))
 
-	// process records - check values and add Node pointers to array
+	// traverse records, adding Node pointers to Node, then check for children
 	for i := 0; i < len(records); i++ {
 		if records[i].ID != 0 && records[i].ID <= records[i].Parent {
-			return nil, errors.New("cycle directly")
+			return nil, errors.New("cycle")
 		}
-		if records[i].ID > len(Nodes)-1 {
-			return nil, errors.New("non-continuous")
+		if Nodes[records[i].ID] == nil {
+			newNode := Node{ID: records[i].ID}
+			Nodes[records[i].ID] = &newNode
 		}
-		if Nodes[records[i].ID] != nil {
-			return nil, errors.New("duplicate node")
-		}
-		newNode := Node{ID: records[i].ID}
-		Nodes[records[i].ID] = &newNode
-	}
-
-	// run through records again, capturing Children
-	for i := range records {
+		// pass through remaining records, adding child node pointers to Nodes[j] and Nodes[i].Children
 		for j := i + 1; j < len(records); j++ {
 			if records[j].Parent == records[i].ID {
+				if records[j].ID >= len(Nodes) {
+					return nil, errors.New("non-continuous")
+				}
+				if Nodes[records[j].ID] != nil {
+					return nil, errors.New("duplicate node")
+				}
+				newNode := Node{ID: records[j].ID}
+				Nodes[records[j].ID] = &newNode
 				Nodes[i].Children = append(Nodes[i].Children, Nodes[records[j].ID])
 			}
 		}

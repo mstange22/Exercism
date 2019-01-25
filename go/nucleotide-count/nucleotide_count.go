@@ -10,12 +10,7 @@ type DNA string
 
 // Counts generates a histogram of valid nucleotides in the given DNA.
 func (d DNA) Counts() (Histogram, error) {
-	var h = Histogram{
-		'A': 0,
-		'C': 0,
-		'G': 0,
-		'T': 0,
-	}
+	var h = Histogram{'A': 0, 'C': 0, 'G': 0, 'T': 0}
 	for _, r := range d {
 		if _, ok := h[r]; ok {
 			h[r]++

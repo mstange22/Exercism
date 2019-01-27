@@ -1,8 +1,8 @@
 def is_isogram(string):
-  m = {}
-  for char in string:
-    if char.isalnum():
-      if char.lower() in m:
+  char_set = set()
+  for char in string.lower():
+    if char.isalpha():
+      if char in char_set:
         return False
-      m[char.lower()] = True
+      char_set.add(char)
   return True

@@ -1,9 +1,12 @@
 #ifndef GRAINS_H
 #define GRAINS_H
+#include <stdint.h>
+
+// typedef uint_fast64_t unsigned long long;
 
 namespace grains {
   unsigned long long square(int);
-  unsigned long long total();
+  uint_fast64_t total();
 }
 
 #endif

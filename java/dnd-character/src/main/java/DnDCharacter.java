@@ -11,30 +11,19 @@ class DnDCharacter {
     private int _hitpoints;
     
     DnDCharacter() {
-        _strength = getRandom();
-        _dexterity = getRandom();
-        _constitution = getRandom();
-        _intelligence = getRandom();
-        _wisdom = getRandom();
-        _charisma = getRandom();
+        _strength = ability();
+        _dexterity = ability();
+        _constitution = ability();
+        _intelligence = ability();
+        _wisdom = ability();
+        _charisma = ability();
         _constitutionModifier = Math.floorDiv((_constitution - 10), 2);
         _hitpoints = 10 + _constitutionModifier;
     }
 
     int ability() {
-        return getRandom();
-    }
-
-    int modifier(int input) {
-        _constitution = input;
-        _constitutionModifier = Math.floorDiv((_constitution - 10), 2);
-        _hitpoints = 10 + _constitutionModifier;
-        return _constitutionModifier;
-    }
-
-    int getRandom() {
         int sum = 0;
-        int min = 7;
+        int min = 6;
         for (int i = 0; i < 4; i++) {
             int roll = (int)(Math.random() * 6) + 1;
             sum += roll;
@@ -43,6 +32,13 @@ class DnDCharacter {
             }
         }
         return sum - min;
+    }
+
+    int modifier(int input) {
+        _constitution = input;
+        _constitutionModifier = Math.floorDiv((_constitution - 10), 2);
+        _hitpoints = 10 + _constitutionModifier;
+        return _constitutionModifier;
     }
 
     int getStrength() {

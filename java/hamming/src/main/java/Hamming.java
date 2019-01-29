@@ -1,18 +1,18 @@
+import java.util.stream.IntStream;
+
 class Hamming {
-    private int distance = 0;
+    private long distance;
+
     Hamming(String leftStrand, String rightStrand) {
         if (leftStrand.length() != rightStrand.length()) {
             throw new IllegalArgumentException("leftStrand and rightStrand must be of equal length.");
         }
-        for (int i = 0; i < leftStrand.length(); i++) {
-            if (leftStrand.charAt(i) != rightStrand.charAt(i)) {
-                distance++;
-            }
-        }
+        distance = IntStream.range(0, leftStrand.length())
+            .filter(i -> leftStrand.charAt(i) != rightStrand.charAt(i))
+            .count();
     }
 
-    int getHammingDistance() {
+    long getHammingDistance() {
         return distance;
     }
-
 }

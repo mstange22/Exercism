@@ -1,8 +1,9 @@
 package tournament
 
 import (
-	"bytes"
+	"bufio"
 	"errors"
+	"fmt"
 	"io"
 	"sort"
 	"strconv"
@@ -20,23 +21,19 @@ type Record struct {
 
 // Tally writes the results of a tournament.
 func Tally(in io.Reader, out io.Writer) error {
-	buf := new(bytes.Buffer)
-	buf.ReadFrom(in)
-	s := buf.String()
-	header := "Team                           | MP |  W |  D |  L |  P\n"
-	standings, err := GetStandings(s)
+	standings, err := GetStandings(in)
 	if err != nil {
 		return err
 	}
-	outBuff := bytes.NewBufferString(header + standings)
-	outBuff.WriteTo(out)
+	header := "Team                           | MP |  W |  D |  L |  P\n"
+	fmt.Fprintf(out, header+standings)
 	return nil
 }
 
 // GetStandings returns the standings as a string.
-func GetStandings(s string) (string, error) {
+func GetStandings(in io.Reader) (string, error) {
 	res := ""
-	teams, err := BuildStandings(s)
+	teams, err := BuildStandings(in)
 	if err != nil {
 		return "", err
 	}
@@ -50,52 +47,18 @@ func GetStandings(s string) (string, error) {
 }
 
 // BuildStandings returns the standings as an array of strings.
-func BuildStandings(s string) (res []string, err error) {
-	// value to keep track of which team is being read
-	teamNumber := 1
-	// the current token being processed
-	token := ""
-	team1 := ""
-	team2 := ""
-	// result of current match: "win", "draw" or "loss"
-	result := ""
-
-	// aggregated map of results
+func BuildStandings(in io.Reader) (res []string, err error) {
 	results := map[string]Record{}
-
-	// commentFlag to ignore comments
-	commentFlag := false
-
-	// loop through all runes in the string, building results map
-	for _, r := range s {
-		// as long as the rune is not a #, ;, or \n accummulate token
-		if !commentFlag && r != ';' && r != '\n' && r != '#' {
-			token += string(r)
-		} else if r == ';' {
-			// we have captured a team
-			if teamNumber == 1 {
-				team1 = token
-				teamNumber = 2
-				token = ""
-			} else {
-				team2 = token
-				teamNumber = 1
-				token = ""
+	scanner := bufio.NewScanner(in)
+	for scanner.Scan() {
+		fmt.Printf("%s\n", scanner.Text())
+		// line := scanner.Text()
+		tokens := strings.Split(scanner.Text(), ";")
+		if len(tokens) == 3 && !strings.HasPrefix(tokens[0], "#") {
+			results, err = ProcessResult(tokens[0], tokens[1], tokens[2], results)
+			if err != nil {
+				return nil, err
 			}
-		} else if r == '#' {
-			// turn on comment flag to ignore remainder of line
-			commentFlag = true
-		} else if r == '\n' {
-			// ignore comments and empty lines
-			if !commentFlag && len(token) > 0 {
-				result = token
-				results, err = ProcessResult(team1, team2, result, results)
-				if err != nil {
-					return nil, err
-				}
-			}
-			commentFlag = false
-			token = ""
 		}
 	}
 

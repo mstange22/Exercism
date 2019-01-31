@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"sort"
-	"strconv"
 	"strings"
 )
 
@@ -14,48 +13,41 @@ import (
 type Record struct {
 	name   string
 	wins   int
-	losses int
 	draws  int
+	losses int
 	points int
 }
 
+var results = map[string]Record{}
+
 // Tally writes the results of a tournament.
 func Tally(in io.Reader, out io.Writer) error {
+	results = make(map[string]Record)
 	standings, err := GetStandings(in)
 	if err != nil {
 		return err
 	}
+	if len(standings) < 1 {
+		return errors.New("invalid input")
+	}
 	header := "Team                           | MP |  W |  D |  L |  P\n"
-	fmt.Fprintf(out, header+standings)
+	fmt.Fprintf(out, header)
+	for _, team := range standings {
+		matchesPlayed := team.wins + team.draws + team.losses
+		fmt.Fprintf(out, "%s%s|  %d |  %d |  %d |  %d |  %d\n",
+			team.name, strings.Repeat(" ", 31-len(team.name)), matchesPlayed,
+			team.wins, team.draws, team.losses, team.points)
+	}
 	return nil
 }
 
-// GetStandings returns the standings as a string.
-func GetStandings(in io.Reader) (string, error) {
-	res := ""
-	teams, err := BuildStandings(in)
-	if err != nil {
-		return "", err
-	}
-	if len(teams) < 1 {
-		return "", errors.New("invalid input")
-	}
-	for _, team := range teams {
-		res += team
-	}
-	return res, nil
-}
-
-// BuildStandings returns the standings as an array of strings.
-func BuildStandings(in io.Reader) (res []string, err error) {
-	results := map[string]Record{}
+// GetStandings returns the standings as an array of Records.
+func GetStandings(in io.Reader) ([]Record, error) {
 	scanner := bufio.NewScanner(in)
 	for scanner.Scan() {
-		fmt.Printf("%s\n", scanner.Text())
-		// line := scanner.Text()
 		tokens := strings.Split(scanner.Text(), ";")
 		if len(tokens) == 3 && !strings.HasPrefix(tokens[0], "#") {
-			results, err = ProcessResult(tokens[0], tokens[1], tokens[2], results)
+			err := ProcessResult(tokens[0], tokens[1], tokens[2])
 			if err != nil {
 				return nil, err
 			}
@@ -63,54 +55,32 @@ func BuildStandings(in io.Reader) (res []string, err error) {
 	}
 
 	// copy map into slice and sort
-	resultsSlice := []Record{}
+	standings := []Record{}
 	for _, r := range results {
-		resultsSlice = append(resultsSlice, r)
+		standings = append(standings, r)
 	}
 
 	// sort slice on points, then alphabetically
-	sort.Slice(resultsSlice, func(i, j int) bool {
-		if resultsSlice[i].points == resultsSlice[j].points {
-			return resultsSlice[i].name < resultsSlice[j].name
+	sort.Slice(standings, func(i, j int) bool {
+		if standings[i].points == standings[j].points {
+			return standings[i].name < standings[j].name
 		}
-		return resultsSlice[i].points > resultsSlice[j].points
+		return standings[i].points > standings[j].points
 	})
 
-	// build each team's record string and append it to res
-	for _, v := range resultsSlice {
-		temp := v.name + strings.Repeat(" ", 31-len(v.name))
-		temp += ("|  " + strconv.Itoa(v.wins+v.draws+v.losses) + " ")
-		temp += ("|  " + strconv.Itoa(v.wins) + " ")
-		temp += ("|  " + strconv.Itoa(v.draws) + " ")
-		temp += ("|  " + strconv.Itoa(v.losses) + " ")
-		temp += ("|  " + strconv.Itoa(v.points) + "\n")
-		res = append(res, temp)
-	}
-	return
+	return standings, nil
 }
 
 // ProcessResult applies the current result to the result map.
-func ProcessResult(team1 string, team2 string, result string, results map[string]Record) (map[string]Record, error) {
+func ProcessResult(team1 string, team2 string, result string) error {
 	// if team1 does not exist in results
 	if _, ok := results[team1]; !ok {
-		team1Record := Record{
-			name:   team1,
-			wins:   0,
-			draws:  0,
-			losses: 0,
-			points: 0,
-		}
+		team1Record := Record{name: team1}
 		results[team1] = team1Record
 	}
 	// if team1 does not exist in results
 	if _, ok := results[team2]; !ok {
-		team2Record := Record{
-			name:   team2,
-			wins:   0,
-			draws:  0,
-			losses: 0,
-			points: 0,
-		}
+		team2Record := Record{name: team2}
 		results[team2] = team2Record
 	}
 
@@ -131,10 +101,10 @@ func ProcessResult(team1 string, team2 string, result string, results map[string
 		team1Record.points++
 		team2Record.points++
 	} else {
-		return results, errors.New("invalid input")
+		return errors.New("invalid input")
 	}
 	results[team1] = team1Record
 	results[team2] = team2Record
 
-	return results, nil
+	return nil
 }

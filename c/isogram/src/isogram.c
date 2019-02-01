@@ -1,6 +1,8 @@
 #include "isogram.h"
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 bool is_isogram(const char phrase[])
 {
@@ -10,12 +12,9 @@ bool is_isogram(const char phrase[])
     return false;
   }
 
-  // initialize array implementation of a map 
-  bool map[26];
-  for (int i = 0; i < 26; i++)
-  {
-    map[i] = false;
-  }
+  // string of seen letters initialized to empty
+  char *seen = malloc(1);
+  seen[0] = '\0';
 
   // loop over phrase, checking letters against map
   for (int i = 0, n = strlen(phrase); i < n; i++)
@@ -23,14 +22,20 @@ bool is_isogram(const char phrase[])
     // only validate letters
     if (isupper(phrase[i]) || islower(phrase[i]))
     {
-      int letter_index = (int)(tolower(phrase[i]) - 'a');
-      if (map[letter_index])
+      char c = tolower(phrase[i]);
+      // char *pointer = );
+      if (strchr(seen, c) != NULL)
       {
+        free(seen);
         return false;
       }
-      // add new letters to map
-      map[letter_index] = true;
+      else
+      {
+        char temp[2] = {c};
+        strcat(seen, temp);
+      }
     }
   }
+  free(seen);
   return true;
 }

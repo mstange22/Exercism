@@ -10,8 +10,7 @@ std::vector<int> series::digits(std::string s) {
 
 std::vector<std::vector<int>> series::slice(std::string s, int n) {
   if ((int)s.length() < n) {
-    throw std::domain_error {
-    "Slices cannot be bigger than the original string." };
+    throw std::domain_error("Slices cannot be longer than the original string.");
   }
   std::vector<std::vector<int>> v;
   for (size_t i = 0; i < s.length() - n + 1; i++) {

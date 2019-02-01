@@ -46,11 +46,15 @@ func GetStandings(in io.Reader) ([]Record, error) {
 	scanner := bufio.NewScanner(in)
 	for scanner.Scan() {
 		tokens := strings.Split(scanner.Text(), ";")
-		if len(tokens) == 3 && !strings.HasPrefix(tokens[0], "#") {
-			err := ProcessResult(tokens[0], tokens[1], tokens[2])
-			if err != nil {
-				return nil, err
-			}
+		if strings.HasPrefix(tokens[0], "#") || tokens[0] == "" {
+			continue
+		}
+		if len(tokens) != 3 {
+			return nil, errors.New("invalid input")
+		}
+		err := ProcessResult(tokens[0], tokens[1], tokens[2])
+		if err != nil {
+			return nil, err
 		}
 	}
 

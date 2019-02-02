@@ -50,7 +50,8 @@ func GetStandings(in io.Reader) ([]Record, error) {
 			continue
 		}
 		if len(tokens) != 3 {
-			return nil, errors.New("invalid input")
+			errorString := fmt.Sprint("invalid input:", scanner.Text())
+			return nil, errors.New(errorString)
 		}
 		err := ProcessResult(tokens[0], tokens[1], tokens[2])
 		if err != nil {
@@ -91,21 +92,23 @@ func ProcessResult(team1 string, team2 string, result string) error {
 	// now update team1 and team2
 	team1Record := results[team1]
 	team2Record := results[team2]
-	if result == "win" {
+	switch result {
+	case "win":
 		team1Record.wins++
 		team2Record.losses++
 		team1Record.points += 3
-	} else if result == "loss" {
-		team1Record.losses++
-		team2Record.wins++
-		team2Record.points += 3
-	} else if result == "draw" {
+	case "draw":
 		team1Record.draws++
 		team2Record.draws++
 		team1Record.points++
 		team2Record.points++
-	} else {
-		return errors.New("invalid input")
+	case "loss":
+		team1Record.losses++
+		team2Record.wins++
+		team2Record.points += 3
+	default:
+		errorString := fmt.Sprint("invalid input in ProcessResult:", team1, team2, result)
+		return errors.New(errorString)
 	}
 	results[team1] = team1Record
 	results[team2] = team2Record

@@ -6,7 +6,7 @@ const Beer = {
     let res2 = `${num === 0 ? (
       'Go to the store and buy some more'
     ) : (
-      `Take ${num === 1 ? 'it' : 'one'} down and pass it around` 
+      `Take ${num === 1 ? 'it' : 'one'} down and pass it around`
     )}, ${num === 0 ? '99 bottles' : numBottles(num - 1).toLowerCase()} of beer on the wall.`
     return res1 + '\n' + res2 + '\n'
   },

@@ -23,7 +23,6 @@ bool is_isogram(const char phrase[])
     if (isupper(phrase[i]) || islower(phrase[i]))
     {
       char c = tolower(phrase[i]);
-      // char *pointer = );
       if (strchr(seen, c) != NULL)
       {
         free(seen);

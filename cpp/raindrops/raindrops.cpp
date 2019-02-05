@@ -1,16 +1,17 @@
 #include "raindrops.h"
-#include <string>
+
+rain MAP[3] = {
+  { 3, "Pling" },
+  { 5, "Plang" },
+  { 7, "Plong" },
+};
 
 std::string raindrops::convert(int n) {
   std::string res = "";
-  if (n % 3 == 0) {
-    res += "Pling";
-  }
-  if (n % 5 == 0) {
-    res += "Plang";
-  }
-  if (n % 7 == 0) {
-    res += "Plong";
+  for (int i = 0; i < 3; i++) {
+    if (n % MAP[i].mod == 0) {
+      res += MAP[i].sound;
+    }
   }
   return res.length() == 0 ? std::to_string(n) : res;
 }

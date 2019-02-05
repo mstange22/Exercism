@@ -28,7 +28,7 @@ class PigLatinTranslator {
   }
 
   // helper function to check for vowels
-  boolean isVowel(char c) {
+  private boolean isVowel(char c) {
     String vowels = "aeiou";
     return vowels.indexOf(c) != -1;
   }

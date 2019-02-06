@@ -15,7 +15,7 @@ export const meetupDay = (year, month, day, desc) => {
   if (month === 1) daysInMonth[1] = isLeapYear(year) ? 29 : 28;
 
   // set variable teenth and last
-  const teenth = firstTargetDayDate >= 4 ?
+  const teenth = firstTargetDayDate >= 6 ?
     firstTargetDayDate + 7 : firstTargetDayDate + 14;
   const last = daysInMonth[month] - firstTargetDayDate >= 28 ?
     firstTargetDayDate + 28 : firstTargetDayDate + 21;

@@ -17,7 +17,7 @@ func New(matrix string) (Matrix, error) {
 	stringRows := strings.Split(matrix, "\n")
 
 	for _, row := range stringRows {
-		charSlice := strings.Split(row, " ")
+		charSlice := strings.Split(strings.TrimSpace(row), " ")
 		intSlice := []int{}
 		for _, r := range charSlice {
 			i, err := strconv.Atoi(r)

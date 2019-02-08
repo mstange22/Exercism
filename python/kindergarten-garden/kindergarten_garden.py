@@ -13,4 +13,10 @@ class Garden(object):
 
   def plants(self, student):
     start = self.students.index(student) * 2
-    return [plant_types[self.rows[i][j]] for i in range(2) for j in range(start, start+2)]
+    res = []
+    for i in range(2):
+      for j in range(start, start+2):
+        res.append(plant_types[self.rows[i][j]])
+    return res
+    # or messy ineficient one-liner:
+    # return [plant_types[self.rows[i][j]] for i in range(2) for j in range(self.students.index(student) * 2, (self.students.index(student) * 2)+2)]

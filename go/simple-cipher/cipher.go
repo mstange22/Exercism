@@ -5,17 +5,19 @@ import (
 	"strings"
 )
 
-// Cipher is an interface.
+// Cipher is an used by Caesar struct?  I think?
 type Cipher interface {
 	Encode(string) string
 	Decode(string) string
 }
 
-// Caesar is a Caesar.
+// Caesar is struct used to invoke the Cipher interface methods.
 type Caesar struct {
-	s string
+	// s string
 }
 
+// regex to validate Vigenere key
+var re = regexp.MustCompile(`(^a+$)|( )|([A-Z0-9,])`)
 var caesarShift = rune(3)
 var vShift = ""
 
@@ -55,7 +57,7 @@ func (c Caesar) Decode(s string) (res string) {
 	return res
 }
 
-// NewShift returns a pointer to a Caesar.
+// NewShift sets the shift value and returns a pointer to a Caesar.
 func NewShift(n int) *Caesar {
 	if n == 0 || n <= -26 || n >= 26 {
 		return nil
@@ -64,12 +66,12 @@ func NewShift(n int) *Caesar {
 	return new(Caesar)
 }
 
-// NewVigenere returns a NewVigenere.
+// NewVigenere sets the validates and sets the Vigenere key
+// and returns a pointer to a Caesar struct.
 func NewVigenere(s string) *Caesar {
 	if len(s) == 0 {
 		return nil
 	}
-	re := regexp.MustCompile(`(^a+$)|( )|([A-Z0-9,])`)
 	if re.MatchString(s) {
 		return nil
 	}

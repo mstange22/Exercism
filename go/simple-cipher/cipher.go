@@ -12,9 +12,7 @@ type Cipher interface {
 }
 
 // Caesar is struct used to invoke the Cipher interface methods.
-type Caesar struct {
-	// s string
-}
+type Caesar struct{}
 
 // regex to validate Vigenere key
 var re = regexp.MustCompile(`(^a+$)|( )|([A-Z0-9,])`)

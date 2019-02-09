@@ -2,34 +2,35 @@ import java.util.Map;
 import java.util.HashMap;
 
 class Scrabble {
+    private int score;
 
-    private Map<String, Integer> hm = new HashMap();
-    private Map<Character, Integer> cm = new HashMap();
-    private int score = 0;
+    private static final Map<Character, Integer> points = new HashMap<Character, Integer>();
+
+    static {
+        assignPointsToLetters(points, "AEIOULNRST", 1);
+        assignPointsToLetters(points, "DG", 2);
+        assignPointsToLetters(points, "BCMP", 3);
+        assignPointsToLetters(points, "FHVWY", 4);
+        assignPointsToLetters(points, "K", 5);
+        assignPointsToLetters(points, "JX", 8);
+        assignPointsToLetters(points, "QZ", 10);
+    }
+
+    private static void assignPointsToLetters(Map<Character, Integer> points, String letters, int value) {
+        for (char c : letters.toCharArray()) {
+            points.put(c, value);
+        }
+    }
 
     Scrabble(String word) {
-        hm.put("AEIOULNRST", 1);
-        hm.put("DG", 2);
-        hm.put("BCMP", 3);
-        hm.put("FHVWY", 4);
-        hm.put("K", 5);
-        hm.put("JX", 8);
-        hm.put("QZ", 10);
-
-        // build <char, int> map from <string, int> map
-        for (String key : hm.keySet()) {
-            for (char c : key.toCharArray()) {
-                cm.put(c, hm.get(key));
-            }
-        }
-        
+        int accumulatedScore = 0;
         for (char c : word.toCharArray()) {
-            this.score += cm.get(Character.toUpperCase(c));
+            accumulatedScore += points.get(Character.toUpperCase(c));
         }
+        this.score = accumulatedScore;
     }
 
     int getScore() {
         return this.score;
     }
-
 }

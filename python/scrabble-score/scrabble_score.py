@@ -1,18 +1,18 @@
 def score(word: str) -> int:
   word_map = {
-    1: 'AEIOULNRST',
-    2: 'DG',
-    3: 'BCMP',
-    4: 'FHVWY',
-    5: 'K',
-    8: 'JX',
-    10: 'QZ',
+    'AEIOULNRST': 1,
+    'DG': 2,
+    'BCMP': 3,
+    'FHVWY': 4,
+    'K': 5,
+    'JX': 8,
+    'QZ': 10,
   }
 
   new_map = {}
 
   for key in word_map:
-    for c in word_map[key]:
-      new_map[c] = key
+    for c in key:
+      new_map[c] = word_map[key]
 
   return sum(new_map[c] for c in word.upper())

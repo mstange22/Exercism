@@ -16,20 +16,26 @@ func ConvertToBase(inputBase int, digits []int, outputBase int) ([]int, error) {
 	if len(digits) == 0 {
 		return []int{0}, nil
 	}
+
 	res := []int{}
-	tempNum := 0
+	decimalValue := 0
+
+	// create decimal value
 	for i, exp := 0, len(digits)-1; i < len(digits); i, exp = i+1, exp-1 {
 		if digits[i] < 0 || digits[i] >= inputBase {
 			return []int{}, errors.New("all digits must satisfy 0 <= d < input base")
 		}
-		tempNum += digits[i] * int(math.Pow(float64(inputBase), float64(exp)))
+		decimalValue += digits[i] * int(math.Pow(float64(inputBase), float64(exp)))
 	}
-	if tempNum == 0 {
+
+	if decimalValue == 0 {
 		return []int{0}, nil
 	}
-	for tempNum > 0 {
-		res = append([]int{tempNum % outputBase}, res...)
-		tempNum /= outputBase
+
+	// convert decimal value to output base
+	for decimalValue > 0 {
+		res = append([]int{decimalValue % outputBase}, res...)
+		decimalValue /= outputBase
 	}
 
 	return res, nil

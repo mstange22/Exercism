@@ -1,24 +1,23 @@
 import java.util.List;
-import java.util.ArrayList;
+import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 
 class Series {
-  private final String s;
+  private final String digits;
 
-  Series(String s) {
-    this.s = s;
+  Series(String stringOfDigits) {
+    this.digits = stringOfDigits;
   }
 
   public List<String> slices(int n) {
-    if (n > this.s.length()) {
+    if (n > this.digits.length()) {
       throw new IllegalArgumentException("Slice size is too big.");
     }
     if (n < 1) {
       throw new IllegalArgumentException("Slice size is too small.");
     }
-    List<String> series = new ArrayList<String>();
-    for (int i = 0; i <= this.s.length() - n; i++) {
-      series.add(this.s.substring(i, i + n));
-    }
-    return series;
+    return IntStream.rangeClosed(0, this.digits.length() - n)
+      .mapToObj(i -> this.digits.substring(i, i + n))
+      .collect(Collectors.toList());
   }
 }

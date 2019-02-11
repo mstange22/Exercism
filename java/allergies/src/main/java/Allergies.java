@@ -1,27 +1,21 @@
 import java.util.List;
-import java.util.ArrayList;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 class Allergies {
-  int score;
+  private int score;
 
   Allergies(int score) {
     this.score = score;
   }
 
   public boolean isAllergicTo(Allergen a) {
-    if ((this.score & a.getScore()) != 0) {
-      return true;
-    }
-    return false;
+    return (this.score & a.getScore()) != 0;
   }
 
   public List<Allergen> getList() {
-    List<Allergen> list = new ArrayList<Allergen>();
-    for (Allergen a : Allergen.values()) {
-      if (isAllergicTo(a)) {
-        list.add(a);
-      }
-    }
-    return list;
+    return Stream.of(Allergen.values())
+      .filter(a -> isAllergicTo(a))
+      .collect(Collectors.toList());
   }
 }

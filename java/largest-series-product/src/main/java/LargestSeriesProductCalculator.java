@@ -1,11 +1,11 @@
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
-import java.util.List;
+import java.util.Collections;
+import java.util.stream.Stream;
 
 class LargestSeriesProductCalculator {
 
     private final String digits;
-    private int largest = 0;
 
     LargestSeriesProductCalculator(String inputNumber) {
         if (!inputNumber.matches("^[0-9]*$")) {
@@ -22,18 +22,11 @@ class LargestSeriesProductCalculator {
             throw new IllegalArgumentException("Series length must be less than or equal to the length of the string to search.");
         }
 
-        IntStream.rangeClosed(0, this.digits.length() - numberOfDigits)
+        return IntStream.rangeClosed(0, this.digits.length() - numberOfDigits)
             .mapToObj(i -> digits.substring(i, i + numberOfDigits))
-            .collect(Collectors.toList())
-            .forEach(s -> {
-                int prod = 1;
-                for (char c : s.toCharArray()) {
-                    prod *= (c - '0');
-                }
-                if (prod > this.largest) {
-                    this.largest = prod;
-                }
-            });
-        return this.largest;
+            .mapToInt(substring -> substring.chars()
+                .map(c -> Character.getNumericValue(c))
+                .reduce(1, (a, b) -> a * b)
+            ).max().orElse(0);
     }
 }

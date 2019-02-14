@@ -1,36 +1,32 @@
 package erratum
 
-import (
-	"errors"
-	"fmt"
-)
+// Opener is a function that opens a resource.
+type Opener func() (Resource, error)
 
-type fn func() (Resource, error)
-
-// Use attempts to use a resourse
-func Use(opener fn, s string) error {
+// Use attempts to use a resourse.
+func Use(opener Opener, s string) (e error) {
 	var res Resource
 	var err error
-	for true {
-		res, err = opener()
-		if err != nil {
-			if _, ok := err.(TransientError); !ok {
-				return err
-			}
-			continue
+	res, err = opener()
+	for err != nil {
+		if _, ok := err.(TransientError); !ok {
+			e = err
+			return e
 		}
-		defer func() {
-			if r := recover(); r != nil {
-				fmt.Println("Recovered:", r.(FrobError).Error())
-				res.Defrob(r.(FrobError).Error())
-				err = errors.New(r.(FrobError).Error())
-			}
-		}()
-		res.Frob(s)
-		defer res.Close()
-		break
+		res, err = opener()
 	}
 
-	fmt.Println("error:", err)
-	return err
+	defer func() {
+		if err := recover(); err != nil {
+			if frob, ok := err.(FrobError); ok {
+				res.Defrob(frob.defrobTag)
+			}
+			e = err.(error)
+		}
+		res.Close()
+	}()
+
+	res.Frob(s)
+
+	return e
 }

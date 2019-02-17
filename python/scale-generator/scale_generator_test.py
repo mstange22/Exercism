@@ -18,7 +18,7 @@ class ScaleGeneratorTest(unittest.TestCase):
                     'C', 'Db', 'D', 'Eb', 'E']
         self.assertEqual(Scale('F').chromatic(), expected)
 
-    # Test scales with specified intervals
+    # # Test scales with specified intervals
     def test_simple_major_scale(self):
         expected = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
         self.assertEqual(Scale('C').interval('MMmMMMm'), expected)

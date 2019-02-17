@@ -2,29 +2,17 @@ class Luhn(object):
     def __init__(self, card_num):
         self.valid = False
 
-        if card_num.strip() == '0':
+        # replace spaces and validate digits
+        card_num = card_num.replace(" ", '')
+        if len(card_num) < 2 or any([not item.isdigit() for item in card_num]):
             return
 
-        sum = 0
-        valid_digits = 0
+        # use list comprehension with slice assignment
+        numbers_list = [int(item) for item in card_num]
+        numbers_list[-2::-2] = (item * 2 - 9 if 2 * item > 9 else item * 2 for item in numbers_list[-2::-2])
 
-        for char in reversed(list(card_num)):
-            if (char >= '0' and char <= '9'):
-                if (valid_digits % 2 == 1):
-                    prod = 2 * int(char)
-                    if prod > 9:
-                        sum += prod - 9
-                    else:
-                        sum += prod
-                else:
-                    sum += int(char)
-
-                valid_digits += 1
-
-            elif char != ' ':
-                return
-
-        self.valid = sum % 10 == 0
+        self.valid = sum(numbers_list) % 10 == 0
 
     def is_valid(self):
         return self.valid
+

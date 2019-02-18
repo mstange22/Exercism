@@ -6,7 +6,6 @@ vector<unsigned int> all_your_base::convert(const unsigned int old_base, const v
   if (in_digits.size() == 0 || in_digits[0] == 0 || new_base <= 1) return {};
   
   vector<unsigned int> out_digits;
-  deque<unsigned int> temp_deque;
   int temp = 0;
   int exponent = int(in_digits.size() - 1);
 
@@ -19,13 +18,10 @@ vector<unsigned int> all_your_base::convert(const unsigned int old_base, const v
   }
 
   while (temp > 0) {
-    temp_deque.push_front(temp % new_base);
+    out_digits.push_back(temp % new_base);
     temp /= new_base;
   }
 
-  for (size_t i = 0; i < temp_deque.size(); i++) {
-    out_digits.push_back(temp_deque[i]);
-  }
-
+  std::reverse(out_digits.begin(), out_digits.end());
   return out_digits;
 }

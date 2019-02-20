@@ -27,7 +27,6 @@
 package account
 
 import (
-	"fmt"
 	"runtime"
 	"sync"
 	"sync/atomic"
@@ -199,7 +198,6 @@ func TestConcClose(t *testing.T) {
 	if runtime.GOMAXPROCS(0) < 2 {
 		runtime.GOMAXPROCS(2)
 	}
-	fmt.Println("testing concurrency:")
 
 	// test competing close attempts
 	for rep := 0; rep < 1000; rep++ {

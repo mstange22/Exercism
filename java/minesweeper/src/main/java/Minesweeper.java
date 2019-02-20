@@ -1,28 +1,32 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 
 class MinesweeperBoard {
+  
   private final List<String> board;
+
   MinesweeperBoard(List<String> board) {
     this.board = board;
   }
   
   List<String> withNumbers() {
-    List<String> res = new ArrayList<String>();
+    return IntStream.range(0, board.size())
+      .mapToObj(this::processRow)
+      .collect(Collectors.toList());
+  }
 
-    for (int i = 0; i < board.size(); i++) {
-      StringBuilder s = new StringBuilder();
-      for (int j = 0; j < board.get(i).length(); j++) {
-        char c = board.get(i).charAt(j);
-        if (c == '*') {
-          s.append("*");
-        } else {
-          s.append(getAdjacentMineCount(i, j));
-        }
+  String processRow(int i) {
+    StringBuilder s = new StringBuilder();
+    for (int j = 0; j < board.get(i).length(); j++) {
+      char c = board.get(i).charAt(j);
+      if (c == '*') {
+        s.append("*");
+      } else {
+        s.append(getAdjacentMineCount(i, j));
       }
-      res.add(s.toString());
     }
-    return res;
+    return s.toString();
   }
   
   char getAdjacentMineCount(int i, int j) {

@@ -37,6 +37,8 @@ func (a *Account) Close() (int64, bool) {
 
 // Balance returns the current balance of an account.
 func (a *Account) Balance() (balance int64, ok bool) {
+	a.Lock()
+	defer a.Unlock()
 	if !a.isOpen {
 		return 0, false
 	}

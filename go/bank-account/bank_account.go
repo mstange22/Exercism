@@ -4,7 +4,7 @@ import "sync"
 
 // Account is a representation of a bank account.
 type Account struct {
-	sync.Mutex
+	sync.RWMutex
 	balance int64
 	isOpen  bool
 }
@@ -37,8 +37,8 @@ func (a *Account) Close() (int64, bool) {
 
 // Balance returns the current balance of an account.
 func (a *Account) Balance() (balance int64, ok bool) {
-	a.Lock()
-	defer a.Unlock()
+	a.RLock()
+	defer a.RUnlock()
 	if !a.isOpen {
 		return 0, false
 	}

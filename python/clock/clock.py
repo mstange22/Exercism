@@ -5,7 +5,8 @@ class Clock(object):
         self.minute = (((hour % 24) * 60) + minute) % MAX_MINUTES
 
     def __repr__(self):
-        return f'{(self.minute // 60):02}' + ':' + f'{(self.minute % 60):02}'
+        (hour, minute) = divmod(self.minute, 60)
+        return f'{hour:02}:{minute:02}'
 
     def __eq__(self, other):
         return self.minute == other.minute
@@ -14,4 +15,4 @@ class Clock(object):
         return Clock(0, self.minute + minutes)
 
     def __sub__(self, minutes):
-        return Clock(0, self.minute - minutes)
+        return self + -minutes

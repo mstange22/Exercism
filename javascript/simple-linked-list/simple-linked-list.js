@@ -1,7 +1,6 @@
 export class Element {
   constructor(value) {
     this.value = value;
-    this.prev = null;
     this.next = null;
   }
 }
@@ -10,19 +9,12 @@ export class List {
   constructor(list = []) {
     this.length = 0;
     this.head = null;
-    this.tail = null;
-    list.forEach(value => {
-      this.add(new Element(value));
-    });
+    list.forEach(value => this.add(new Element(value)));
   }
 
   add(element) {
-    if (this.length === 0) {
-      this.head = element;
-    } else {
-      element.next = this.head;
-      this.head = element;
-    }
+    element.next = this.head;
+    this.head = element;
     this.length++;
   }
 

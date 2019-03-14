@@ -12,7 +12,7 @@ export class GradeSchool {
   }
 
   roster() {
-    return Object.keys(this.school).sort().reduce((accum, key) => {
+    return Object.keys(this.school).reduce((accum, key) => {
       accum[key] = [...this.school[key]].sort();
       return accum;
     }, {});

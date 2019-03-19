@@ -1,29 +1,17 @@
 class BracketPush {
   bool isPaired(String s) {
-    List<String> brackets = []; 
+    List<String> stack = [];
+    Map<String, String> brackets = { '{': '}', '[': ']', '(': ')' };
     for (var i = 0; i < s.length; i++) {
-      if (s[i] == '(' || s[i] == '[' || s[i] == '{') {
-        brackets.add(s[i]);
-      } else if (s[i] == ')') {
-        if (brackets.last == '(') {
-          brackets.removeLast();
-        } else {
-          return false;
-        }
-      } else if (s[i] == ']') {
-        if (brackets.last == '[') {
-          brackets.removeLast();
-        } else {
-          return false;
-        }
-      } else if (s[i] == '}') {
-        if (brackets.last == '{') {
-          brackets.removeLast();
-        } else {
+      var c = s[i];
+      if (brackets.containsKey(c)) {
+        stack.add(brackets[c]);
+      } else if (brackets.containsValue(c)) {
+        if (stack.removeLast() != c) {
           return false;
         }
       }
     }
-    return brackets.length == 0;
+    return stack.length == 0;
   }
 }

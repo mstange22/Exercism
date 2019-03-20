@@ -8,18 +8,11 @@ def parse_heading(line):
     return f'<h{index}>{line[index+1:]}</h{index}>'
 
 
-def parse_bold(text):
-    m = re.match('(.*)__(.*)__(.*)', text)
-    if m:
-        text = f'{m.group(1)}<strong>{m.group(2)}</strong>{m.group(3)}'
-    return text
-
-
-def parse_em(text):
-    m = re.match('(.*)_(.*)_(.*)', text)
-    if m:
-        text = f'{m.group(1)}<em>{m.group(2)}</em>{m.group(3)}'
-    return text
+def parse_bold_and_em(text):
+    p = re.compile('(.*)__(.*)__(.*)')
+    text = p.sub(r'\1<strong>\2</strong>\3', text)
+    p = re.compile('(.*)_(.*)_(.*)')
+    return p.sub(r'\1<em>\2</em>\3', text)
 
 
 def parse_markdown(markdown):
@@ -28,27 +21,24 @@ def parse_markdown(markdown):
     in_list = False
     for line in lines:
         # handle bold and italics
-        line = parse_bold(line)
-        line = parse_em(line)
+        line = parse_bold_and_em(line)
         # check if list
-        ul = re.match(r'\* (.*)', line)
-        if ul:
-            curr = ul.group(1)
+        if line[0] == '*':
+            curr = line[2:]
             if not in_list:
                 in_list = True
-                line = '<ul><li>' + curr + '</li>'
+                line = f'<ul><li>{curr}</li>'
             else:
-                line = '<li>' + curr + '</li>'
+                line = f'<li>{curr}</li>'
         else:
-            # added closing out ul tag
+            # added ul close tag
             if in_list:
                 res += '</ul>'
-            in_list = False
+                in_list = False
             if line[0] == '#':
                 line = parse_heading(line)
             else:
-                line = '<p>' + line + '</p>'
+                line = f'<p>{line}</p>'
         res += line
-    if in_list:
-        res += '</ul>'
-    return res
+
+    return res if not in_list else f'{res}</ul>'

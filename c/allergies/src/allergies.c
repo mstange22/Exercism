@@ -13,7 +13,7 @@ void get_allergens(int score, allergen_list_t* allergen_list)
 
   for (allergen_t allergen = ALLERGEN_EGGS; allergen <= ALLERGEN_CATS; allergen *= 2)
   {
-    if (score & allergen)
+    if (is_allergic_to(allergen, score))
     {
       allergen_list->allergens[allergen_list->count] = allergen;
       allergen_list->count++;

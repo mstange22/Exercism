@@ -3,5 +3,6 @@
 
 char *atbash_encode(char *);
 char *atbash_decode(char *);
+char *do_work(char *, int);
 
 #endif

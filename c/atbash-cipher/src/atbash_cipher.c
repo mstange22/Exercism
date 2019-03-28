@@ -3,10 +3,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#define ENCODE 1
-#define DECODE 2
+enum group { ENCODE, DECODE };
 
-char *do_work(char *s, int type)
+static char *do_work(char *s, int group)
 {
   int length = strlen(s);
   char *res = malloc(length + (length / 5) + 1);
@@ -17,7 +16,7 @@ char *do_work(char *s, int type)
     char c = s[i];
     if (isalpha(c) || isdigit(c))
     {
-      if (index % 6 == 5 && type == ENCODE)
+      if (index % 6 == 5 && group == ENCODE)
       {
         res[index++] = ' ';
       }

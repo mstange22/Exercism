@@ -3,20 +3,17 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-enum group { ENCODE, DECODE };
-
-static char *do_work(char *s, int group)
+static char *do_work(char *s, int is_encode)
 {
   int length = strlen(s);
   char *res = malloc(length + (length / 5) + 1);
-  res[0] = '\0';
   int index = 0;
   for (int i = 0; i < length; i++)
   {
     char c = s[i];
     if (isalpha(c) || isdigit(c))
     {
-      if (index % 6 == 5 && group == ENCODE)
+      if (index % 6 == 5 && is_encode)
       {
         res[index++] = ' ';
       }
@@ -38,10 +35,10 @@ static char *do_work(char *s, int group)
 
 char *atbash_encode(char *s)
 {
-  return do_work(s, ENCODE);
+  return do_work(s, 1);
 }
 
 char *atbash_decode(char *s)
 {
-  return do_work(s, DECODE);
+  return do_work(s, 0);
 }

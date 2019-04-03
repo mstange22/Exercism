@@ -27,9 +27,9 @@ static char *do_work(char *s, int is_encode)
       {
         res[index++] = c;
       }
-      res[index] = '\0';
     }
   }
+  res[index] = '\0';
   return res;
 }
 

@@ -20,7 +20,6 @@ describe('append entries to a list and return the new list', () => {
   });
 });
 
-
 describe('concat lists and lists of lists into new list', () => {
   test('empty list', () => {
     const list1 = new List();

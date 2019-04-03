@@ -1,69 +1,58 @@
 export class List {
   constructor(arr = []) {
-    this.values = arr;
+    return this.fromArray(arr);
   }
 
-  append(list) {
-    if (list) {
-      list.values.forEach((element) => {
-        this.values.push(element);
-      });
+  fromArray(arr) {
+    const [a, ...rest] = arr;
+    if (a) {
+      this.value = a;
+      this.next = new List(rest);
     }
-    return new List(this.values);
+    return this;
   }
 
-  concat(list) {
-    list.values.forEach((value) => {
-      if (value instanceof List) {
-        value.values.forEach(v => this.values.push(v));
-      } else {
-        this.values.push(value);
-      }
-    });
-    return new List(this.values);
-  }
-
-  filter(func) {
-    const res = [];
-    this.values.forEach((value) => {
-      if (func(value)) {
-        res.push(value);
-      }
-    });
-    return new List(res);
+  get values() {
+    if (!this.value) return [];
+    return [this.value, ...this.next.foldl((accum, el) => [...accum, el], [])];
   }
 
   length() {
-    return this.values.length;
+    return this.foldl(accum => accum + 1, 0);
+  }
+
+  append(list) {
+    return this.fromArray([
+      ...this.foldl((accum, el) => [...accum, el], []),
+      ...list.foldl((accum, el) => [...accum, el], []),
+    ]);
+  }
+
+  concat(list) {
+    const newArr = list.foldl((accum, el) => [...accum, ...el.foldl((a, e) => [...a, e], [])], []);
+    const newList = list.fromArray(newArr);
+    return this.append(newList);
+  }
+
+  filter(func) {
+    return this.fromArray(this.foldl((accum, el) => (func(el) ? [...accum, el] : accum), []));
   }
 
   map(func) {
-    const res = [];
-    this.values.forEach((value) => {
-      res.push(func(value));
-    });
-    return new List(res);
+    return this.fromArray(this.foldl((accum, el) => [...accum, func(el)], []));
   }
 
   foldl(func, accum) {
-    this.values.forEach((value) => {
-      accum = func(accum, value);
-    });
-    return accum;
+    if (!this.value) return accum;
+    accum = func(accum, this.value);
+    return this.next.foldl(func, accum);
   }
 
   foldr(func, accum) {
-    this.reverse().values.forEach((value) => {
-      accum = func(accum, value);
-    });
-    return accum;
+    return this.reverse().foldl(func, accum);
   }
 
   reverse() {
-    const res = [];
-    for (let i = this.values.length - 1; i >= 0; i--) {
-      res.push(this.values[i]);
-    }
-    return new List(res);
+    return this.fromArray(this.foldl((accum, el) => [el, ...accum], []));
   }
 }

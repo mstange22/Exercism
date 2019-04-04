@@ -1,0 +1,1 @@
+export const accumulate = (list, func) => list.map(func);

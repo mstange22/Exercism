@@ -14,7 +14,10 @@ export class List {
 
   get values() {
     if (!this.value) return [];
-    return [this.value, ...this.next.foldl((accum, el) => [...accum, el], [])];
+    return [
+      this.value,
+      ...this.next.foldl((accum, el) => [...accum, el], []),
+    ];
   }
 
   length() {
@@ -22,24 +25,28 @@ export class List {
   }
 
   append(list) {
-    return this.fromArray([
-      ...this.foldl((accum, el) => [...accum, el], []),
-      ...list.foldl((accum, el) => [...accum, el], []),
-    ]);
+    return new List([...this.values, ...list.values]);
   }
 
   concat(list) {
-    const newArr = list.foldl((accum, el) => [...accum, ...el.foldl((a, e) => [...a, e], [])], []);
-    const newList = list.fromArray(newArr);
+    const newList = list.foldl((accum, el) => new List([
+      ...accum.values,
+      ...el.foldl((a, e) => [...a, e], []),
+    ]), new List());
     return this.append(newList);
   }
 
   filter(func) {
-    return this.fromArray(this.foldl((accum, el) => (func(el) ? [...accum, el] : accum), []));
+    return this.foldl((accum, el) => (
+      func(el) ? new List([...accum.values, el]) : accum
+    ), new List());
   }
 
   map(func) {
-    return this.fromArray(this.foldl((accum, el) => [...accum, func(el)], []));
+    return this.foldl((accum, el) => new List([
+      ...accum.values,
+      func(el),
+    ]), new List());
   }
 
   foldl(func, accum) {
@@ -53,6 +60,9 @@ export class List {
   }
 
   reverse() {
-    return this.fromArray(this.foldl((accum, el) => [el, ...accum], []));
+    return this.foldl((accum, el) => new List([
+      el,
+      ...accum.values,
+    ]), new List());
   }
 }

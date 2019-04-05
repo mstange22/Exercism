@@ -1,5 +1,8 @@
 import re
 
+strong_re = re.compile('(.*)__(.*)__(.*)')
+em_re = re.compile('(.*)_(.*)_(.*)')
+
 
 def parse_heading(line):
     index = 0
@@ -9,10 +12,8 @@ def parse_heading(line):
 
 
 def parse_bold_and_em(text):
-    p = re.compile('(.*)__(.*)__(.*)')
-    text = p.sub(r'\1<strong>\2</strong>\3', text)
-    p = re.compile('(.*)_(.*)_(.*)')
-    return p.sub(r'\1<em>\2</em>\3', text)
+    text = strong_re.sub(r'\1<strong>\2</strong>\3', text)
+    return em_re.sub(r'\1<em>\2</em>\3', text)
 
 
 def parse_markdown(markdown):

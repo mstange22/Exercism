@@ -21,8 +21,8 @@ class Hangman(object):
                 self.status = STATUS_LOSE
         else:
             self.guesses.add(char)
-            indeces = [i for i, c in enumerate(self.word) if c == char]
-            for i in indeces:
+            indicies = [i for i, c in enumerate(self.word) if c == char]
+            for i in indicies:
                 self.masked_word[i] = char
             if self.word == ''.join(self.masked_word):
                 self.status = STATUS_WIN

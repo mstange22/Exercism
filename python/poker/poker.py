@@ -1,4 +1,4 @@
-card_values = {
+card_points = {
   '2': 2,
   '3': 3,
   '4': 4,
@@ -6,7 +6,7 @@ card_values = {
   '6': 6,
   '7': 7,
   '8': 8,
-  '9': 9
+  '9': 9,
   '10': 10,
   'J': 11,
   'Q': 12,
@@ -14,29 +14,20 @@ card_values = {
   'A': 14,
 }
 
+def get_highest_card(hand):
+  cards = hand.split(' ')
+  card_values = []
+  for card in cards:
+    card_value = card[:-1]
+    card_values.append(card_points[card_value])
+  return max(card_values)
+
 def best_hands(hands):
   if len(hands) == 1:
     return hands
 
-  poker_hands = []
+  highest_cards = [get_highest_card(hand) for hand in hands]
+  print(highest_cards)
+  idx = highest_cards.index(max(highest_cards))
   
-  # check max card
-  for i, hand in enumerate(hands):
-    cards = hand.split()
-    max_card = 0
-    for card in cards:
-      if len(card) == 3:
-        card_value = 10
-      else:
-        card_value = int(card_values[card[0])
-      if card_value > max_card:
-        max_card = card_value
-
-    poker_hands.append = {
-      'hand': cards,
-      'max_card': max_card,
-    }
-  
-  for hand in poker_hands
-    
-      
+  return [hands[idx]]

@@ -2,49 +2,57 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
+bool is_valid_non_digit(const char c)
+{
+    switch (c) {
+      case ' ':
+      case '-':
+      case '.':
+      case '+':
+      case '(':
+      case ')':
+        return true;
+      default:
+        return false;
+    }
+}
+
+void build_error_number(char **res)
+{
+    for (int i = 0; i < 10; i++)
+    {
+      (*res)[i] = '0';
+    }
+}
 
 char *phone_number_clean(const char input[])
 {
   char *res = malloc(11);
-  int length = strlen(input);
+  const int length = strlen(input);
   int count = 0;
-  int error = 0;
+  bool error = false;
 
-  for (int i = 0; i < length; i++) {
-    if (isdigit(input[i]))
+  for (int i = 0; i < length && !error; i++) {
+    const char c = input[i];
+    if (isdigit(c))
     {
       // ignore leading 1
-      if (count != 0 || input[i] != '1')
+      if (count != 0 || c != '1')
       {
-        res[count++] = input[i];
+        res[count++] = c;
       }
-    } else if (isalpha(input[i])) {
-      error = 1;
-      break;
+    } else if (isalpha(c)) {
+      error = true;
     } else {
-      switch (input[i]) {
-        case ' ':
-        case '-':
-        case '.':
-        case '+':
-        case '(':
-        case ')':
-          break;
-        default:
-          error = 1;
-      }
-      if (error) {
-        break;
-      }
+        error = !is_valid_non_digit(c);
     }
   }
 
   if (error || count != 10 || res[0] < '2' || res[3] < '2')
   {
-    for (int i = 0; i < 10; i++)
-    {
-      res[i] = '0';
-    }
+    build_error_number(&res);
   }
 
   res[10] = '\0';

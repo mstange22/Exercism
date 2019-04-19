@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool is_valid_non_digit(const char c)
+static bool is_valid_non_digit(const char c)
 {
     switch (c) {
       case ' ':
@@ -19,7 +19,7 @@ bool is_valid_non_digit(const char c)
     }
 }
 
-void build_error_number(char **res)
+static void build_error_number(char **res)
 {
     for (int i = 0; i < 10; i++)
     {

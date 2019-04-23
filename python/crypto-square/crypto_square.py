@@ -1,39 +1,43 @@
+import math
+
 def normalize_text(text):
-  return ''.join([c for c in list(text.lower()) if c.isalpha()])
+  return ''.join([c for c in list(text.lower()) if c.isalnum()])
 
 def encode(plain_text):
-  res = []
   text = normalize_text(plain_text)
   print(text)
-  rows , cols = divmod(len(text), len(text) ** (1/2))
-  if cols == 0:
-    cols = int(rows)
-  else:
-    cols = int(rows + 1)
-  rows = int(rows)
-  print(cols, rows)
+  size = math.floor(math.sqrt(len(text)))
+  print(size)
 
-  normalized = []
-  row = ''
-  for i, char in enumerate(text):
-    row += char
-    if i % cols == rows:
-      normalized.append(row)
-      row = ''
+  # get segments
+  segments = []
+  segment = ''
+  for i, c in enumerate(text):
+    segment += c
+    if (i % (size + 1)) == size:
+      segments.append(segment)
+      segment = ''
   
-  while len(row) < cols:
-    row += ' '
-  normalized.append(row)
-  # print(normalized)
-  count = 0
-  for i in range(cols):
-    for j in range(rows):
-      if count % cols == rows:
-        res.append(' ')
-        count += 1
-      res.append(normalized[j][i])
-      # print('count:', count)
-      # print('count % rows:', count % rows)
-      count += 1
-  return ''.join(res)
-  
+  if len(segment) > 0:
+    segments.append(segment)
+
+  print(segments)
+
+  cipher_text = []
+  curr_segment = ''
+  i = 0
+  for pos in range(size + 1):
+    for s in range(len(segments)):
+      if i == size:
+        cipher_text.append(curr_segment)
+        curr_segment = ''
+        i = 0
+      if pos < len(segments[s]):
+        curr_segment += segments[s][pos]
+      else:
+        curr_segment += ' '
+      i += 1
+  if len(curr_segment) > 0:
+    cipher_text.append(curr_segment)
+  print(cipher_text)
+  return ' '.join(cipher_text)

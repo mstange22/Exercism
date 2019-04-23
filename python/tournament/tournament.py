@@ -1,8 +1,9 @@
 from collections import defaultdict
 
+FORMAT = '{:<31}|{:>3} |{:>3} |{:>3} |{:>3} |{:>3}'
+
 def tally(tournament_results):
-    formatted_string = '{:<31}|{:>3} |{:>3} |{:>3} |{:>3} |{:>3}'
-    res = [formatted_string.format('Team', 'MP', 'W', 'D', 'L', 'P')]
+    res = [FORMAT.format('Team', 'MP', 'W', 'D', 'L', 'P')]
     if tournament_results:
         teams = {}
         for line in tournament_results.splitlines():
@@ -33,6 +34,6 @@ def tally(tournament_results):
 
         # sort by points (desc), then by team name
         for team in sorted(teams.keys(), key=lambda x: (-teams[x]['points'], x)):
-            res.append(formatted_string.format(team, teams[team]['matches'], teams[team]['wins'],
+            res.append(FORMAT.format(team, teams[team]['matches'], teams[team]['wins'],
                 teams[team]['draws'], teams[team]['losses'], teams[team]['points']))
     return '\n'.join(res)

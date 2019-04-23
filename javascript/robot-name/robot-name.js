@@ -1,19 +1,19 @@
 const names = [];
+const letters = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+const numbers = [...'0123456789'];
 
 const buildNames = () => {
-  for (let a = 0; a < 26; a++) {
-    for (let b = 0; b < 26; b++) {
-      for (let c = 0; c < 10; c++) {
-        for (let d = 0; d < 10; d++) {
-          for (let e = 0; e < 10; e++) {
-            const A = String.fromCharCode(a + 65);
-            const B = String.fromCharCode(b + 65);
-            names.push(`${A}${B}${c}${d}${e}`);
-          }
-        }
-      }
-    }
-  }
+  letters.forEach(a => {
+    letters.forEach(b => {
+      numbers.forEach(x => {
+        numbers.forEach(y => {
+          numbers.forEach(z => {
+            names.push(`${a}${b}${x}${y}${z}`);
+          });
+        });
+      });
+    });
+  });
   // shuffle
   for (let i = 0; i < names.length - 2; i++) {
     let j = Math.floor(Math.random() * names.length);

@@ -18,5 +18,5 @@ class Bob {
 }
 
 bool isYelling(String s) {
-  return (s.toUpperCase() == s && s.contains(new RegExp(r'[A-Z]')));
+  return s.toUpperCase() == s && s.contains(new RegExp(r'[A-Z]'));
 }

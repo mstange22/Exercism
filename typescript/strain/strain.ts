@@ -1,21 +1,9 @@
-function keep<T>(list: T[], f: Function): T[] {
-  const res: T[] = [];
-  for (const element of list) {
-    if (f(element)) {
-      res.push(element);
-    }
-  }
-  return res;
+export const keep = <T>(list: T[], func: Function): T[] => {
+  return list.reduce((accum: T[], el: T) => {
+    return func(el) ? [...accum, el] : accum
+  }, [])
 }
 
-function discard<T>(list: T[], f: Function): T[] {
-  const res: T[] = [];
-  for (const element of list) {
-    if (!f(element)) {
-      res.push(element);
-    }
-  }
-  return res;
+export const discard = <T>(list: T[], func: Function): T[] => {
+  return keep(list, (el: T) => !func(el))
 }
-
-export { keep, discard }

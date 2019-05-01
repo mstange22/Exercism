@@ -9,22 +9,21 @@ export default class Triangle {
     kind() {
         // validate sides
         if (this.sides.some(side => side <= 0)) {
-            throw new Error('Invalid length');
+            throw new Error('Invalid length')
         }
+        const [a, b, c] = this.sides
         // check for inequality
-        if (this.sides[0] + this.sides[1] < this.sides[2] || this.sides[0] + this.sides[2] < this.sides[1]
-            || this.sides[1] + this.sides[2] < this.sides[0]) {
+        if (a + b < c || a + c < b || b + c < a) {
             throw new Error('Triangle inequality')
         }
         // all sides equal
-        if (this.sides.every(side => side === this.sides[0])) {
+        if (this.sides.every(side => side === a)) {
             return 'equilateral'
         }
-        // all sides different
-        if (this.sides[0] !== this.sides[1] && this.sides[1] !== this.sides[2]
-            && this.sides[0] !== this.sides[2]) {
-            return 'scalene'
+        // any two sides equal
+        if (a === b || a === c || b === c) {
+            return 'isosceles'
         }
-        return 'isosceles'
+        return 'scalene'
     }
 }

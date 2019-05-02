@@ -2,33 +2,32 @@ export class ArgumentError extends Error {}
 
 export class WordProblem {
   constructor(question) {
-    this._answer = this.evaluate(question.slice(0, -1).split(' ').slice(2));
+    this._answer = this.evaluate(question.slice(0, -1).replace(/ by/g, '').split(' ').slice(2));
   }
 
-  evaluate(question) {
+  evaluate([operand1, operator, operand2, ...remainingQuestion]) {
+    operand1 = Number(operand1);
+    operand2 = Number(operand2);
     let res;
-    switch (question[1]) {
+
+    switch (operator) {
       case 'plus':
-        res = Number(question[0]) + Number(question[2]);
-        question = [res, ...question.slice(3)];
+        res = operand1 + operand2;
         break;
       case 'minus':
-        res = question[0] - question[2];
-        question = [res, ...question.slice(3)];
+        res = operand1 - operand2;
         break;
       case 'multiplied':
-        res = question[0] * question[3];
-        question = [res, ...question.slice(4)];
+        res = operand1 * operand2;
         break;
       case 'divided':
-        res = question[0] / question[3];
-        question = [res, ...question.slice(4)];
+        res = operand1 / operand2;
         break;
       default:
         return null;
     }
-    if (question.length > 1) {
-      return this.evaluate(question);
+    if (remainingQuestion.length !== 0) {
+      return this.evaluate([res, ...remainingQuestion]);
     }
     return res;
   }

@@ -5,12 +5,10 @@ use Exporter 'import';
 our @EXPORT_OK = qw(square_of_sum);
 
 sub new {
-  my $class = shift;
-  my ($n) = @_;
-  my $self = bless {
+  my ($class, $n) = @_;
+  return bless {
       n => $n,
   }, $class;
-  return $self;
 }
 
 sub square_of_sum {

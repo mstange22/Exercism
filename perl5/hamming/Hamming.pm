@@ -10,13 +10,7 @@ sub hamming_distance {
   if (length $strand2 != $length) {
     throw Exception('left and right strands must be of equal length');
   }
-  my $counter = 0;
-  for my $i (0 .. $length - 1) {
-    if (substr($strand1, $i, 1) ne substr($strand2, $i, 1)) {
-      $counter++;
-    }
-  }
-  return $counter;
+  return scalar grep {substr($strand1, $_, 1) ne substr($strand2, $_, 1)} 0.. $length-1;
 }
 
 1;

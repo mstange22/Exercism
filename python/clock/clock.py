@@ -1,11 +1,9 @@
-MAX_MINUTES = 60 * 24
-
 class Clock(object):
     def __init__(self, hour, minute):
-        self.minute = (((hour % 24) * 60) + minute) % MAX_MINUTES
+        self.minute = (hour * 60 + minute) % (60 * 24)
 
     def __repr__(self):
-        (hour, minute) = divmod(self.minute, 60)
+        hour, minute = divmod(self.minute, 60)
         return f'{hour:02}:{minute:02}'
 
     def __eq__(self, other):

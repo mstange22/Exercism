@@ -4,12 +4,7 @@
 unsigned int sieve(const unsigned int limit, primes_array_t primes)
 {
   int prime_count = 0;
-  int marked_array[MAX_LIMIT_TESTED + 1];
-  // initialize marked_array
-  for (int i = 0; i <= MAX_LIMIT_TESTED; i++)
-  {
-    marked_array[i] = 0;
-  }
+  int marked_array[MAX_LIMIT_TESTED + 1] = {0};
   for (unsigned int i = 2; i <= limit; i++) {
     if (!marked_array[i])
     {

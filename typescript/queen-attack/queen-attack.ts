@@ -6,8 +6,8 @@ class QueenAttack {
     if (queens.black[0] === queens.white[0] && queens.black[1] === queens.white[1]) {
       throw new Error('Queens cannot share the same space')
     }
-    this.white = queens.white;
-    this.black = queens.black;
+    this.white = queens.white
+    this.black = queens.black
   }
 
   canAttack() {
@@ -30,9 +30,9 @@ class QueenAttack {
         } else if (i === this.black[0] && j === this.black[1]) {
           res += 'B'
         } else {
-          res += '_';
+          res += '_'
         }
-        res += j === 7 ? '\n' : ' ';
+        res += j === 7 ? '\n' : ' '
       }
     }
     return res

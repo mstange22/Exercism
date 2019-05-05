@@ -15,15 +15,12 @@ const roman = [
 ];
 
 export const toRoman = (num) => {
-  let res = '';
-
-  roman.forEach((r) => {
+  return roman.reduce((accum, r) => {
     const [value, letter] = r;
     while (num >= value) {
-      res += letter;
+      accum += letter;
       num -= value;
     }
-  });
-
-  return res;
+    return accum;
+  }, '');
 };

@@ -11,10 +11,7 @@ class QueenAttack {
   }
 
   canAttack() {
-    if (this.white[0] === this.black[0]) {
-      return true
-    }
-    if (this.white[1] == this.black[1]) {
+    if (this.white[0] === this.black[0] || this.white[1] == this.black[1]) {
       return true
     }
 

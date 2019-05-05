@@ -1,8 +1,10 @@
-class QueenAttack {
-  white: [number, number]
-  black: [number, number]
+type Pair = [number, number]
 
-  constructor(queens: { black: [number, number], white: [number, number] }) {
+class QueenAttack {
+  white: Pair
+  black: Pair
+
+  constructor(queens: { black: Pair, white: Pair }) {
     if (queens.black[0] === queens.white[0] && queens.black[1] === queens.white[1]) {
       throw new Error('Queens cannot share the same space')
     }

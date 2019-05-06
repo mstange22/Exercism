@@ -1,5 +1,5 @@
 class Transcriptor {
-    private map: Map = {
+    private map: { [dna: string]: string } = {
         'G': 'C',
         'C': 'G',
         'T': 'A',
@@ -14,10 +14,6 @@ class Transcriptor {
             return rna + this.map[nucleotide];
         }, '')
     }
-}
-
-interface Map {
-    [key: string]: string;
 }
 
 export default Transcriptor

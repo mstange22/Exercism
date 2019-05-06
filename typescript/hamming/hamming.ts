@@ -5,7 +5,7 @@ class Hamming {
     }
     return s1
       .split('')
-      .reduce((acc, n, i) => n !== s2[i] ? ++acc : acc, 0)
+      .reduce((acc, c, i) => c !== s2[i] ? ++acc : acc, 0)
   }
 }
 

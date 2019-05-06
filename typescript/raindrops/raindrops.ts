@@ -12,7 +12,7 @@ class Raindrops {
       }
       return accum
     }, '')
-    return res === '' ? n.toString() : res
+    return res || n.toString()
   }
 }
 

@@ -7,7 +7,7 @@ our @EXPORT_OK = qw(transform);
 sub transform {
   my ($oldMap) = @_;
   my %newMap;
-  for my $key (keys $oldMap) {
+  for my $key (keys %$oldMap) {
     my $entry = $oldMap->{$key};
     foreach my $el (@$entry) {
       my $newKey = lc($el);

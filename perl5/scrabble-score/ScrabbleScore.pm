@@ -1,6 +1,7 @@
 package ScrabbleScore;
 use strict;
 use warnings;
+use List::AllUtils qw(sum);
 use Exporter 'import';
 our @EXPORT_OK = qw(score);
 
@@ -26,11 +27,7 @@ sub build_map {
 sub score {
   my ($word, %extensions) = @_;
   my $map = build_map();
-  my $points = 0;
-  for my $letter (split('', uc($word))) {
-    $points += $map->{$letter};
-  }
-  return $points;
+  return sum(0, @{$map}{split('', uc($word))});
 }
 
 1;

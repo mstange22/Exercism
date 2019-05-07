@@ -11,9 +11,9 @@ const ALLERGENS: { [key: number]: string } = {
 
 class Allergies {
   private allergies: string[] = []
-  constructor(n: number) {
+  constructor(score: number) {
     Object.keys(ALLERGENS).forEach((key) => {
-      if ((n & Number(key)) === Number(key)) {
+      if ((score & Number(key)) === Number(key)) {
         this.allergies.push(ALLERGENS[Number(key)])
       }
     })

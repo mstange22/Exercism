@@ -10,13 +10,14 @@ const ALLERGENS: { [key: number]: string } = {
 }
 
 class Allergies {
-  private allergies: string[] = []
+  private allergies: string[]
   constructor(score: number) {
-    Object.keys(ALLERGENS).forEach((key) => {
+    this.allergies = Object.keys(ALLERGENS).reduce((accum: string[], key) => {
       if ((score & Number(key)) === Number(key)) {
-        this.allergies.push(ALLERGENS[Number(key)])
+        accum.push(ALLERGENS[Number(key)])
       }
-    })
+      return accum
+    }, [])
   }
 
   allergicTo(allergen: string) {

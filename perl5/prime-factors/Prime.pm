@@ -10,8 +10,8 @@ sub factors {
   my $test_val = 2;
   while ($n > 1) {
     if ($n % $test_val == 0) {
-      push @res, $test_val ;
-      $n /= $test_val ;
+      push @res, $test_val;
+      $n /= $test_val;
     } else {
       $test_val++;
     }

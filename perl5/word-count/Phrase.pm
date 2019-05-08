@@ -6,7 +6,7 @@ our @EXPORT_OK = qw(word_count);
 
 sub word_count {
   my ($phrase) = lc(shift);
-  $phrase =~ s/[^a-zA-Z0-9 ]//g;
+  $phrase =~ s/[^a-z0-9 ]//g;
   my %counter;
   $counter{$_}++ for split ' ', $phrase;
   return \%counter;

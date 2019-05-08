@@ -8,13 +8,7 @@ sub word_count {
   my ($phrase) = lc(shift);
   $phrase =~ s/[^a-zA-Z0-9 ]//g;
   my %counter;
-  for my $word (split /[ ]+/, $phrase) {
-    if (exists $counter{$word}) {
-      $counter{$word}++
-    } else {
-      $counter{$word} = 1;
-    }
-  }
+  $counter{$_}++ for split ' ', $phrase;
   return \%counter;
 }
 

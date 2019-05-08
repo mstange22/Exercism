@@ -5,25 +5,11 @@ use Exporter 'import';
 our @EXPORT_OK = qw(encode decode);
 
 sub encode {
-  my $s = shift;
-  my $res = "";
-  my $counter = 0;
-  for my $c (split "", $s) {
-    if ($c =~ /[0-9a-zA-Z]/) {
-      if ($counter % 6 == 5) {
-        $res .= " ";
-        $counter++;
-      }
-      if ($c =~ /\d/) {
-        $res .= $c;
-      } else {
-        my $offset = ord(lc $c) - ord("a");
-        $res .= chr(ord("z") - $offset);
-      }
-      $counter++;
-    }
-  }
-  return $res;
+  my $s = lc shift;
+  $s =~ s/[^a-z0-9]//g;
+  $s =~ tr/a-z/zyxwvutsrqponmlkjihgfedcba/;
+  $s =~ s/(\w{5})/$1 /g;
+  return $s =~ s/ $//r;
 }
 
 sub decode {

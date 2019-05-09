@@ -2,7 +2,6 @@
 use strict;
 use warnings;
 use Test::More tests => 19;
-use Test2::Tools::Exception qw(dies);
 use JSON::PP;
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";

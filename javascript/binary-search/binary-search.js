@@ -1,24 +1,28 @@
-export class BinarySearch {
+const isSorted = arr => arr.slice().sort((a, b) => a - b).join('') === arr.join('');
+
+class BinarySearch {
   constructor(arr) {
-    for (let i = 0; i < arr.length - 1; i++) {
-      if (arr[i] > arr[i + 1]) {
-        return;
-      }
+    if (isSorted(arr)) {
+      this.array = arr;
     }
-    this.array = arr;
   }
 
-  indexOf(n, min = 0, max = this.array.length - 1) {
-    if (min > max) {
-      return -1;
+  indexOf(target) {
+    let min = 0;
+    let max = this.array.length - 1;
+
+    while (min <= max) {
+      const mid = Math.floor((min + max) / 2);
+      if (this.array[mid] === target) {
+        return mid;
+      }
+      if (target > this.array[mid]) {
+        min = mid + 1;
+      }
+      max = mid - 1;
     }
-    const mid = Math.floor((min + max) / 2);
-    if (this.array[mid] === n) {
-      return mid;
-    }
-    if (n > this.array[mid]) {
-      return this.indexOf(n, mid + 1, max);
-    }
-    return this.indexOf(n, min, min - 1);
+    return -1;
   }
 }
+
+export { BinarySearch };

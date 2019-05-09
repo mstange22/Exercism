@@ -12,13 +12,7 @@ sub match {
   my $word = shift;
   my $sorted_word = normalize($word);
   my @candidates = @_;
-
-  my @res;
-  foreach my $candidate (@candidates) {
-    next if $candidate eq $word;
-    push @res, $candidate if normalize($candidate) eq $sorted_word;
-  }
-  return \@res;
+  return [grep {($_ ne $word) && (normalize($_) eq $sorted_word)} @candidates];
 }
 
 1;

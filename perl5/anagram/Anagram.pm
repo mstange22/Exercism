@@ -4,21 +4,20 @@ use strict;
 use Exporter 'import';
 our @EXPORT_OK = qw(match);
 
+sub normalize {
+  join '', sort split '', lc shift;
+}
+
 sub match {
   my $word = shift;
+  my $sorted_word = normalize($word);
   my @candidates = @_;
+
   my @res;
-  my @sorted_word = sort split '', lc($word);
-
   foreach my $candidate (@candidates) {
-    if ($candidate ne $word) {
-      my @sorted_candidate = sort split '', lc($candidate);
-      if (@sorted_candidate ~~ @sorted_word) {
-          push @res, $candidate;
-      }
-    }
+    next if $candidate eq $word;
+    push @res, $candidate if normalize($candidate) eq $sorted_word;
   }
-
   return \@res;
 }
 

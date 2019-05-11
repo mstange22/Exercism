@@ -4,40 +4,23 @@ def normalize_text(text):
   return ''.join([c for c in list(text.lower()) if c.isalnum()])
 
 def encode(plain_text):
-  text = normalize_text(plain_text)
-  print(text)
-  size = math.floor(math.sqrt(len(text)))
-  print(size)
+  normalized_text = normalize_text(plain_text)
+  segment_length = int(math.ceil(math.sqrt(len(normalized_text))))
 
-  # get segments
   segments = []
-  segment = ''
-  for i, c in enumerate(text):
-    segment += c
-    if (i % (size + 1)) == size:
-      segments.append(segment)
-      segment = ''
-  
-  if len(segment) > 0:
-    segments.append(segment)
-
-  print(segments)
+  normalized_segment = ''
+  for i, c in enumerate(normalized_text):
+    normalized_segment += c
+    if i % segment_length == segment_length - 1:
+      segments.append(normalized_segment)
+      normalized_segment = ''
+  if len(normalized_segment) > 0:
+    segments.append(normalized_segment)
 
   cipher_text = []
-  curr_segment = ''
-  i = 0
-  for pos in range(size + 1):
-    for s in range(len(segments)):
-      if i == size:
-        cipher_text.append(curr_segment)
-        curr_segment = ''
-        i = 0
-      if pos < len(segments[s]):
-        curr_segment += segments[s][pos]
-      else:
-        curr_segment += ' '
-      i += 1
-  if len(curr_segment) > 0:
-    cipher_text.append(curr_segment)
-  print(cipher_text)
+  for char_pos in range(segment_length):
+    cipher_segment = ''
+    for i, segment in enumerate(segments):
+      cipher_segment += segment[char_pos] if len(segment) > char_pos else ' '
+    cipher_text.append(cipher_segment)
   return ' '.join(cipher_text)

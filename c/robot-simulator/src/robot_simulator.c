@@ -3,11 +3,7 @@
 
 robot_grid_status_t robot_init()
 {
-  robot_grid_status_t status = {
-    DEFAULT_BEARING,
-    {DEFAULT_X_COORDINATE, DEFAULT_Y_COORDINATE},
-  };
-  return status;
+  return robot_init_with_position(DEFAULT_BEARING, DEFAULT_X_COORDINATE, DEFAULT_Y_COORDINATE);
 }
 
 robot_grid_status_t robot_init_with_position(int bearing, int x, int y)
@@ -26,27 +22,28 @@ void robot_turn_right(robot_grid_status_t * robot)
 
 void robot_turn_left(robot_grid_status_t * robot)
 {
+  // add 4 to new bearing to insure non-negative result before mod
   robot->bearing = (robot->bearing - 1 + 4) % HEADING_MAX;
 }
 
 void robot_advance(robot_grid_status_t * robot)
 {
-  if (robot->bearing == HEADING_NORTH)
-  {
-    robot->grid.y_position++;
+  switch (robot->bearing) {
+    case HEADING_NORTH:
+      robot->grid.y_position++;
+      break;
+    case HEADING_EAST:
+      robot->grid.x_position++;
+      break;
+    case HEADING_SOUTH:
+      robot->grid.y_position--;
+      break;
+    case HEADING_WEST:
+      robot->grid.x_position--;
+      break;
+    default:
+      break;
   }
-  else if (robot->bearing == HEADING_EAST)
-  {
-    robot->grid.x_position++;
-  }
-  else if (robot->bearing == HEADING_SOUTH)
-  {
-    robot->grid.y_position--;
-  }
-  else
-  {
-    robot->grid.x_position--;
-  } 
 }
 
 void robot_simulator(robot_grid_status_t * robot, const char *commands)

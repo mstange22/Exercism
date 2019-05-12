@@ -12,9 +12,12 @@ void tearDown(void)
 
 static bool check(size_t count, size_t expected[][count], size_t ** result)
 {
+   // printf("in check:\n");
    size_t i, j;
    for (i = 0; i < count; i++) {
       for (j = 0; j < count; j++) {
+         // printf("expected[%zu][%zu]: %zu\n", i, j, expected[i][j]);
+         // printf("result[%zu][%zu]: %zu\n", i, j, result[i][j]);
          if (expected[i][j] != result[i][j]) {
             return 0;
          }
@@ -33,7 +36,7 @@ void test_no_rows(void)
 
 void test_single_row(void)
 {
-   TEST_IGNORE();               // delete this line to run test
+   // TEST_IGNORE();               // delete this line to run test
    size_t expected[1][1] = {
       {1}
    };
@@ -44,32 +47,34 @@ void test_single_row(void)
 
 void test_two_rows(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    size_t expected[2][2] = {
       {1, 0},
       {1, 1}
    };
    size_t **r = create_triangle(2);
+   // printf("test 2: r[0][0]: %zu\n", r[0][0]);
    TEST_ASSERT_TRUE(check(2, expected, r));
    free_triangle(r, 2);
 }
 
 void test_three_rows(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    size_t expected[3][3] = {
       {1, 0, 0},
       {1, 1, 0},
       {1, 2, 1}
    };
    size_t **r = create_triangle(3);
+   printf("test 3: r[0][0]: %zu\n", r[0][0]);
    TEST_ASSERT_TRUE(check(3, expected, r));
    free_triangle(r, 3);
 }
 
 void test_four_rows(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    size_t expected[4][4] = {
       {1, 0, 0, 0},
       {1, 1, 0, 0},
@@ -83,7 +88,7 @@ void test_four_rows(void)
 
 void test_negative_rows(void)
 {
-   TEST_IGNORE();
+   // TEST_IGNORE();
    TEST_ASSERT_TRUE((create_triangle(-1) == NULL));
 }
 

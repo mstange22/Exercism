@@ -12,7 +12,7 @@ class Node(object):
 class LinkedList(object):
     def __init__(self, values=[]):
         self._size = 0
-        self._head= None
+        self._head = None
         for value in values:
             self.push(value)
 

@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-FORMAT = '{:<31}|{:>3} |{:>3} |{:>3} |{:>3} |{:>3}'
+FORMAT = '{:<30} | {:>2} | {:>2} | {:>2} | {:>2} | {:>2}'
 
 def tally(tournament_results):
     res = [FORMAT.format('Team', 'MP', 'W', 'D', 'L', 'P')]

@@ -4,31 +4,29 @@ use warnings;
 
 sub triangle {
   my ($n) = @_;
-  print "n: $n\n";
   my @res;
-  for my $i (1 .. $n) {
-    print "i: $i\n";
-    my @row = [1];
-    for my $j (1 .. $n) {
-      my $prev;
-      if ($j > 0) {
-        my $prev = $res[$i - 1][$j - 1];
-      } else {
-        $prev = 0;
-      }
-      push @row, $res[$i - 1][$j - 1] + $res[$i - 1][$j];
+  for (my $i = 0; $i <= $n; $i++) {
+    $res[$i][0] = 1;
+    for (my $j = 1; $j <= $i; $j++) {
+      push $res[$i], ($res[$i - 1][$j - 1]) + ($res[$i - 1][$j] || 0);
     }
-    push @res, @row;
   }
-  return \@res;
+  return [map { join " ", @$_ } @res]
 }
 
 sub is_triangle {
-
+  my $params = shift;
+  my $length = scalar @{$params};
+  my @valid_triangle = @{triangle($length - 1)};
+  for (my $i = 0; $i < $length; $i++) {
+    return 0 if $params->[$i] ne $valid_triangle[$i];
+  }
+  return 1;
 }
 
 sub row {
-
+  my $row = shift;
+  return @{triangle($row)}[$row];
 }
 
 1;

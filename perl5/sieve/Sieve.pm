@@ -9,18 +9,15 @@ sub new {
 
 sub primes {
   my $n = shift->{n};
-  my @res;
-  my %marked;
+  my @res = (0) x ($n + 1);
   for my $i (2..$n) {
-    if (not exists $marked{$i}) {
-      $marked{$i} = 1;
-      push @res, $i;
-      for (my $j = $i; $j <= $n; $j += $i) {
-        $marked{$j} = 1;
+    if (not $res[$i]) {
+      for (my $j = 2 * $i; $j <= $n; $j += $i) {
+        $res[$j] = 1;
       }
     }
   }
-  return \@res;
+  return [grep { $res[$_] == 0 } 2..$n];
 }
 
 1;

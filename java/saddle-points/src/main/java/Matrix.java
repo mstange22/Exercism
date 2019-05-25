@@ -2,13 +2,12 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
-import java.util.Collections;
 
 class Matrix {
     private final List<List<Integer>> values;
 
-    Matrix(List<List<Integer>> values) {
-        this.values = values;
+    Matrix(List<List<Integer>> matrix) {
+        this.values = matrix;
     }
 
     Set<MatrixCoordinate> getSaddlePoints() {
@@ -24,24 +23,32 @@ class Matrix {
     }
 
     private boolean isSaddlePoint(int i, int j) {
-        return isMax(i, j) && isMin(i, j);
+        return isRowMax(i, j) && isColumnMin(i, j);
     }
 
-    private boolean isMax(int i, int j) {
+    private boolean isRowMax(int i, int j) {
         int value = this.values.get(i).get(j);
         List<Integer> row = new ArrayList<>(this.values.get(i));
-        Collections.sort(row);
-        return value == row.get(row.size() - 1);
+        for (int digit : row) {
+            if (value < digit) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    private boolean isMin(int i, int j) {
+    private boolean isColumnMin(int i, int j) {
         int value = this.values.get(i).get(j);
         List<Integer> col = new ArrayList<>();
         for (List<Integer> row: this.values) {
             col.add(row.get(j));
         }
-        Collections.sort(col);
-        return value == col.get(0);
+        for (int digit : col) {
+            if (value > digit) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

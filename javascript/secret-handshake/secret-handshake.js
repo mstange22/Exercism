@@ -6,7 +6,7 @@ const EVENTS = [
 ];
 
 export const secretHandshake = (input) => {
-  if (!/^[\d]+$/.test(input)) {
+  if (isNaN(input)) {
     throw new Error('Handshake must be a number')
   }
   return input.toString(2).split('')

@@ -7,7 +7,7 @@ class Matrix {
     private final List<List<Integer>> values;
 
     Matrix(List<List<Integer>> matrix) {
-        this.values = matrix;
+        this.values = new ArrayList<List<Integer>>(matrix);
     }
 
     Set<MatrixCoordinate> getSaddlePoints() {
@@ -28,8 +28,7 @@ class Matrix {
 
     private boolean isRowMax(int i, int j) {
         int value = this.values.get(i).get(j);
-        List<Integer> row = new ArrayList<>(this.values.get(i));
-        for (int digit : row) {
+        for (int digit : this.values.get(i)) {
             if (value < digit) {
                 return false;
             }
@@ -39,12 +38,8 @@ class Matrix {
 
     private boolean isColumnMin(int i, int j) {
         int value = this.values.get(i).get(j);
-        List<Integer> col = new ArrayList<>();
-        for (List<Integer> row: this.values) {
-            col.add(row.get(j));
-        }
-        for (int digit : col) {
-            if (value > digit) {
+        for (List<Integer> row : this.values) {
+            if (value > row.get(j)) {
                 return false;
             }
         }

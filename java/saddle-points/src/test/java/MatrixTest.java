@@ -1,5 +1,6 @@
 import org.junit.Ignore;
 import org.junit.Test;
+import java.util.Arrays;
 
 import java.util.*;
 
@@ -141,6 +142,29 @@ public class MatrixTest {
         ));
 
         assertEquals(expectedSaddlePoints, matrix.getSaddlePoints());
+    }
+
+    <T> List<T> listOf(T... values) {
+        return new ArrayList<>(Arrays.asList(values));
+      }
+      
+    <T> Set<T> setOf(T... values) {
+    return new HashSet<>(Arrays.asList(values));
+    }
+
+    @Test
+    public void hasDefensiveCopyOfInput() {
+
+    List<List<Integer>> input = listOf(listOf(3, 3, 3), listOf(1, 2, 1), listOf(3, 3, 3));
+
+    Matrix m = new Matrix(input);
+    // Modify the underlying list
+    input.add(listOf(0, 0, 0));
+
+    assertEquals(
+    m.getSaddlePoints(),
+    setOf(new MatrixCoordinate(1, 1)));
+
     }
 
 }

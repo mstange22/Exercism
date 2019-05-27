@@ -12,12 +12,9 @@ void tearDown(void)
 
 static bool check(size_t count, size_t expected[][count], size_t ** result)
 {
-   // printf("in check:\n");
    size_t i, j;
    for (i = 0; i < count; i++) {
       for (j = 0; j < count; j++) {
-         // printf("expected[%zu][%zu]: %zu\n", i, j, expected[i][j]);
-         // printf("result[%zu][%zu]: %zu\n", i, j, result[i][j]);
          if (expected[i][j] != result[i][j]) {
             return 0;
          }
@@ -67,7 +64,6 @@ void test_three_rows(void)
       {1, 2, 1}
    };
    size_t **r = create_triangle(3);
-   printf("test 3: r[0][0]: %zu\n", r[0][0]);
    TEST_ASSERT_TRUE(check(3, expected, r));
    free_triangle(r, 3);
 }

@@ -1,5 +1,6 @@
 #include  "pascals_triangle.h"
 #include <stdlib.h>
+#include <string.h>
 
 size_t **create_triangle(int height)
 {
@@ -11,31 +12,37 @@ size_t **create_triangle(int height)
   if (height == 0)
   {
     size_t **triangle = malloc(sizeof(size_t*));
-    size_t *empty = malloc(height * sizeof(size_t));
+    if (triangle == NULL) {
+      return NULL;
+    }
+    memset(triangle, 0, height * sizeof(size_t*));
+    size_t *empty = malloc(sizeof(size_t));
+    memset(empty, 0, sizeof(size_t)); 
+    if (empty == NULL) {
+      return NULL;
+    }
     empty[0] = 0;
     triangle[0] = empty;
     return triangle;
   }
 
   size_t **triangle = malloc(height * sizeof(size_t*));
-
-  // first row always starts with 1; followed by {height - 1} zeroes
-  size_t *first_row = malloc(height * sizeof(size_t));
-  first_row[0] = 1;
-  for (int i = 1; i < height; i++)
-  {
-    first_row[i] = 0;
+  if (triangle == NULL) {
+    return NULL;
   }
-  triangle[0] = first_row;
-
-  // build all successive rows
-  for (int i = 1; i < height; i++)
+  for (int i = 0; i < height; i++)
   {
     size_t *row = malloc(height * sizeof(size_t));
+    if (row == NULL) {
+      return NULL;
+    }
+    memset(row, 0, height * sizeof(size_t)); 
     row[0] = 1;
     for (int j = 1; j < height; j++)
     {
-      row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
+      if (i - 1 >= 0) {
+        row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
+      }
     }
     triangle[i] = row;
   }
@@ -51,6 +58,8 @@ void free_triangle(size_t **triangle, int height)
   for (int i = 0; i < height; i++)
   {
     free(triangle[i]);
+    triangle[i] = NULL;
   }
   free(triangle);
+  triangle = NULL;
 }

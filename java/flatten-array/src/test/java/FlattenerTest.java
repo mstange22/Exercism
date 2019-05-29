@@ -16,6 +16,7 @@ public class FlattenerTest {
         flattener = new Flattener();
     }
 
+    // @Ignore("Remove to run test")
     @Test
     public void testFlatListIsPreserved() {
         assertEquals(asList(0, '1', "two"), flattener.flatten(asList(0, '1', "two")));

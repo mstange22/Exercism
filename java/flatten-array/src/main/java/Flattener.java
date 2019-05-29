@@ -6,8 +6,6 @@ import java.util.LinkedList;
 class Flattener {
   List<Object> flatten(List<Object> list) {
     List<Object> res = new ArrayList<Object>();
-
-    // convert list to deque for removing and adding to front of list
     Deque<Object> deque = new LinkedList<>(list);
 
     while (!deque.isEmpty()) {
@@ -15,7 +13,6 @@ class Flattener {
       if (first == null) {
         continue;
       }
-
       if (first instanceof List) {
         Deque<Object> firstDeque = new LinkedList<Object>((List<?>)first);
         while(!firstDeque.isEmpty()) {

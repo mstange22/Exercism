@@ -20,8 +20,8 @@ class Scrabble {
     }
 
     Scrabble(String word) {
-        for (char c : word.toCharArray()) {
-            score += points.get(Character.toUpperCase(c));
+        for (char c : word.toUpperCase().toCharArray()) {
+            score += points.get(c);
         }
     }
 

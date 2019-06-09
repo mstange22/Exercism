@@ -8,9 +8,8 @@ class Etl {
         Map<String, Integer> map = new HashMap<>();
 
         for (Integer letterValue : old.keySet()) {
-            List<String> letters = old.get(letterValue);
 
-            for (String letter : letters) {
+            for (String letter : old.get(letterValue)) {
                 map.put(letter.toLowerCase(), letterValue);
             }
         }

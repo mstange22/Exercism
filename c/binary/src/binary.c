@@ -6,13 +6,13 @@ int convert(char *s)
 {
   int res = 0;
   int length = strlen(s);
-  for (int i = 0; i < length; i++)
+  for (int i = length - 1; i >= 0; i--)
   {
-    if ((int)s[length - 1 - i] - '0' > 1)
-    {
-      return 0;
+    if (s[i] == '1') {
+      res += pow(2, length - 1 - i);
+    } else if (s[i] != '0') {
+      return INVALID;
     }
-    res += ((int)s[length - 1 - i] - '0') * pow(2, i); 
   }
   return res;
 }

@@ -19,33 +19,33 @@ describe('Change', () => {
     expect(result).toEqual([5, 10]);
   });
 
-  xtest('test change with Lilliputian Coins where a greedy algorithm fails', () => {
+  test('test change with Lilliputian Coins where a greedy algorithm fails', () => {
     // https://en.wikipedia.org/wiki/Change-making_problem#Greedy_method
     const change = new Change();
     const result = change.calculate([1, 4, 15, 20, 50], 23);
     expect(result).toEqual([4, 4, 15]);
   });
 
-  xtest('test change with Lower Elbonia Coins where a greedy algorithm fails', () => {
+  test('test change with Lower Elbonia Coins where a greedy algorithm fails', () => {
     // https://en.wikipedia.org/wiki/Change-making_problem#Greedy_method
     const change = new Change();
     const result = change.calculate([1, 5, 10, 21, 25], 63);
     expect(result).toEqual([21, 21, 21]);
   });
 
-  xtest('test large amount of change', () => {
+  test('test large amount of change', () => {
     const change = new Change();
     const result = change.calculate([1, 2, 5, 10, 20, 50, 100], 999);
     expect(result).toEqual([2, 2, 5, 20, 20, 50, 100, 100, 100, 100, 100, 100, 100, 100, 100]);
   });
 
-  xtest('test possible change without unit coins available', () => {
+  test('test possible change without unit coins available', () => {
     const change = new Change();
     const result = change.calculate([2, 5, 10, 20, 50], 21);
     expect(result).toEqual([2, 2, 2, 5, 10]);
   });
 
-  xtest('test another possible change without unit coins available', () => {
+  test('test another possible change without unit coins available', () => {
     const change = new Change();
     const result = change.calculate([4, 5], 27);
     expect(result).toEqual([4, 4, 4, 5, 5, 5]);
@@ -64,7 +64,7 @@ describe('Change', () => {
     expect(test).toThrowError(Error, message);
   });
 
-  xtest('error testing if no combination can add up to target', () => {
+  test('error testing if no combination can add up to target', () => {
     const change = new Change();
     const message = 'The total 94 cannot be represented in the given currency.';
     const test = () => { change.calculate([5, 10], 94); };

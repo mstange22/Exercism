@@ -4,8 +4,11 @@
 
 int convert(char *s)
 {
+  if (s == NULL) {
+    return INVALID;
+  }
   int res = 0;
-  int length = strlen(s);
+  const int length = strlen(s);
   for (int i = length - 1; i >= 0; i--)
   {
     if (s[i] == '1') {

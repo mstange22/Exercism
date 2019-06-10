@@ -12,7 +12,7 @@ def rebase(input_base, digits, output_base):
   res = []
 
   while base_10_num > 0:
-    res = [base_10_num % output_base] + res
+    res.insert(0, base_10_num % output_base)
     base_10_num //= output_base
 
   return res

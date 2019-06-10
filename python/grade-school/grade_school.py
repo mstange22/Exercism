@@ -6,13 +6,9 @@ class School(object):
 
     def add_student(self, name, grade):
         self.children[grade].append(name)
-        self.children[grade].sort()
 
     def roster(self):
-        res = []
-        for grade in sorted(self.children.keys()):
-            res += self.children[grade]
-        return res
+         return [child for grade in sorted(self.children) for child in sorted(self.children[grade])]
 
     def grade(self, grade_number):
         return sorted(self.children[grade_number])

@@ -9,6 +9,7 @@ class BaseConverter {
     if (base <= 1) {
       throw new IllegalArgumentException("Bases must be at least 2.");
     }
+
     for (int i = 0; i < digits.length; i++) {
       int currentDigitIndex = digits.length - 1 - i;
       if (digits[currentDigitIndex] < 0) {
@@ -25,19 +26,25 @@ class BaseConverter {
     if (base <= 1) {
       throw new IllegalArgumentException("Bases must be at least 2.");
     }
+
     if (base10Num == 0) {
       return new int[]{0};
     }
+
     int temp = base10Num;
     Stack<Integer> tempStack = new Stack<>();
+
     while (temp > 0) {
       tempStack.push(temp % base);
       temp /= base;
     }
+
     int[] digits = new int[tempStack.size()];
+
     for (int i = 0; i < digits.length; i++) {
       digits[i] = tempStack.pop();
     }
+
     return digits;
   }
 }

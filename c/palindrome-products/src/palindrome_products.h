@@ -1,6 +1,8 @@
 #ifndef PALINDROME_PRODUCTS
 #define PALINDROME_PRODUCTS
 
+#define MAX_FACTORS 16
+
 typedef struct factor_t {
   int factor_a;
   int factor_b;
@@ -10,8 +12,8 @@ typedef struct factor_t {
 typedef struct product_t {
   int smallest;
   int largest;
-  struct factor_t factors_sm[2];
-  struct factor_t factors_lg[2];
+  factor_t *factors_sm;
+  factor_t *factors_lg;
   char *error;
 } product_t;
 

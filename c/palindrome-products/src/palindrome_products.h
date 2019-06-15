@@ -1,7 +1,7 @@
 #ifndef PALINDROME_PRODUCTS
 #define PALINDROME_PRODUCTS
 
-#define MAX_FACTORS 16
+#define MAX_LENGTH 64
 
 typedef struct factor_t {
   int factor_a;

@@ -7,7 +7,7 @@
 
 bool is_palindrome(int n)
 {
-  int digits[MAX_FACTORS];
+  int digits[MAX_LENGTH];
   int count = 0;
   while (n > 0)
   {
@@ -45,7 +45,7 @@ product_t *get_palindrome_product(const int lower, const int upper)
   factor_t *lg;
   product_t *res = (product_t*)malloc(sizeof(product_t));
   if (lower > upper) {
-    res->error = malloc(64);
+    res->error = malloc(MAX_LENGTH);
     sprintf(res->error, "invalid input: min is %i and max is %i", lower, upper);
     return res;
   }
@@ -80,7 +80,7 @@ product_t *get_palindrome_product(const int lower, const int upper)
   }
   if (largest == 0)
   {
-    res->error = malloc(64);
+    res->error = malloc(MAX_LENGTH);
     sprintf(res->error, "no palindrome with factors in the range %i to %i", lower, upper);
   }
   res->smallest = smallest;

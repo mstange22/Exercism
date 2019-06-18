@@ -7,31 +7,49 @@ class BankAccount {
   private double balance = 0;
   private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
   private final Lock writeLock = readWriteLock.writeLock();
+  private final Lock readLock = readWriteLock.readLock();
 
   public double getBalance() throws BankAccountActionInvalidException {
-    if (!isOpen) {
-      throw new BankAccountActionInvalidException("Account closed");
+    readLock.lock();
+    double balanceToReturn;
+    try {
+      if (!isOpen) {
+        throw new BankAccountActionInvalidException("Account closed");
+      }
+      balanceToReturn = balance;
+    } finally {
+      readLock.unlock();
     }
-    return balance;
+    return balanceToReturn;
   }
 
   void open() {
-    isOpen = true;
+    writeLock.lock();
+    try {
+      isOpen = true;
+    } finally {
+      writeLock.unlock();
+    }
   }
 
   void close() {
-    isOpen = false;
+    writeLock.lock();
+    try {
+      isOpen = false;
+    } finally {
+      writeLock.unlock();
+    }
   }
 
   void deposit(double amount) throws BankAccountActionInvalidException {
-    if (!isOpen) {
-      throw new BankAccountActionInvalidException("Account closed");
-    }
     if (amount <= 0) {
       throw new BankAccountActionInvalidException("Cannot deposit or withdraw negative amount");
     }
     writeLock.lock();
     try {
+      if (!isOpen) {
+        throw new BankAccountActionInvalidException("Account closed");
+      }
       balance += amount;
     } finally {
       writeLock.unlock();
@@ -39,9 +57,6 @@ class BankAccount {
   }
 
   void withdraw(double amount) throws BankAccountActionInvalidException {
-    if (!isOpen) {
-      throw new BankAccountActionInvalidException("Account closed");
-    }
     if (amount <= 0) {
       throw new BankAccountActionInvalidException("Cannot deposit or withdraw negative amount");
     }
@@ -53,6 +68,9 @@ class BankAccount {
     }
     writeLock.lock();
     try {
+      if (!isOpen) {
+        throw new BankAccountActionInvalidException("Account closed");
+      }
       balance -= amount;
     } finally {
       writeLock.unlock();

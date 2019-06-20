@@ -11,6 +11,11 @@ class DoublyLinkedList<T> {
   private ListNode<T> head = null;
   private ListNode<T> tail = null;
 
+  /**
+   * push() adds ta value to the end of the list
+   * @param data type T value
+   * @return none
+   */
   void push(T data) {
     ListNode<T> newNode = new ListNode<T>(data);
     if (head == null) {
@@ -23,24 +28,43 @@ class DoublyLinkedList<T> {
     }
   }
 
+  /**
+   * pop() returns the data in the tail node of the list
+   * @param none
+   * @return data value (type T)
+   */
   T pop() {
     T res = tail.data;
-    if (tail.prev != null) {
-      tail.prev.next = null;
-    }
     tail = tail.prev;
+    if (tail == null) {
+      head = null;
+    } else {
+      tail.next = null;
+    }
     return res;
   }
 
+  /**
+   * shift() returns the data in the head node of the list
+   * @param none
+   * @return data value (type T)
+   */
   T shift() {
     T res = head.data;
-    if (head.next != null) {
-      head.next.prev = null;
-      head = head.next;
+    head = head.next;
+    if (head == null) {
+      tail = null;
+    } else {
+      head.prev = null;
     }
     return res;
   }
 
+  /**
+   * unshift() adds ta value to the head of the list
+   * @param data type T value
+   * @return none
+   */
   void unshift(T data) {
     ListNode<T> newNode = new ListNode<T>(data);
     if (head == null) {

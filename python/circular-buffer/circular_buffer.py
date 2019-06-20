@@ -21,7 +21,6 @@ class CircularBuffer(object):
         self.element_count -= 1
         return res
 
-
     def write(self, data):
         if self.element_count == self.capacity:
             raise BufferFullException('buffer is full')

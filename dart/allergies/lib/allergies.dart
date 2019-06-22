@@ -1,5 +1,5 @@
 class Allergies {
-  Map<String, int> ALLERGENS = {
+  Map<String, int> map = {
     "eggs": 1,
     "peanuts": 2,
     "shellfish": 4,
@@ -10,11 +10,7 @@ class Allergies {
     "cats": 128,
   };
 
-  bool allergicTo(String allergen, int score) {
-    return score & ALLERGENS[allergen] == ALLERGENS[allergen];
-  }
+  bool allergicTo(String allergy, int score) => score & map[allergy] > 0;
 
-  List<String> list(int score) {
-    return ALLERGENS.keys.where((key) => score % 256 & ALLERGENS[key] == ALLERGENS[key]).toList();
-  }
+  List<String> list(int score) => map.keys.where((k) => score & map[k] > 0).toList();
 }

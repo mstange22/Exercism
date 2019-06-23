@@ -9,6 +9,7 @@ bool is_palindrome(int n)
 {
   int digits[MAX_LENGTH];
   int count = 0;
+  if (n < 0) return false;
   while (n > 0)
   {
     digits[count++] = n % 10;
@@ -33,8 +34,10 @@ void add_factor(factor_t *head, int a, int b)
     curr = curr->next;
   }
   curr->next = (factor_t*)malloc(sizeof(factor_t));
-  factor_t new_node = {a, b, NULL};
-  *curr->next = new_node;
+  if (curr->next) {
+    factor_t new_node = {a, b, NULL};
+    *curr->next = new_node;
+  }
 }
 
 product_t *get_palindrome_product(const int lower, const int upper)
@@ -44,6 +47,7 @@ product_t *get_palindrome_product(const int lower, const int upper)
   factor_t *sm;
   factor_t *lg;
   product_t *res = (product_t*)malloc(sizeof(product_t));
+  if (!res) return NULL;
   if (lower > upper) {
     res->error = malloc(MAX_LENGTH);
     sprintf(res->error, "invalid input: min is %i and max is %i", lower, upper);
@@ -58,8 +62,10 @@ product_t *get_palindrome_product(const int lower, const int upper)
       {
         smallest = prod;
         sm = (factor_t*)malloc(sizeof(factor_t));
-        factor_t new_factor = { i, j, NULL};
-        *sm = new_factor;
+        if (sm) {
+          factor_t new_factor = { i, j, NULL};
+          *sm = new_factor;
+        }
       }
       else if (prod == smallest)
       {
@@ -69,8 +75,10 @@ product_t *get_palindrome_product(const int lower, const int upper)
       {
         largest = prod;
         lg = (factor_t*)malloc(sizeof(factor_t));
-        factor_t new_factor = { i, j, NULL};
-        *lg = new_factor;
+        if (lg) {
+          factor_t new_factor = { i, j, NULL};
+          *lg = new_factor;
+        }
       }
       else if (prod == largest)
       {
@@ -81,7 +89,9 @@ product_t *get_palindrome_product(const int lower, const int upper)
   if (largest == 0)
   {
     res->error = malloc(MAX_LENGTH);
-    sprintf(res->error, "no palindrome with factors in the range %i to %i", lower, upper);
+    if (res->error) {
+      sprintf(res->error, "no palindrome with factors in the range %i to %i", lower, upper);
+    }
   }
   res->smallest = smallest;
   res->largest = largest;
@@ -93,4 +103,5 @@ product_t *get_palindrome_product(const int lower, const int upper)
 void free_product(product_t *product)
 {
   free(product);
+  product = NULL;
 }

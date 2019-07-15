@@ -2,40 +2,18 @@
 #include <string.h>
 #include <ctype.h>
 
-letter_map scrabble[] = {
-  {"AEIOULRNST", 1},
-  {"DG", 2},
-  {"BCMP", 3},
-  {"FHVWY", 4},
-  {"K", 5},
-  {"JX", 8},
-  {"QZ", 10},
-};
-
-#define MAP_ENTRIES 7
-
-int get_letter_score(char letter)
-{
-  for (int i = 0; i < MAP_ENTRIES; i++)
-  {
-    char *letters = scrabble[i].letters;
-    for (int j = 0, n = strlen(letters); j < n; j++)
-    {
-      if (letters[j] == letter)
-      {
-        return scrabble[i].value;
-      }
-    }
-  }
-  return 0;
-}
-
 int score(char *word)
 {
+  // map of scrabble points for letters, indexed by ascii values (0 = 'A', 25 = 'Z') 
+  int scrabble_map[] = {
+    1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10
+  };
   int score = 0;
-  for (int i = 0, n = strlen(word); i < n; i++)
-  {
-    score += get_letter_score(toupper(word[i]));
+  for (int i = 0, n = strlen(word); i < n; i++) {
+    char c = toupper(word[i]);
+    if (c >= 'A' && c <= 'Z') {
+      score += scrabble_map[c - 'A'];
+    }
   }
   return score;
 }

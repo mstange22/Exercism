@@ -1,55 +1,61 @@
 const SECONDS_IN_EARTH_YEAR: number = 31557600
-const EARTH_YEARS_ON_MERCURY: number = 0.2408467
-const EARTH_YEARS_ON_VENUS: number = 0.61519726
-const EARTH_YEARS_ON_MARS: number = 1.8808158
-const EARTH_YEARS_ON_JUPITER: number = 11.862615
-const EARTH_YEARS_ON_SATURN: number = 29.447498
-const EARTH_YEARS_ON_URANUS: number = 84.016846
-const EARTH_YEARS_ON_NEPTUNE: number = 164.79132
+
+enum Ages {
+  Mercury = 0.2408467,
+  Venus =  0.61519726,
+  Earth = 1,
+  Mars = 1.8808158,
+  Jupiter = 11.862615,
+  Saturn = 29.447498,
+  Uranus = 84.016846,
+  Neptune = 164.79132,
+}
 
 class SpaceAge {
   private readonly _seconds: number;
-  private readonly _earthYears: number;
 
   constructor(seconds: number) {
     this._seconds = seconds
-    this._earthYears = seconds / SECONDS_IN_EARTH_YEAR
   }
 
-  get seconds() {
+  get seconds(): number {
     return this._seconds;
   }
 
-  onEarth() {
-    return parseFloat((this.seconds / SECONDS_IN_EARTH_YEAR).toFixed(2))
+  private onPlanet(ageOnPlanet: number): number {
+    return parseFloat((this._seconds / SECONDS_IN_EARTH_YEAR / ageOnPlanet).toFixed(2));
   }
 
-  onMercury() {
-    return parseFloat((this._earthYears / EARTH_YEARS_ON_MERCURY).toFixed(2))
+  onEarth(): number {
+    return this.onPlanet(Ages.Earth)
   }
 
-  onVenus() {
-    return parseFloat((this._earthYears / EARTH_YEARS_ON_VENUS).toFixed(2))
+  onMercury(): number {
+    return this.onPlanet(Ages.Mercury)
   }
 
-  onMars() {
-    return parseFloat((this._earthYears / EARTH_YEARS_ON_MARS).toFixed(2))
+  onVenus(): number {
+    return this.onPlanet(Ages.Venus)
   }
 
-  onJupiter() {
-    return parseFloat((this._earthYears / EARTH_YEARS_ON_JUPITER).toFixed(2))
+  onMars(): number {
+    return this.onPlanet(Ages.Mars)
   }
 
-  onSaturn() {
-    return parseFloat((this._earthYears / EARTH_YEARS_ON_SATURN).toFixed(2))
+  onJupiter(): number {
+    return this.onPlanet(Ages.Jupiter)
   }
 
-  onUranus() {
-    return parseFloat((this._earthYears / EARTH_YEARS_ON_URANUS).toFixed(2))
+  onSaturn(): number {
+    return this.onPlanet(Ages.Saturn)
   }
 
-  onNeptune() {
-    return parseFloat((this._earthYears / EARTH_YEARS_ON_NEPTUNE).toFixed(2))
+  onUranus(): number {
+    return this.onPlanet(Ages.Uranus)
+  }
+
+  onNeptune(): number {
+    return this.onPlanet(Ages.Neptune)
   }
 }
 

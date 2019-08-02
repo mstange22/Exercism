@@ -2,7 +2,7 @@
 
 using namespace std;
 
-vector<int>prime_factors::of(int num) {
+vector<int> prime_factors::of(int num) {
   vector<int> res = {};
   int factor = 2;
   while (num != 1) {

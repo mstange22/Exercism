@@ -2,7 +2,7 @@ using System;
 
 public class SpaceAge
 {
-    private static double earthYears;
+    private double earthYears;
     public SpaceAge(int seconds)
     {
         earthYears = seconds / 31557600.00;

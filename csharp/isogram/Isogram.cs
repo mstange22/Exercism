@@ -11,9 +11,8 @@ public static class Isogram
         foreach(char c in normalized) {
             if (letters.Contains(c)) {
                 return false;
-            } else {
-                letters.Add(c);
             }
+            letters.Add(c);
         }
         return true;
     }

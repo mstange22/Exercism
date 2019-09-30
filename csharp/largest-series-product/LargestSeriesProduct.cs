@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+
 public static class LargestSeriesProduct
 {
     public static long GetLargestProduct(string digits, int span) 
@@ -17,6 +18,7 @@ public static class LargestSeriesProduct
         }
         return largestProduct;
     }
+    
     static int getProduct(string digits) {
         int product = 1;
         for (int i = 0; i < digits.Length; i++) {

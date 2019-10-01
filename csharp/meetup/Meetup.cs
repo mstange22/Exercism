@@ -12,9 +12,8 @@ public enum Schedule
 
 public class Meetup
 {
-    static int[] daysInMonth = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-    int month;
-    int year;
+    readonly int month;
+    readonly int year;
     public Meetup(int month, int year)
     {
         this.month = month;
@@ -54,7 +53,7 @@ public class Meetup
                         day += 21;
                     }
                 } else {
-                    if (daysInMonth[month] == 30) {
+                    if (DateTime.DaysInMonth(year, month) == 30) {
                         day += day < 3 ? 28 : 21;
                     } else {
                         day += day < 4 ? 28 : 21;

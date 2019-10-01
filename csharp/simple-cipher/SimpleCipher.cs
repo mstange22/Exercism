@@ -4,25 +4,20 @@ using System.Text;
 public class SimpleCipher
 {
     readonly string key;
-    
+
     public SimpleCipher()
     {
         Random r = new Random();
-        char rand = (char)(r.Next(0, 26) + 'a');
+        StringBuilder s = new StringBuilder();
         for (int i = 0; i < 10; i++) {
-            key += rand;
+            s.Append((char)r.Next('a', 'z'));
         }
+        key = s.ToString();
     }
 
-    public SimpleCipher(string key)
-    {
-        this.key = key;
-    }
+    public SimpleCipher(string key) => this.key = key;
     
-    public string Key 
-    {
-        get => key;
-    }
+    public string Key { get => key; }
 
     public string Encode(string plaintext, bool decode = false)
     {

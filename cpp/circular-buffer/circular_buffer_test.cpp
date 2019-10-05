@@ -4,6 +4,8 @@
 
 // Circular-buffer exercise test case data version 1.1.0
 
+
+
 TEST_CASE("reading_empty_buffer_should_fail") 
 {
     circular_buffer::circular_buffer<int> buffer(1);
@@ -20,7 +22,6 @@ TEST_CASE("can_read_an_item_just_written")
     int expected = 1;
     REQUIRE(expected == buffer.read());
 }
-#if defined(EXERCISM_RUN_ALL_TESTS)
 
 TEST_CASE("each_item_may_only_be_read_once") 
 {
@@ -158,6 +159,18 @@ TEST_CASE("overwrite_replaces_the_oldest_item_on_full_buffer")
     REQUIRE(expected == buffer.read());
 }
 
+TEST_CASE("full_buffer_cant_be_written_after_overwrite") 
+{
+    circular_buffer::circular_buffer<int> buffer(1);
+
+    REQUIRE_NOTHROW(buffer.write(1));
+    buffer.overwrite(2);
+    REQUIRE_THROWS_AS(buffer.write(3), std::domain_error);
+
+    int expected = 2;
+    REQUIRE(expected == buffer.read());
+}
+
 TEST_CASE("overwrite_replaces_the_oldest_item_remaining_in_buffer_following_a_read") 
 {
     circular_buffer::circular_buffer<int> buffer(3);
@@ -180,18 +193,6 @@ TEST_CASE("overwrite_replaces_the_oldest_item_remaining_in_buffer_following_a_re
     REQUIRE(expected == buffer.read());
 
     expected = 5;
-    REQUIRE(expected == buffer.read());
-}
-
-TEST_CASE("full_buffer_cant_be_written_after_overwrite") 
-{
-    circular_buffer::circular_buffer<int> buffer(1);
-
-    REQUIRE_NOTHROW(buffer.write(1));
-    buffer.overwrite(2);
-    REQUIRE_THROWS_AS(buffer.write(3), std::domain_error);
-
-    int expected = 2;
     REQUIRE(expected == buffer.read());
 }
 
@@ -219,4 +220,5 @@ TEST_CASE("check_correctness_with_string_type")
     expected = "banana";
     REQUIRE(expected == buffer.read());
 }
+#if defined(EXERCISM_RUN_ALL_TESTS)
 #endif  // !EXERCISM_RUN_ALL_TESTS

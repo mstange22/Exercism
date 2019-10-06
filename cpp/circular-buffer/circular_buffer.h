@@ -2,7 +2,6 @@
 #define CIRCULAR_BUFFER_H
 #include <vector>
 #include <stdexcept>
-#include <stdio.h>
 
 namespace circular_buffer {
   template <class T> class circular_buffer {

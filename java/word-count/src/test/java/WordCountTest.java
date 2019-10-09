@@ -7,6 +7,7 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("unused")
 public class WordCountTest {
 
     private WordCount wordCount;

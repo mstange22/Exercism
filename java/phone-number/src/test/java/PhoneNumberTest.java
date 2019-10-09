@@ -5,6 +5,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class PhoneNumberTest {
     private static String wrongLengthExceptionMessage = "Number must be 10 or 11 digits";
     private static String numberIs11DigitsButDoesNotStartWith1ExceptionMessage =

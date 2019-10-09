@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("unused")
 public class QueenAttackCalculatorTest {
 
     @Rule

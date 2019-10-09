@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("unused")
 public class DnDCharacterTest {
 
     private DnDCharacter dndCharacter = new DnDCharacter();

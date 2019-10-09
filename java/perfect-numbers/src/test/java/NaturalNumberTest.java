@@ -5,6 +5,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class NaturalNumberTest {
 
     @Rule

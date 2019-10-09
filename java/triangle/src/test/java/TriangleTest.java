@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
+@SuppressWarnings("unused")
 public class TriangleTest {
 
     @Rule

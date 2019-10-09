@@ -6,6 +6,7 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class WordSearcherTest {
 
     private WordSearcher wordSearcher;

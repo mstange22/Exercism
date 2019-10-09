@@ -3,6 +3,7 @@ import org.junit.Ignore;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class AcronymTest {
 
     @Test

@@ -6,6 +6,7 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings({ "unused", "unchecked" })
 public class MatrixTest {
 
     @Test
@@ -147,7 +148,7 @@ public class MatrixTest {
     <T> List<T> listOf(T... values) {
         return new ArrayList<>(Arrays.asList(values));
       }
-      
+
     <T> Set<T> setOf(T... values) {
     return new HashSet<>(Arrays.asList(values));
     }

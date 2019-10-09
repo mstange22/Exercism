@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 
+@SuppressWarnings("unused")
 public class MatrixTest {
 
     @Test

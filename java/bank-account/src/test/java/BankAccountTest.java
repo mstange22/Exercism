@@ -9,6 +9,7 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+@SuppressWarnings("unused")
 public class BankAccountTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();

@@ -8,6 +8,7 @@ import java.util.Map;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+@SuppressWarnings("unused")
 public class NucleotideCounterTest {
 
     @Rule

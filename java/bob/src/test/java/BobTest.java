@@ -4,6 +4,7 @@ import org.junit.Before;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("unused")
 public class BobTest {
     private Bob bob;
 

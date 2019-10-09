@@ -2,10 +2,10 @@ import org.junit.Test;
 import org.junit.Ignore;
 
 import java.util.*;
-
 import static org.junit.Assert.assertEquals;
 
 
+@SuppressWarnings({ "unused", "serial" })
 public class EtlTest {
     private final Etl etl = new Etl();
 

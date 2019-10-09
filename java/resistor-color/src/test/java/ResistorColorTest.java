@@ -3,7 +3,9 @@ import org.junit.Test;
 import org.junit.Ignore;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 
+@SuppressWarnings("unused")
 public class ResistorColorTest {
 
     private ResistorColor resistorColor;
@@ -44,7 +46,7 @@ public class ResistorColorTest {
     public void testColors() {
         String[] expected = {"black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"};
 
-        assertEquals(expected, resistorColor.colors());
+        assertArrayEquals(expected, resistorColor.colors());
     }
     
 }

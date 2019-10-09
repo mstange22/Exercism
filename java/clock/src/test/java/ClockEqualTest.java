@@ -4,6 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class ClockEqualTest {
 
     // @Ignore("Remove to run test")

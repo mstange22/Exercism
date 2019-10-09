@@ -4,6 +4,7 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+@SuppressWarnings("unused")
 public class ProverbTest {
 
     @Test

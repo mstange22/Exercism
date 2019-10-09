@@ -7,6 +7,7 @@ import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class PrimeFactorsCalculatorTest {
 
     private PrimeFactorsCalculator primeFactorsCalculator;

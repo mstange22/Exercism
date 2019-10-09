@@ -7,6 +7,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class FlattenerTest {
 
     private Flattener flattener;

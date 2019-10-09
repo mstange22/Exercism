@@ -7,6 +7,7 @@ import java.time.Month;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class GigasecondTest {
 
     @Test

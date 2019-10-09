@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class BinarySearchTest {
 
     @Rule

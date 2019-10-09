@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+@SuppressWarnings("unused")
 public class RotationalCipherTest {
 
     private RotationalCipher rotationalCipher;

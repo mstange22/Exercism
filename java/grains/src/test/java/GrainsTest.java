@@ -8,6 +8,7 @@ import java.math.BigInteger;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("unused")
 public class GrainsTest {
 
     private static String wrongSquareMessage = "square must be between 1 and 64";

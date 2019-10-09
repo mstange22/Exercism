@@ -7,6 +7,7 @@ import org.junit.rules.ExpectedException;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+@SuppressWarnings("unused")
 public class PrimeCalculatorTest {
     private PrimeCalculator primeCalculator;
 

@@ -5,6 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
+@SuppressWarnings("unused")
 public class IsbnVerifierTest {
     private IsbnVerifier isbnVerifier;
 

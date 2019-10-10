@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
-
 class Card {
   int points;
   char suit;

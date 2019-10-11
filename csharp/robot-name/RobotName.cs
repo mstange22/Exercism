@@ -6,7 +6,7 @@ public class Robot
 {
     static HashSet<string> usedNames = new HashSet<string>();
     static Random r = new Random();
-    public string Name { get; set; }
+    public string Name { get; private set; }
 
     public Robot() 
     {
@@ -18,6 +18,7 @@ public class Robot
         var s = new StringBuilder();
         do
         {
+            s.Clear();
             s.Append((char)('A' + r.Next(0, 26)));
             s.Append((char)('A' + r.Next(0, 26)));
             s.Append((char)('0' + r.Next(0, 10)));

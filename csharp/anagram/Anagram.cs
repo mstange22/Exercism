@@ -1,36 +1,22 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 public class Anagram
 {
-    private string baseWord;
+    private readonly string baseWord;
+
     public Anagram(string baseWord)
     {
-        this.baseWord = baseWord;
+        this.baseWord = baseWord.ToLower();
     }
 
-    public string[] FindAnagrams(string[] potentialMatches)
-    {
-        var matches = new List<string>();
-        foreach (var candidate in potentialMatches) {
-            if (isAnagram(candidate.ToLower())) {
-                matches.Add(candidate);
-            }
-        }
-        return matches.ToArray();
-    }
+    public string[] FindAnagrams(string[] potentialMatches) =>
+        potentialMatches
+            .Where(s => isAnagram(s.ToLower()))
+            .ToArray();
 
-    private bool isAnagram(string candidate) {
-        if (candidate == baseWord.ToLower()) return false;
-
-        char[] temp = candidate.ToCharArray();
-        Array.Sort(temp);
-        var sortedCandidate = string.Join("", temp);
-
-        temp = baseWord.ToLower().ToCharArray();
-        Array.Sort(temp);
-        var sortedBaseWord = string.Join("", temp);
-
-        return sortedCandidate == sortedBaseWord;
-    }
+    private bool isAnagram(string candidate) => 
+        candidate == baseWord ? false : (
+            string.Concat(candidate.OrderBy(c => c)) == string.Concat(baseWord.OrderBy(c => c))
+        );
 }

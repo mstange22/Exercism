@@ -1,5 +1,5 @@
 class SpaceAge {
-  var seconds: Int
+  var seconds: Double
   var onEarth: Double
   var onMercury: Double
   var onVenus: Double
@@ -8,9 +8,10 @@ class SpaceAge {
   var onSaturn: Double
   var onUranus: Double
   var onNeptune: Double
-  init(_ age: Int) {
+
+  init(_ age: Double) {
     seconds = age
-    onEarth = Double(seconds) / 31557600
+    onEarth = seconds / 31557600
     onMercury = onEarth / 0.2408467
     onVenus = onEarth / 0.61519726
     onMars = onEarth / 1.8808158

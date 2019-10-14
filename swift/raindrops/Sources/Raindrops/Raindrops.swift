@@ -7,7 +7,7 @@ struct Raindrops {
         self.sounds += sound
       }
     } 
-    if self.sounds == "" {
+    if self.sounds.isEmpty {
       self.sounds = String(n)
     }
   }

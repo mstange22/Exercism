@@ -17,18 +17,20 @@ class Garden {
     }
     
     func plantsForChild(_ child: String) -> [Plant] {
-        var startIndex: Int;
-        if self.children.count > 0 {
-            startIndex = (children.index(of: child) ?? 0) * 2
-        } else {
-            let c = child[child.index(child.startIndex, offsetBy: 0)]
-            startIndex = Int((c.asciiValue! - 65) * 2)
-        }
+        // get integer value of first index from given children list or alphabetically
+        let firstIndex = self.children.count > 0 ? (children.index(of: child) ?? 0) * 2 : (
+            Int((child[child.index(child.startIndex, offsetBy: 0)].asciiValue! - Character("A").asciiValue!) * 2)
+        )
+        
+        // convert index to String.index in garden
+        let studentFirstIndex = garden[0].index(garden[0].startIndex, offsetBy: firstIndex)
+        let studentSecondIndex = garden[0].index(garden[0].startIndex, offsetBy: firstIndex + 1)
+
         return [
-            Plant(rawValue: garden[0][garden[0].index(garden[0].startIndex, offsetBy: startIndex)])!,
-            Plant(rawValue: garden[0][garden[0].index(garden[0].startIndex, offsetBy: startIndex + 1)])!,
-            Plant(rawValue: garden[1][garden[1].index(garden[1].startIndex, offsetBy: startIndex)])!,
-            Plant(rawValue: garden[1][garden[1].index(garden[1].startIndex, offsetBy: startIndex + 1)])!
+            Plant(rawValue: garden[0][studentFirstIndex])!,
+            Plant(rawValue: garden[0][studentSecondIndex])!,
+            Plant(rawValue: garden[1][studentFirstIndex])!,
+            Plant(rawValue: garden[1][studentSecondIndex])!
         ]
     }
 }

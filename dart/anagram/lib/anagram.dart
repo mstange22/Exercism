@@ -1,14 +1,13 @@
 class Anagram {
-  List word;
 
-  bool isAnagram(String candidate) {
-    if (candidate.length != this.word.length) {
+  bool _isAnagram(List word, String candidate) {
+    if (candidate.length != word.length) {
       return false;
     }
     List<String> c = candidate.split('');
     c.sort();
     for (int i = 0; i < c.length; i++) {
-      if (c[i] != this.word[i]) {
+      if (c[i] != word[i]) {
         return false;
       }
     }
@@ -18,9 +17,9 @@ class Anagram {
   List<String> findAnagrams(String word, List<String> candidates) {
     List<String> res = [];
     String lowerWord = word.toLowerCase();
-    this.word = lowerWord.split('');
-    this.word.sort();
-    candidates.forEach((c) => lowerWord != c.toLowerCase() && isAnagram(c.toLowerCase()) ? res.add(c) : null);
+    List<String> processedWord = word.toLowerCase().split('');
+    processedWord.sort();
+    candidates.forEach((c) => lowerWord != c.toLowerCase() && _isAnagram(processedWord, c.toLowerCase()) ? res.add(c) : null);
     return res;
   }
 }

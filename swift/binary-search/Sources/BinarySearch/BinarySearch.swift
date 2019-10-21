@@ -30,5 +30,4 @@ class BinarySearch {
         }
         return nil
     }
-    
 }

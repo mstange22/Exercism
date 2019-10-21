@@ -2,10 +2,10 @@ class PrimeFactors {
   List<int> factors(int n) {
     List<int> primeFactors = [];
 
-    for (int i = 2; i <= n; i++) {
-      while (n % i == 0) {
-        primeFactors.add(i);
-        n ~/= i;
+    for (int factor = 2; n >= factor; factor++) {
+      while (n % factor == 0) {
+        primeFactors.add(factor);
+        n ~/= factor;
       }
     }
     return primeFactors;

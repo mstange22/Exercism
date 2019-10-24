@@ -21,3 +21,6 @@ go/test
 tests.out
 .editorconfig
 obj/
+.idea
+out/
+*.iml

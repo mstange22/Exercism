@@ -22,11 +22,11 @@ public class Allergies
         this.mask = mask;
     }
 
-    public bool IsAllergicTo(Allergen allergen) => ((int)Math.Pow(2, (int)allergen) & mask) != 0;
+    public bool IsAllergicTo(Allergen allergen) => (1 << (int)allergen & mask) != 0;
 
     public Allergen[] List() =>
         Enum.GetValues(typeof(Allergen))
             .OfType<Allergen>()
-            .Where(a => IsAllergicTo(a))
+            .Where(IsAllergicTo)
             .ToArray();
 }

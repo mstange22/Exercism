@@ -1,7 +1,6 @@
 class ScaleGenerator {
     let cScale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     let fScale = ["F", "Gb", "G", "Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E"]
-    let useSharps = ["G", "D", "A", "E", "B", "F#", "e", "b", "f#", "c#", "g#", "d#", "C", "a"]
     let useFlats = ["F", "Bb", "Eb", "Ab", "Db", "Gb", "d", "g", "c", "f", "bb", "eb"]
     let tonic: String
     let scaleName: String
@@ -25,7 +24,7 @@ class ScaleGenerator {
             return tonic == "C" ? cScale : fScale
         }
 
-        let currScale = useSharps.contains(tonic) ? cScale : fScale
+        let currScale = useFlats.contains(tonic) ? fScale : cScale
         var currNoteIndex = currScale.index(of: formattedTonic)!
         var res = [String]()
         

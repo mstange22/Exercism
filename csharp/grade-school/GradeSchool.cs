@@ -1,37 +1,38 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
+
+class Student {
+    public int grade;
+    public string name;
+
+    public Student(string name, int grade) {
+        this.name = name;
+        this.grade = grade;
+    }
+}
 
 public class GradeSchool
 {
-    private Dictionary<int, List<string>> roster = new Dictionary<int, List<string>>();
+    private List<Student> roster = new List<Student>();
 
     public void Add(string student, int grade)
     {
-        if (!roster.ContainsKey(grade))
-        {
-            roster.Add(grade, new List<string>{ student });
-        }
-        else
-        {
-            roster[grade].Add(student);
-            roster[grade].Sort();
-        }
+        roster.Add(new Student(student, grade));
+        roster.Sort((a, b) => {
+            if (a.grade == b.grade) {
+                return a.name.CompareTo(b.name);
+            }
+            return  a.grade - b.grade;
+        });
     }
 
     public IEnumerable<string> Roster()
     {
-        var res = new List<string>();
-        var grades = new List<int>(roster.Keys);
-        grades.Sort();
-        foreach (int grade in grades)
-        {
-            res.AddRange(roster[grade]);
-        }
-        return res;
+        return roster.Select(student => student.name);
     }
 
     public IEnumerable<string> Grade(int grade)
     {
-        return roster.GetValueOrDefault(5, new List<string>());
+        return roster.Where(student => student.grade == grade).Select(student => student.name);
     }
 }

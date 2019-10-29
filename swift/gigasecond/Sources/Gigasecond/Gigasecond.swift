@@ -18,7 +18,6 @@ class Gigasecond {
     get {
       let timeInterval = gigaDate.timeIntervalSince1970
       let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
       dateFormatter.locale = Locale(identifier: "en_US_POSIX")
       dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
       dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)

@@ -1,7 +1,7 @@
 class Node<T> {
     var data: T
-    var prev: Node<T>? = nil
-    var next: Node<T>? = nil
+    var prev: Node<T>?
+    var next: Node<T>?
     
     init(_ data: T) {
         self.data = data
@@ -9,9 +9,8 @@ class Node<T> {
 }
 
 class Deque<T> {
-    var head: Node<T>? = nil
-    var tail: Node<T>? = nil
-    var size = 0
+    var head: Node<T>?
+    var tail: Node<T>?
     
     func push(_ item: T) {
         let newNode = Node(item)
@@ -23,25 +22,15 @@ class Deque<T> {
             newNode.prev = tail
             tail = newNode
         }
-        size += 1
     }
     
     func pop() -> T? {
-        guard size != 0 else {
+        guard let res = tail else {
             return nil
         }
-        var res: T
-        if size == 1 {
-            res = head!.data
-            head = nil
-            tail = nil
-        } else {
-            res = tail!.data
-            tail = tail!.prev
-            tail!.next = nil
-        }
-        size -= 1
-        return res
+        tail = tail!.prev
+        tail?.next = nil
+        return res.data
     }
     
     func unshift(_ item: T) {
@@ -54,24 +43,14 @@ class Deque<T> {
             newNode.next = head
             head = newNode
         }
-        size += 1
     }
     
     func shift() -> T? {
-        guard size != 0 else {
+        guard let res = head else {
             return nil
         }
-        var res: T
-        if size == 1 {
-            res = head!.data
-            head = nil
-            tail = nil
-        } else {
-            res = head!.data
-            head = head!.next
-            head!.prev = nil
-        }
-        size -= 1
-        return res
+        head = head!.next
+        head?.prev = nil
+        return res.data
     }
 }

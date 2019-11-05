@@ -1,21 +1,16 @@
 #include "resistor_color.h"
-
-const resistor_band_t COLORS[] = {
-  BLACK, BROWN, RED, ORANGE, YELLOW,
-  GREEN, BLUE, VIOLET, GREY, WHITE
-};
+#include <stdlib.h>
 
 int color_code(resistor_band_t color)
 {
-  int index = 0;
-  while (COLORS[index] != color)
-  {
-    index++;
-  }
-  return index;
+  return (int)color;
 }
 
 const resistor_band_t *colors()
 {
-  return COLORS;
+  resistor_band_t* res = malloc(sizeof(resistor_band_t) * 10) ;
+  for (int i = 0; i < 10; i++) {
+    res[i] = (resistor_band_t)i;
+  }
+  return res;
 }

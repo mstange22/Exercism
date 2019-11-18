@@ -1,27 +1,20 @@
 from collections import Counter
 
-FIVE_BOOK = .75
-FOUR_BOOK = .80
-THREE_BOOK = .90
-TWO_BOOK = .95
+FULL_PRICE = 800
 
-def calculate_group_total(books):
-  res = len(books) * 800
-  if len(books) == 5:
-    res *= FIVE_BOOK
-  elif len(books) == 4:
-    res *= FOUR_BOOK
-  elif len(books) == 3:
-    res *= THREE_BOOK
-  elif len(books) == 2:
-    res *= TWO_BOOK
-  return res
+group_totals = {
+  1: FULL_PRICE,
+  2: FULL_PRICE * .95,
+  3: FULL_PRICE * .90,
+  4: FULL_PRICE * .80,
+  5: FULL_PRICE * .75
+}
 
 def calculate_total(books):
   if len(books) == 0:
     return 0
 
-  costs = []
+  lowest = None
   c = Counter(books)
 
   # iterate over all possible series lengths, starting with highest
@@ -29,7 +22,7 @@ def calculate_total(books):
     cost = 0
     book_count = 0
     # sorted list of counter key/value pairs
-    temp = list(map(lambda x: list(x), sorted(dict(c).items(), key=lambda x: x[1], reverse=True)))
+    temp = [list(x) for x in c.most_common()]
 
     # get cost for all books in temp list for this i max grouping value
     while book_count < len(books):
@@ -45,8 +38,9 @@ def calculate_total(books):
         # stop if reach this current i number of books
         if len(group) == i:
           break
-      cost += calculate_group_total(group)
-    # add the cost for this grouping method
-    costs.append(cost)
+      cost += len(group) * group_totals[len(group)]
+    # if this cost is lowest, replace current lowest
+    if not lowest or cost < lowest:
+      lowest = cost
 
-  return min(costs)
+  return lowest

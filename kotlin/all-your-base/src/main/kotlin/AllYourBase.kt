@@ -1,18 +1,12 @@
-class BaseConverter {
-    var base10 = 0
+class BaseConverter(inBase: Int, digits: IntArray) {
+    var base10 = digits.foldIndexed(0) { i, accum, d -> accum + d * Math.pow(inBase.toDouble(), (digits.size - 1 - i).toDouble()).toInt() }
 
-    constructor(inBase: Int, digits: IntArray) {
+    init {
         require(inBase >= 2) { "Bases must be at least 2." }
         require(digits.size >= 1) { "You must supply at least one digit." }
         require(digits.size == 1 || digits[0] != 0) { "Digits may not contain leading zeros." }
-
-        var exp = (digits.size - 1).toDouble()
-
-        for (digit in digits) {
-            require(digit >= 0) { "Digits may not be negative." }
-            require(digit < inBase) { "All digits must be strictly less than the base." }
-            base10 += digit * Math.pow(inBase.toDouble(), exp--).toInt()
-        }
+        require(digits.all { it >= 0 }) { "Digits may not be negative." }
+        require(digits.all { it < inBase }) { "All digits must be strictly less than the base." }
     }
 
     fun convertToBase(newBase: Int): IntArray {

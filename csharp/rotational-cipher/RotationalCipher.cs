@@ -9,7 +9,7 @@ public static class RotationalCipher
         );
 
     public static char translate(char c, int shiftKey) {
-        if (Char.IsLetter(c)) {
+        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
             int charPos = Char.ToUpper(c) - 'A';
             int newCharPos = (charPos + shiftKey) % 26;
             return (char)((int)c + newCharPos - charPos);

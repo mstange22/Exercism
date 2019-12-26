@@ -5,10 +5,10 @@ public static class RotationalCipher
 {
     public static string Rotate(string text, int shiftKey) =>
         String.Join("",
-            text.ToCharArray().Select(c => RotationalCipher.translate(c, shiftKey))
+            text.Select(c => RotationalCipher.translate(c, shiftKey))
         );
 
-    public static char translate(char c, int shiftKey) {
+    private static char translate(char c, int shiftKey) {
         if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
             int charPos = Char.ToUpper(c) - 'A';
             int newCharPos = (charPos + shiftKey) % 26;

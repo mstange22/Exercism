@@ -4,57 +4,43 @@ using System.Collections.Generic;
 public class CircularBuffer<T>
 {
     int capacity;
-    int size;
-    int oldestIndex;
-    List<T> buffer;
+    Queue<T> buffer;
 
     public CircularBuffer(int capacity)
     {
         this.capacity = capacity;
-        buffer = new List<T>();
-        size = 0;
-        oldestIndex = 0;
+        buffer = new Queue<T>();
     }
 
     public T Read()
     {
-        if (size == 0) {
+        if (buffer.Count == 0) {
             throw new InvalidOperationException("buffer is empty");
         }
 
-        T res = buffer[oldestIndex];
-        size--;
-        oldestIndex = (oldestIndex + 1) % buffer.Count;
-        return res;
+        return buffer.Dequeue();
     }
 
     public void Write(T value)
     {
-        if (size == capacity) {
+        if (buffer.Count == capacity) {
             throw new InvalidOperationException("buffer is full");
         }
-        if (buffer.Count != capacity) {
-            buffer.Add(value);
-        } else {
-            buffer[(oldestIndex + size) % buffer.Count] = value;
-        }
-        size++;
+        buffer.Enqueue(value);
     }
 
     public void Overwrite(T value)
     {
-        if (size < capacity) {
+        if (buffer.Count < capacity) {
             Write(value);
         } else {
-            buffer[oldestIndex] = value;
-            oldestIndex = (oldestIndex + 1) % buffer.Count;
+            buffer.Dequeue();
+            Write(value);
         }
     }
 
     public void Clear()
     {
-        size = 0;
-        oldestIndex = 0;
-        buffer = new List<T>();
+        buffer.Clear();
     }
 }

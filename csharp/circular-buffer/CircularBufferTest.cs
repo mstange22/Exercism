@@ -122,7 +122,6 @@ public class CircularBufferTest
     public void Overwrite_replaces_the_oldest_item_remaining_in_buffer_following_a_read()
     {
         var buffer = new CircularBuffer<int>(capacity: 3);
-        Console.WriteLine("*********************** This TEST ***********************");
         buffer.Write(1);
         buffer.Write(2);
         buffer.Write(3);

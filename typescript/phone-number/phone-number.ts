@@ -19,9 +19,6 @@ export default class PhoneNumber {
         return undefined;
       }
     }
-    if (/[^0-9]/.test(input)) {
-      return undefined;
-    }
-    return input;
+    return /[^0-9]/.test(input) ? undefined : input;
   }
 }

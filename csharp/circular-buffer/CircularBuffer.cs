@@ -31,12 +31,10 @@ public class CircularBuffer<T>
 
     public void Overwrite(T value)
     {
-        if (buffer.Count < capacity) {
-            Write(value);
-        } else {
+        if (buffer.Count == capacity) {
             buffer.Dequeue();
-            Write(value);
         }
+        Write(value);
     }
 
     public void Clear()

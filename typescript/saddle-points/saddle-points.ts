@@ -4,8 +4,8 @@ class SaddlePoints {
             return accum.concat(row.reduce((acc, e, j) => {
                 if (e === Math.max(...row)) {
                     let isMin = true
-                    for (const currRow of matrix) {
-                        if (currRow[j] < e) {
+                    for (const row of matrix) {
+                        if (row[j] < e) {
                             isMin = false
                             break
                         }

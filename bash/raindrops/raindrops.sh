@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
-declare -A map=(
-  [Pling]=3
-  [Plang]=5
-  [Plong]=7
+map=(
+  [3]="Pling"
+  [5]="Plang"
+  [7]="Plong"
 )
 
 main () {
   res=""
-  for sound in "Pling" "Plang" "Plong"; do
-    (( $1 % ${map[$sound]} == 0 )) && res+=$sound
+  for key in "${!map[@]}"; do
+    (( $1 % $key == 0 )) && res+=${map[key]}
   done
-  [[ $res == "" ]] && echo $1 || echo $res
+  echo ${res:-$1}
 }
 
 main "$@"

@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+@SuppressWarnings("unused")
 public class SimpleLinkedListTest {
 
     @Rule

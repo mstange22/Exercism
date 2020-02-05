@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 class PascalsTriangleGenerator {
 
   int[][] generateTriangle(int rows) {

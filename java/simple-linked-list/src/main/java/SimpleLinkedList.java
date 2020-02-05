@@ -11,7 +11,7 @@ class Node<T> {
     next = null;
   }
 }
-
+@SuppressWarnings("unchecked")
 class SimpleLinkedList<T> {
   int size = 0;
   Node<T> head = null;

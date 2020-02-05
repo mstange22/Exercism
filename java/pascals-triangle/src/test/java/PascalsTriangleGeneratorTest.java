@@ -7,6 +7,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertArrayEquals;
 
+@SuppressWarnings("unused")
 public class PascalsTriangleGeneratorTest {
 
     private PascalsTriangleGenerator pascalsTriangleGenerator;

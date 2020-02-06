@@ -22,9 +22,7 @@ class ComplexNumber {
   }
   
   ComplexNumber minus(ComplexNumber other) {
-    double real = getReal() - other.getReal();
-    double imag = getImag() - other.getImag();
-    return new ComplexNumber(real, imag);
+    return add(new ComplexNumber(-other.getReal(), -other.getImag()));
   }
 
   ComplexNumber times(ComplexNumber other) {

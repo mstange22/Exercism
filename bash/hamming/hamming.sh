@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-(( $# != 2 )) && { echo "Usage: hamming.sh <string1> <string2>"; exit 1; }
-(( ${#1} != ${#2} )) && { echo "left and right strands must be of equal length"; exit 1; }
+
+throw() { echo "$1" >&2; exit 1; }
+
+(( $# != 2 )) && throw "Usage: hamming.sh <string1> <string2>"
+(( ${#1} != ${#2} )) && throw "left and right strands must be of equal length"
 
 d=0
 

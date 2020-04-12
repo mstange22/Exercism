@@ -9,17 +9,21 @@ class GradeSchool {
   }
 
   addStudent(name: string, grade: number) {
-    const currGrade = this.roster[grade.toString()]
+    const currGrade = this.roster[grade]
     if (currGrade) {
-      currGrade.push(name)
-      currGrade.sort()
+      const index = currGrade.findIndex(student => student.localeCompare(name) >= 0)
+      if (index === -1) {
+        currGrade.push(name)
+      } else {
+        currGrade.splice(index, 0, name)
+      }
     } else {
-      this.roster[grade.toString()] = [name]
+      this.roster[grade] = [name]
     }
   }
 
   studentsInGrade(grade: number) {
-    const res = this.roster[grade.toString()]
+    const res = this.roster[grade]
     return res ? [...res] : []
   }
 }

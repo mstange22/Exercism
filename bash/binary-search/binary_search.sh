@@ -6,11 +6,9 @@ target=$1
 arr=()
 for ((i=1; i < $#; i++)); do
   (( index=$i-1 ))
-  # echo "index: $index"
   arr[$index]=${@:$i+1:1}
 done
 
-# echo "arr: ${arr[@]}"
 # validate arg count
 (( $# < 2 )) && { echo "-1"; exit 0; }
 

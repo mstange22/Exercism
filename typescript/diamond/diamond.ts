@@ -1,13 +1,18 @@
-const A = 'A'.charCodeAt(0)
-
 class Diamond {
   makeDiamond(letter: string) {
-    const diff = letter.charCodeAt(0) - A
-    const res = 'A\n'
-    for (let i = 0; i < diff; i++) {
-      
+    const letterCharCode = letter.charCodeAt(0)
+    const diff = letterCharCode - 'A'.charCodeAt(0)
+    let top: string[] = []
+    for (let i = diff; i >= 0; i--) {
+      const currLetter = String.fromCharCode(letterCharCode - i)
+      const endSpaces = ' '.repeat(i)
+      let line = endSpaces + currLetter
+      if (currLetter !== 'A') {
+        line += `${' '.repeat((2 * (diff - i)) - 1)}${currLetter}`
+      }
+      top.push(`${line}${endSpaces}\n`)
     }
-    return res
+    return [...top, ...top.slice(0, -1).reverse()].join('')
   }
 }
 

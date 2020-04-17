@@ -8,6 +8,7 @@ class Diamond {
       const endSpaces = ' '.repeat(i)
       let line = endSpaces + currLetter
       if (currLetter !== 'A') {
+        // add middle spaces and second letter
         line += `${' '.repeat((2 * (diff - i)) - 1)}${currLetter}`
       }
       top.push(`${line}${endSpaces}\n`)

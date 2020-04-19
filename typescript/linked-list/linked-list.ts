@@ -1,108 +1,83 @@
 class Node<T> {
   value: T
-  prev: Node<T> | null = null;
-  next: Node<T> | null = null;
+  prev: Node<T> | null
+  next: Node<T> | null
 
-  constructor(value: T) {
+  constructor(value: T, prev: Node<T> | null, next: Node<T> | null) {
     this.value = value
+    this.prev = prev
+    this.next = next
   }
 }
-
 
 class LinkedList<T> {
   head: Node<T> | null= null
   tail: Node<T> | null = null
   _count = 0
   
-  push(value: T) {
-    if (!this.tail || !this.head) {
-      this.tail = new Node(value)
-      this.tail.next = this.tail
-      this.tail.prev = this.tail
-      this.head = this.tail
-    } else {
-      const newNode = new Node(value)
-      newNode.prev = this.tail
-      newNode.next = this.head
+  push(value: T): void {
+    const newNode = new Node(value, this.tail,  null)
+    if (this.tail) {
       this.tail.next = newNode
-      this.tail = newNode
-      this.head.prev = this.tail
     }
-    this._count++
+    this.tail = newNode
+    this.head = this.head || this.tail
   }
 
   pop(): T | null {
-    if (this.tail && this.head) {
-      const res = this.tail.value
-      if (this.tail.prev && this.tail.prev !== this.tail) {
-        this.tail.prev.next = this.head
-        this.tail = this.tail.prev
-        this.head.prev = this.tail
-      } else {
-        this.tail = null;
-        this.head = null;
+    const res = this.tail
+    this.tail = this.tail ? this.tail.prev : this.head
+    this.head = this.tail ? this.head : null
+    return res ? res.value : null
+  }
+
+  unshift(value: T): void {
+      const newNode = new Node(value, null, this.head)
+      if (this.head) {
+        this.head.prev = newNode
       }
-      this._count--
-      return res
-    }
-    return null
+      this.head = newNode
+      this.tail = this.tail || this.head
   }
 
   shift(): T | null {
-    if (this.head && this.tail) {
-      const res = this.head.value
-      if (this.head.next && this.head.next !== this.head) {
-        this.head.next.prev = this.tail
-        this.head = this.head.next
-        this.tail.next = this.head
-      } else {
-        this.head = null;
-        this.tail = null;
-      }
-      this._count--
-      return res
-    }
-    return null
+    const res = this.head
+    this.head = this.head ? this.head.next : this.tail
+    this.tail = this.head ? this.tail : null
+    return res ? res.value : null
   }
 
-  unshift(value: T) {
-    if (!this.head || !this.tail) {
-      this.head = new Node(value)
-      this.head.next = this.tail
-      this.head.prev = this.tail
-      this.tail = this.head
-    } else {
-      const newNode = new Node(value)
-      newNode.prev = this.tail
-      newNode.next = this.head
-      this.tail.next = newNode
-      this.head.prev = newNode
-      this.head = newNode
-    }
-    this._count++
-  }
-
-  delete(value: T): void {
+  find(value: T): Node<T> | null {
     let curr = this.head
     while (curr && curr.value !== value) {
       curr = curr.next
-      if (curr === this.head) {
-        return
-      }
     }
-    if (curr) {
-      if (curr.next && curr.prev) {
-        curr.next.prev = curr.prev
-        curr.prev.next = curr.next
-      } else {
-        this.head = null
-        this.tail = null
-      }
-      this._count--
+    return curr
+  }
+
+  remove(node: Node<T>): void {
+    if (node.next) {
+      node.next.prev = node.prev
+    }
+    if (node.prev) {
+      node.prev.next = node.next
+    }
+    this.head = node === this.head ? node.next : this.head
+    this.tail = node === this.tail ? node.prev : this.tail
+  }
+
+  delete(value: T): void {
+    const nodeToDelete = this.find(value)
+    if (nodeToDelete) {
+      this.remove(nodeToDelete)
     }
   }
 
-  count = () => this._count
+  count = (): number => {
+    let count = 0
+    for (let curr = this.head; curr; curr = curr.next, count++) {}
+    return count
+  }
 }
 
 export default LinkedList

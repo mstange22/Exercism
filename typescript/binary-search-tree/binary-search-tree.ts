@@ -1,18 +1,22 @@
 class BinarySearchTree {
   data: number
-  left: BinarySearchTree
-  right: BinarySearchTree
+  left: BinarySearchTree | null
+  right: BinarySearchTree | null
+
   constructor(data: number) {
     this.data = data
-    this.left = undefined
+    this.left = null
+    this.right = null
   }
 
-  each(func: (data: number) => void): void  {
-    func(this.data)
+  each(func: (data: number) => void): void {
+    const elements: number[] = []
+    this.inOrder(elements)
+    elements.forEach(data => func(data))
   }
 
   insert(data: number) {
-    if (data < this.data) {
+    if (data <= this.data) {
       if (this.left) {
         this.left.insert(data);
       } else  {
@@ -27,6 +31,15 @@ class BinarySearchTree {
     }
   }
 
+  inOrder(elements: number[]): void {
+    if (this.left) {
+      this.left.inOrder(elements)
+    }
+    elements.push(this.data)
+    if (this.right) {
+      this.right.inOrder(elements)
+    }
+  }
 
 }
 

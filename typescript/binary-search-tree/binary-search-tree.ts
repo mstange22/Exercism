@@ -1,18 +1,14 @@
+// NOTE: had to assert non-null is some test cases
 class BinarySearchTree {
-  data: number
-  left: BinarySearchTree | null
-  right: BinarySearchTree | null
+  left?: BinarySearchTree
+  right?: BinarySearchTree
 
-  constructor(data: number) {
-    this.data = data
-    this.left = null
-    this.right = null
-  }
+  constructor(public data: number) {}
 
   each(func: (data: number) => void): void {
-    const elements: number[] = []
-    this.inOrder(elements)
-    elements.forEach(data => func(data))
+    this.left && this.left.each(func)
+    func(this.data)
+    this.right && this.right.each(func)
   }
 
   insert(data: number) {
@@ -30,17 +26,6 @@ class BinarySearchTree {
       }
     }
   }
-
-  inOrder(elements: number[]): void {
-    if (this.left) {
-      this.left.inOrder(elements)
-    }
-    elements.push(this.data)
-    if (this.right) {
-      this.right.inOrder(elements)
-    }
-  }
-
 }
 
 export default BinarySearchTree

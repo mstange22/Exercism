@@ -1,13 +1,10 @@
-const ones = [
-  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'
-]
-
-const teens = [
+const lessThan20 = [
+  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
   'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'
 ]
 
 const tens = [
-  '', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'  
+  '', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'  
 ]
 
 const largeGroups: [number, string][] = [
@@ -36,13 +33,9 @@ export default class Say {
     if (n >= 20) {
       res += tens[Math.floor(n / 10)]
       n %= 10
-      return n === 0 ? res : `${res}-${ones[n]}`
+      return n === 0 ? res : `${res}-${lessThan20[n]}`
     }
 
-    if (n >= 10) {
-      return teens[n - 10]
-    }
-
-    return ones[n]
+    return lessThan20[n]
   }
 }

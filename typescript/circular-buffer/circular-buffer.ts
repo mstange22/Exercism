@@ -1,5 +1,5 @@
-const BufferOverflowError = new Error()
-const BufferEmptyError = new Error()
+export class BufferOverflowError extends Error {}
+export class BufferEmptyError extends Error {}
 
 export default class CircularBuffer<T> {
   buffer: T[]
@@ -13,7 +13,7 @@ export default class CircularBuffer<T> {
   
   read(): T {
     if (!this.count) {
-      throw BufferEmptyError
+      throw new BufferEmptyError()
     }
     const res = this.buffer[this.oldestIndex]
     this.count--
@@ -23,7 +23,7 @@ export default class CircularBuffer<T> {
 
   write(element: T): void {
     if (this.isFull()) {
-      throw BufferOverflowError
+      throw new BufferOverflowError()
     }
     this.buffer[(this.oldestIndex + this.count) % this.capacity] = element
     this.count++
@@ -46,5 +46,3 @@ export default class CircularBuffer<T> {
     return this.count === this.capacity
   }
 }
-
-export { BufferOverflowError, BufferEmptyError };

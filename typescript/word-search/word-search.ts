@@ -32,7 +32,7 @@ export default class WordSearch {
     return undefined
   }
 
-  // reduce words down to an object
+  // reduce search words down to an object
   public find = (words: string[]) => 
     words.reduce((accum: { [word:string]: { start: number[], end: number[] } | undefined }, word) => {
       accum[word] = this.search(word)

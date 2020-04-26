@@ -1,12 +1,13 @@
-const gcd = (a: number, b: number): number => {
+const GCD = (a: number, b: number): number => {
   a = Math.abs(a)
   b = Math.abs(b)
-  let least = Math.min(a, b)
-  let greatest = Math.max(a, b)
+  const least = Math.min(a, b)
+  const greatest = Math.max(a, b)
   let gcd = 1;
-  for (let i = 2; i <= least; i++) {
+  for (let i = least; i > 1; i--) {
     if (least % i === 0 && greatest % i === 0) {
       gcd = i
+      break;
     }
   }
   return gcd
@@ -29,7 +30,8 @@ export default class Rational {
       this.a *= -1
       this.b *= -1
     }
-    return new Rational(this.a / gcd(this.a, this.b), this.b / gcd(this.a, this.b))
+    const gcd = GCD(this.a, this.b)
+    return new Rational(this.a / gcd, this.b / gcd)
   }
 
   add(other: Rational): Rational {

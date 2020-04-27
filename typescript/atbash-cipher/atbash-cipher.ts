@@ -14,14 +14,12 @@ const translateLetter = (c: string) => {
   return String.fromCharCode('z'.charCodeAt(0) - letterPosition(c))
 }
 
+const addSpaces = (s: string): string => s.replace(/(.{5})(?=\S)/g, '$1 ')
+
 export default class AtbashCipher {
-  translateString = (s: string, isDecoding: boolean) => {
+  translateString = (s: string) => {
     return [...s].reduce((accum, c) => {
       if (isAlphaNum(c)) {
-        const currChunkLength = accum.length % 6
-        if (!isDecoding && currChunkLength === 5) {
-          accum += ' '
-        }
         if (isNumber(c)) {
           accum += c
         } else {
@@ -33,12 +31,10 @@ export default class AtbashCipher {
   }
 
   encode = (s: string) => {
-    const isDecoding = false
-    return this.translateString(s, isDecoding)
+    return addSpaces(this.translateString(s))
   }
 
   decode = (s: string) => {
-    const isDecoding = true
-    return this.translateString(s, isDecoding)
+    return this.translateString(s)
   }
 }

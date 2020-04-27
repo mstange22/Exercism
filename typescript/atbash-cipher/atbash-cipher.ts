@@ -1,20 +1,44 @@
+const isAlphaNum = (c: string) => {
+  return /[A-Za-z0-9]/.test(c)
+}
+
+const isNumber = (c: string) => {
+  return /[0-9]/.test(c)
+}
+
+const letterPosition = (c: string) => {
+  return c.toLowerCase().charCodeAt(0) - 'a'.charCodeAt(0)
+}
+
+const translateLetter = (c: string) => {
+  return String.fromCharCode('z'.charCodeAt(0) - letterPosition(c))
+}
+
 export default class AtbashCipher {
-  encode = (s: string, decode?: boolean) => {
+  translateString = (s: string, isDecoding: boolean) => {
     return [...s].reduce((accum, c) => {
-      if (!/[, .]/.test(c)) {
-        if (!decode && accum.length % 6 === 5) {
+      if (isAlphaNum(c)) {
+        const currChunkLength = accum.length % 6
+        if (!isDecoding && currChunkLength === 5) {
           accum += ' '
         }
-        if (c >= '0' && c <= '9') {
+        if (isNumber(c)) {
           accum += c
         } else {
-          const diff = c.toLowerCase().charCodeAt(0) - 'a'.charCodeAt(0)
-          accum += String.fromCharCode('z'.charCodeAt(0) - diff)
+          accum += translateLetter(c)
         }
       }
       return accum
     }, '')
   }
 
-  decode = (s: string) => this.encode(s, true)
+  encode = (s: string) => {
+    const isDecoding = false
+    return this.translateString(s, isDecoding)
+  }
+
+  decode = (s: string) => {
+    const isDecoding = true
+    return this.translateString(s, isDecoding)
+  }
 }

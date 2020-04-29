@@ -8,10 +8,9 @@ const isPalindrome = (n: number): boolean => {
   return true
 }
 
-const generate = (args: { maxFactor: number, minFactor?: number }): { [key: string]: { value: number, factors: number[][] } } => {
-  const { maxFactor, minFactor = 1} = args
+const generate = ({ maxFactor = 9, minFactor = 1 }): { [key: string]: { value: number, factors: number[][] } } => {
   let largest: { value: number, factors: number[][] } = { value: 0, factors: [] }
-  let smallest: { value: number, factors: number[][] } = { value: Infinity, factors: [] }
+  let smallest: { value: number, factors: number[][] } = { value: maxFactor * maxFactor, factors: [] }
 
   for (let i = minFactor; i <= maxFactor; i++) {
     for (let j = minFactor; j <= maxFactor; j++) {

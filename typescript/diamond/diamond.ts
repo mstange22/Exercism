@@ -2,23 +2,15 @@ class Diamond {
   makeDiamond(letter: string) {
     const letterCharCode = letter.charCodeAt(0)
     const diff = letterCharCode - 'A'.charCodeAt(0)
-    let top: string[] = []
+    const size = 1 + 2 * diff
 
-    // build top half
-    for (let i = diff; i >= 0; i--) {
-      const currLetter = String.fromCharCode(letterCharCode - i)
-      const endSpaces = ' '.repeat(i)
-      let line = endSpaces + currLetter
-      if (currLetter !== 'A') {
-        // add middle spaces and second letter
-        line += `${' '.repeat((2 * (diff - i)) - 1)}${currLetter}`
+    return new Array(size).fill('').reduce((accum, _, i) => {
+      let offset = Math.abs(diff - i)
+      for (let j = 0; j < size; j++) {
+        accum += j === offset || j === size - 1 - offset ? String.fromCharCode(letterCharCode - offset) : ' '
       }
-      top.push(`${line}${endSpaces}\n`)
-    }
-    // take all but last line of top (don't repeat given letter).
-    // Flip it (if anything) and add to bottom.
-    return [...top, ...top.slice(0, -1).reverse()].join('')
+      return accum + '\n'
+    }, '')
   }
 }
-
 export default Diamond

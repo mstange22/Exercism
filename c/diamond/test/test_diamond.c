@@ -20,6 +20,7 @@ static void free_all(char **diamond)
 
 static void test_rows_degenerate_case_with_a_single_a_row(void)
 {
+   // TEST_IGNORE();               // delete this line to run test
    const char letter = 'A';
    const char *expected[] = {
       "A"

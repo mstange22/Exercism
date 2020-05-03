@@ -1,11 +1,16 @@
 class ArgumentError extends Error {}
 
-const OPERATIONS: {[ key: string]: (a: number, b: number) => number } = {
+type Operation = 'plus' | 'minus' | 'multiplied' | 'divided'
+
+const OPERATIONS = {
   plus: (a: number, b: number): number =>  a + b,
   minus: (a: number, b: number): number =>  a - b,
   multiplied: (a: number, b: number): number =>  a * b,
   divided: (a: number, b: number): number =>  a / b,
 }
+
+const isOperation = (token: string): token is Operation =>
+  token === 'plus' || token === 'minus' || token === 'multiplied' || token === 'divided'
 
 class WordProblem {
   constructor(private readonly phrase: string) {}
@@ -17,18 +22,19 @@ class WordProblem {
       .slice(2)
       .filter(token => token !== 'by')
 
-  private getResult(a: string | number, b: string, operation: string) {
-    if (!OPERATIONS[operation]) {
+  private getResult(a: string | number, operation: string, b: string) {
+    if (!isOperation(operation)) {
       throw new ArgumentError()
     }
     return OPERATIONS[operation](Number(a), Number(b))
   }
 
   answer = (): number => {
-    const tokens = this.getTokens()
-    let res = this.getResult(tokens[0], tokens[2], tokens[1])
-    for (let i = 3; i <= tokens.length - 2; i++) {
-      res = this.getResult(res, tokens[i + 1], tokens[i])
+    const [a, ...tokens] = this.getTokens()
+    let res = 0;
+    while (tokens.length > 0) {
+      const [operation, b] = tokens.splice(0, 2)
+      res = this.getResult(res || a, operation, b)
     }
     return res
   }

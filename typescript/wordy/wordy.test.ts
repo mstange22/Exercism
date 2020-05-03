@@ -2,40 +2,40 @@ import { WordProblem, ArgumentError } from './wordy'
 
 describe('Word Problem', () => {
 
-  // it('add 1', () => {
-  //   const question = 'What is 1 plus 1?'
-  //   expect(new WordProblem(question).answer()).toEqual(2)
-  // })
+  it('add 1', () => {
+    const question = 'What is 1 plus 1?'
+    expect(new WordProblem(question).answer()).toEqual(2)
+  })
 
-  // it('add 2', () => {
-  //   const question = 'What is 53 plus 2?'
-  //   expect(new WordProblem(question).answer()).toEqual(55)
-  // })
+  it('add 2', () => {
+    const question = 'What is 53 plus 2?'
+    expect(new WordProblem(question).answer()).toEqual(55)
+  })
 
-  // it('add negative numbers', () => {
-  //   const question = 'What is -1 plus -10?'
-  //   expect(new WordProblem(question).answer()).toEqual(-11)
-  // })
+  it('add negative numbers', () => {
+    const question = 'What is -1 plus -10?'
+    expect(new WordProblem(question).answer()).toEqual(-11)
+  })
 
-  // it('add more digits', () => {
-  //   const question = 'What is 123 plus 45678?'
-  //   expect(new WordProblem(question).answer()).toEqual(45801)
-  // })
+  it('add more digits', () => {
+    const question = 'What is 123 plus 45678?'
+    expect(new WordProblem(question).answer()).toEqual(45801)
+  })
 
-  // it('subtract', () => {
-  //   const question = 'What is 4 minus -12?'
-  //   expect(new WordProblem(question).answer()).toEqual(16)
-  // })
+  it('subtract', () => {
+    const question = 'What is 4 minus -12?'
+    expect(new WordProblem(question).answer()).toEqual(16)
+  })
 
-  // it('multiply', () => {
-  //   const question = 'What is -3 multiplied by 25?'
-  //   expect(new WordProblem(question).answer()).toEqual(-75)
-  // })
+  it('multiply', () => {
+    const question = 'What is -3 multiplied by 25?'
+    expect(new WordProblem(question).answer()).toEqual(-75)
+  })
 
-  // it('divide', () => {
-  //   const question = 'What is 33 divided by -3?'
-  //   expect(new WordProblem(question).answer()).toEqual(-11)
-  // })
+  it('divide', () => {
+    const question = 'What is 33 divided by -3?'
+    expect(new WordProblem(question).answer()).toEqual(-11)
+  })
 
   it('add twice', () => {
     const question = 'What is 1 plus 1 plus 1?'

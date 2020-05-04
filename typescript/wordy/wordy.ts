@@ -30,11 +30,11 @@ class WordProblem {
   }
 
   answer = (): number => {
-    const [a, ...tokens] = this.getTokens()
-    let res = (Number(a));
+    const [firstOperand, ...tokens] = this.getTokens()
+    let res = (Number(firstOperand));
     while (tokens.length > 0) {
-      const [operation, b] = tokens.splice(0, 2)
-      res = this.getResult(res || a, operation, b)
+      const [operation, operand] = tokens.splice(0, 2)
+      res = this.getResult(res, operation, operand)
     }
     return res
   }

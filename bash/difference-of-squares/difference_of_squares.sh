@@ -6,9 +6,15 @@ n=$2
 (( sum_of_squares=($n * ($n+1) * ((2 * $n) + 1)) / 6 ))
 
 case $1 in
-  "square_of_sum" ) res=$square_of_sum ;;
-  "sum_of_squares" ) res=$sum_of_squares ;;
-  *) (( res=$square_of_sum - $sum_of_squares )) ;;
+  "square_of_sum" )
+    res=$square_of_sum
+    ;;
+  "sum_of_squares" )
+    res=$sum_of_squares
+    ;;
+  "difference" )
+    (( res=$square_of_sum - $sum_of_squares ))
+    ;;
 esac
 
 echo $res

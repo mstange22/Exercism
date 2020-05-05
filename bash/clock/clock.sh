@@ -1,24 +1,27 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+normalize() {
+  (( minutes=((($1 + ($2 / 60)) % 24) + 24) * 60 + ($2 % 60) ))
+}
+
+validate() {
+  re='^[-0-9]+$'
+  if (( $# < 2 || $# > 4 || $# == 3 )) ||
+    ( (( $# == 4 )) && ( [[ $3 == "/" ]] || ! [[ $4 =~ $re ]] ) ) ||
+    ! ([[ $1 =~ $re ]] && [[ $2 =~ $re ]]); then
+      echo *"invalid arguments"*
+      exit 1
+  fi
+}
+
+validate "$@"
+normalize "$@"
+
+if (( $# > 2 )); then
+  [[ $3 == "+" ]] && (( minutes+=$4 )) || (( minutes-=$4))
+  normalize "0" "$minutes"
+fi
+
+(( hours = (minutes / 60) % 24 ))
+(( minutes%=60 ))
+printf "%02d:%02d\n" $hours $minutes

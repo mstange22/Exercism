@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-arr=( $(IFS=";" echo "$1") )
-alpha="ABCDEFGHIJKL"
-res=""
+ALPHA="ABCDEFGHIJKL"
 
 declare -A garden_map=(
   [R]="radishes"
@@ -11,15 +9,11 @@ declare -A garden_map=(
   [V]="violets"
 )
 
-letter=${2:0:1}
+# split garden string param into array
+arr=( $(IFS="\n" echo "$1") )
 
-for (( i=0; i<${#alpha}; i++ )) {
-  if [[ ${alpha:i:1} == $letter ]]; then
-    res+="${garden_map[${arr[0]:i*2:1}]} "
-    res+="${garden_map[${arr[0]:i*2+1:1}]} "
-    res+="${garden_map[${arr[1]:i*2:1}]} "
-    res+="${garden_map[${arr[1]:i*2+1:1}]}"
-  fi
-}
+# get index of name in ALPHA to use in garden array
+i=0; while [[ ${ALPHA:i:1} != ${2:0:1} ]]; do (( i++ )); done
 
-echo $res
+printf "${garden_map[${arr[0]:i*2:1}]} ${garden_map[${arr[0]:i*2+1:1}]} "\
+"${garden_map[${arr[1]:i*2:1}]} ${garden_map[${arr[1]:i*2+1:1}]}\n"

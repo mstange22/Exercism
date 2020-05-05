@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+arr=( $(IFS=";" echo "$1") )
+alpha="ABCDEFGHIJKL"
+res=""
+
+declare -A garden_map=(
+  [R]="radishes"
+  [C]="clover"
+  [G]="grass"
+  [V]="violets"
+)
+
+letter=${2:0:1}
+
+for (( i=0; i<${#alpha}; i++ )) {
+  if [[ ${alpha:i:1} == $letter ]]; then
+    res+="${garden_map[${arr[0]:i*2:1}]} "
+    res+="${garden_map[${arr[0]:i*2+1:1}]} "
+    res+="${garden_map[${arr[1]:i*2:1}]} "
+    res+="${garden_map[${arr[1]:i*2+1:1}]}"
+  fi
+}
+
+echo $res

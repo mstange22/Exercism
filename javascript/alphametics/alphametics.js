@@ -41,7 +41,9 @@ export const solve = (puzzle) => {
     const availableLetters = Object.keys(letterMap).filter(key => key !== addends[0][0]);
 
     const solution = checkPermutations(availableNumbers, availableLetters);
-    if (solution) return letterMap;
+    if (solution) {
+      return letterMap;
+    }
   }
   return null;
 };

@@ -4,8 +4,6 @@
 #include "math.h"
 #include "stdlib.h"
 
-#include "stdio.h"
-
 char *ciphertext(const char *input) {
   size_t len = strlen(input);
   char normalized[len + 1];
@@ -29,7 +27,7 @@ char *ciphertext(const char *input) {
   }
 
   // allocate space for all chunk characters, spaces and \0
-  char *res = malloc(((rows * columns) + rows + 1) * sizeof(char));
+  char *res = malloc(((rows * columns) + rows) * sizeof(char));
   count = 0;
 
   for (size_t column = 0; column < columns; column++) {

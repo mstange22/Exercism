@@ -17,7 +17,6 @@ export default class Alphametics {
   
   translate = (word: string): number => Number([...word].reduce((accum, char) => accum + this.letterMap[char], ''))
 
-  // closure to recursively check all permutations
   checkPermutations = (availableNumbers: number[], availableLetters: string[]) => {
     this.permutations++
     if (availableNumbers.length === 0 || availableLetters.length === 0) {

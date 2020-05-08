@@ -18,6 +18,7 @@ int compare_student(student_t student_1, student_t student_2) {
   return strcmp(student_1.name, student_2.name);
 }
 
+// insert student at 
 void insert_student(int index, student_t student) {
   student_t temp_student;
 
@@ -29,25 +30,16 @@ void insert_student(int index, student_t student) {
   roster.students[roster.count] = student;
 }
 
-bool add_student(char *name, uint8_t grade) {
-  student_t new_student = {
-    .grade = grade, .name = name
-  };
+int add_student(char *name, uint8_t grade) {
+  student_t new_student = { .grade = grade, .name = name };
 
-  // new student belongs at end?
-  if (compare_student(new_student, roster.students[roster.count - 1]) >= 1) {
-    roster.students[roster.count++] = new_student;
-  } else {
-    // insert new student in correct position
-    for (size_t i = 0; i < roster.count; i++) {
-      if (compare_student(new_student, roster.students[i]) < 0) {
-        insert_student(i, new_student);
-        break;
-      }
+  for (size_t i = 0; i <= roster.count; i++) {
+    if (i == roster.count || compare_student(new_student, roster.students[i]) < 0) {
+      insert_student(i, new_student);
+      break;
     }
-    roster.count++;
   }
-  return true;
+  return ++roster.count;
 }
 
 roster_t get_grade(uint8_t grade) {

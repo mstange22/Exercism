@@ -17,8 +17,7 @@ int compare_student(student_t student_1, student_t student_2) {
   }
   return strcmp(student_1.name, student_2.name);
 }
-
-// insert student at 
+ 
 void insert_student(int index, student_t student) {
   student_t temp_student;
 

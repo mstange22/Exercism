@@ -1,5 +1,5 @@
 import org.junit.Before;
-import org.junit.Ignore;
+// import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -28,7 +28,7 @@ public class ErrorHandlingTest {
         errorHandling.handleErrorByThrowingIllegalArgumentException();
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testThrowIllegalArgumentExceptionWithDetailMessage() {
         thrown.expect(IllegalArgumentException.class);
@@ -36,7 +36,7 @@ public class ErrorHandlingTest {
         errorHandling.handleErrorByThrowingIllegalArgumentExceptionWithDetailMessage("This is the detail message.");
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testThrowAnyCheckedException() {
         try {
@@ -46,7 +46,7 @@ public class ErrorHandlingTest {
         }
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testThrowAnyCheckedExceptionWithDetailMessage() {
         try {
@@ -57,14 +57,14 @@ public class ErrorHandlingTest {
         }
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testThrowAnyUncheckedException() {
         thrown.expect(RuntimeException.class);
         errorHandling.handleErrorByThrowingAnyUncheckedException();
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testThrowAnyUncheckedExceptionWithDetailMessage() {
         thrown.expect(RuntimeException.class);
@@ -72,14 +72,14 @@ public class ErrorHandlingTest {
         errorHandling.handleErrorByThrowingAnyUncheckedExceptionWithDetailMessage("This is the detail message.");
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testThrowCustomCheckedException() throws CustomCheckedException {
         thrown.expect(CustomCheckedException.class);
         errorHandling.handleErrorByThrowingCustomCheckedException();
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testThrowCustomCheckedExceptionWithDetailMessage() throws CustomCheckedException {
         thrown.expect(CustomCheckedException.class);
@@ -87,14 +87,14 @@ public class ErrorHandlingTest {
         errorHandling.handleErrorByThrowingCustomCheckedExceptionWithDetailMessage("This is the detail message.");
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testThrowCustomUncheckedException() {
         thrown.expect(CustomUncheckedException.class);
         errorHandling.handleErrorByThrowingCustomUncheckedException();
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testThrowCustomUncheckedExceptionWithDetailMessage() {
         thrown.expect(CustomUncheckedException.class);
@@ -102,7 +102,7 @@ public class ErrorHandlingTest {
         errorHandling.handleErrorByThrowingCustomUncheckedExceptionWithDetailMessage("This is the detail message.");
     }
 
-    @Ignore("Remove to run test")
+    // @Ignore("Remove to run test")
     @Test
     public void testReturnOptionalInstance() {
         Optional<Integer> successfulResult = errorHandling.handleErrorByReturningOptionalInstance("1");

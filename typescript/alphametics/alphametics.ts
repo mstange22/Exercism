@@ -3,7 +3,6 @@ export default class Alphametics {
   addends: string[]
   letterMap: { [key: string]: number } = {}
   leadingDigits: { [key: string]: boolean } = {}
-  permutations = 0
   
   constructor(private readonly puzzle: string) {
     [this.total, ...this.addends] = this.puzzle.split(' ').filter(token => token !== '+' && token !== '==').reverse()
@@ -11,14 +10,13 @@ export default class Alphametics {
     this.leadingDigits = [this.total, ...this.addends].reduce((accum, token) => ({ ...accum, [token[0]]: true }), {})
   }
 
-  calculateTotal = () => this.addends.reduce((accum, addend) => accum + this.translate(addend), 0)
+  calculateTotal = (): number => this.addends.reduce((accum, addend) => accum + this.translate(addend), 0)
 
-  isSolution = () => this.calculateTotal() === this.translate(this.total)
+  isSolution = (): boolean => this.calculateTotal() === this.translate(this.total)
   
   translate = (word: string): number => Number([...word].reduce((accum, char) => accum + this.letterMap[char], ''))
 
-  checkPermutations = (availableNumbers: number[], availableLetters: string[]) => {
-    this.permutations++
+  checkPermutations = (availableNumbers: number[], availableLetters: string[]): boolean => {
     if (availableNumbers.length === 0 || availableLetters.length === 0) {
       return this.isSolution()
     }

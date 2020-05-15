@@ -9,10 +9,10 @@ declare -A letter_map=(
 )
 
 main () {
-  lower=${1,,}
-  sum=0
+  local lower=${1,,}
+  local sum=0
   for (( i=0; i < ${#1}; i++)); do
-    (( sum+=${letter_map[${lower:i:1}]} ))
+    (( sum+=letter_map[${lower:i:1}] ))
   done
   echo $sum
 }

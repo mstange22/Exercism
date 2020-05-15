@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-declare -A words=()
+declare -A words
 
 main () {
   lower=${1,,}
   cleaned=${lower//\\n/}
   cleaned=${cleaned//[^[:alnum:]\']/ }
   for word in $cleaned; do
-    (( words[$word]+=1 ))
+      word="${word#[\']}"
+      word="${word%[\']}"
+      (( 'words["$word"]++' ))
   done
   for k in "${!words[@]}"
     do

@@ -96,7 +96,7 @@
 }
 
 @test "with quotations" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash word_count.sh "Joe can't tell between 'large' and large."
   (( status == 0 ))
   echo "$output" | grep -qFx "joe: 1"
@@ -109,7 +109,7 @@
 }
 
 @test "substrings from the beginning" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash word_count.sh "Joe can't tell between apple, app and a."
   (( status == 0 ))
   echo "$output" | grep -qFx "joe: 1"
@@ -123,7 +123,7 @@
 }
 
 @test "multiple spaces not detected as a word" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash word_count.sh " multiple   whitespaces"
   (( status == 0 ))
   echo "$output" | grep -qFx "multiple: 1"
@@ -132,7 +132,7 @@
 }
 
 @test "alternating word separators are not detected as a word" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash word_count.sh $',\n,one,\n ,two \n \'three\''
   (( status == 0 ))
   echo "$output" | grep -qFx "one: 1"
@@ -146,7 +146,7 @@
 # https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions
 
 @test "contains shell globbing character" {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+  # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
   run bash word_count.sh "two * words"
   (( status == 0 ))
   echo "$output" | grep -qFx "two: 1"

@@ -1,7 +1,7 @@
 # based on given information, two house colors and one of each of the other properties
 # can be determined.  Seed houses with known info to limit possible combinations
 houses = {
-    0: { 'color': 'yellow', 'inhabitant': 'Norwegian', 'smokes': 'Kools' },
+    0: { 'color': 'yellow', 'inhabitant': 'Norwegian', 'smoke': 'Kools' },
     1: { 'color': 'blue', 'pet': 'horse' },
     2: { 'drink': 'milk' },
     3: {},
@@ -20,7 +20,7 @@ PROPERTIES = [{
 },
 {
     'property': 'drinks',
-    'elements': ['Orange Juice', 'coffee', 'tea', 'water'],
+    'elements': ['orange juice', 'coffee', 'tea', 'water'],
     'house_indexes': [0, 1, 3, 4],
 },
 {
@@ -46,17 +46,17 @@ def check_solution():
     pets = indexes['pets']
 
     # successful result must satisfy all (variable) conditions
-    if colors['red'] != inhabitants['Englishman'] or inhabitants['Spaniard'] != pets['dog'] or \
-        colors['green'] != drinks['coffee'] or inhabitants['Ukrainian'] != drinks['tea'] or \
-        smokes['Old Gold'] != pets['snails'] or abs(smokes['Chesterfields'] - pets['fox']) != 1 or \
-        smokes['Lucky Strike'] != drinks['Orange Juice'] or inhabitants['Japanese'] != smokes['Parliaments']:
-      return False
+    if colors['red'] == inhabitants['Englishman'] and inhabitants['Spaniard'] == pets['dog'] and \
+        colors['green'] == drinks['coffee'] and inhabitants['Ukrainian'] == drinks['tea'] and \
+        smokes['Old Gold'] == pets['snails'] and abs(smokes['Chesterfields'] - pets['fox']) == 1 and \
+        smokes['Lucky Strike'] == drinks['orange juice'] and inhabitants['Japanese'] == smokes['Parliaments']:
+      return True
 
-    return True
+    return False
 
 # recursively build all possible combinations, check solution each time
 def check_properties(remaining_houses, remaining_elements, property_index):
-    if len(remaining_houses) == 0 or len(remaining_elements) == 0:
+    if len(remaining_elements) == 0:
         property_index += 1
         if property_index == len(PROPERTIES):
             return check_solution()

@@ -10,6 +10,7 @@ def is_prime(n: int) -> bool:
 def prime(number: int) -> int:
     if number < 1:
         raise ValueError("Error: Number must be positive")
+
     primes = [2]
     test_val = 3
 

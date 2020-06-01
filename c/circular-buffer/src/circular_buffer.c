@@ -4,6 +4,7 @@
 
 circular_buffer_t *new_circular_buffer(size_t capacity) {
   circular_buffer_t *new_buffer = (circular_buffer_t*)malloc(sizeof(circular_buffer_t));
+  new_buffer->values = malloc(capacity * sizeof(buffer_value_t));
   new_buffer->capacity = capacity;
   new_buffer->size = 0;
   new_buffer->oldest_index = 0;
@@ -45,5 +46,6 @@ void clear_buffer(circular_buffer_t *buffer) {
 }
 
 void delete_buffer(circular_buffer_t *buffer) {
+  free(buffer->values);
   free(buffer);
 }

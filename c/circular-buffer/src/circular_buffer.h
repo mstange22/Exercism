@@ -2,12 +2,11 @@
 #define CIRCULAR_BUFFER_H
 
 #include <stdlib.h>
-
-#define MAX_VALUES 10
+#include <stdint.h>
 
 typedef int buffer_value_t;
 typedef struct circular_buffer_t {
-  buffer_value_t values[MAX_VALUES];
+  buffer_value_t *values;
   size_t oldest_index;
   size_t size;
   size_t capacity;

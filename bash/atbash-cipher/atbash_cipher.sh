@@ -10,7 +10,7 @@ populate_map() {
 }
 
 main () {
-  populate_map ""
+  populate_map
 
   cleaned=${2,,}
   cleaned=${cleaned//[^[:alnum:]]/}
@@ -29,7 +29,7 @@ main () {
     (( count++ ))
   done
 
-  echo $res
+  echo "$res"
 }
 
 main "$@"

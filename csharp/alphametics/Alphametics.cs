@@ -8,7 +8,6 @@ public class Solution {
         this.addends = addends;
         this.letterMap = letterMap;
         this.leadingDigits = leadingDigits;
-
     }
 
     public Dictionary<char, int> letterMap { get; }

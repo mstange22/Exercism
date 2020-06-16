@@ -2,29 +2,19 @@ data class MatrixCoordinate(val row: Int, val col: Int)
 
 class Matrix(val matrix: List<List<Int>>) {
 
-  var saddlePoints = mutableSetOf<MatrixCoordinate>()
+  var saddlePoints = setOf<MatrixCoordinate>()
 
-  init {
-    for (i in 0..matrix.size - 1) {
-      val row = matrix[i]
-      for (j in 0..row.size - 1) {
-        val cell = matrix[i][j];
-        if (cell == row.max()) {
-          // check if cell is a column min
-          if (isColumnMin(j, cell)) {
-            saddlePoints.add(MatrixCoordinate(i + 1, j + 1))
-          }
-        }
-      }
+  fun getRowSaddlePoints(i: Int, row: List<Int>): Set<MatrixCoordinate> {
+    val rowMax = row.max()
+    return row.foldIndexed(setOf<MatrixCoordinate>()) { j, points, _ ->
+      val cell = matrix[i][j]
+      if (cell == rowMax && cell == matrix.map { it -> it[j] }.min())
+        points.union(setOf(MatrixCoordinate(i + 1, j + 1)))
+      else points
     }
   }
 
-  private fun isColumnMin(col: Int, value: Int): Boolean {
-    for (i in 0..matrix.size - 1) {
-      if (matrix[i][col] < value) {
-        return false
-      }
-    }
-    return true
+  init {
+    saddlePoints = matrix.foldIndexed(setOf<MatrixCoordinate>()) { i, accum, row -> accum.union(getRowSaddlePoints(i, row)) }
   }
 }

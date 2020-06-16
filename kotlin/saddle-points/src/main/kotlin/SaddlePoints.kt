@@ -2,7 +2,9 @@ data class MatrixCoordinate(val row: Int, val col: Int)
 
 class Matrix(val matrix: List<List<Int>>) {
 
-  var saddlePoints = setOf<MatrixCoordinate>()
+  var saddlePoints = matrix.foldIndexed(setOf<MatrixCoordinate>()) {
+    i, accum, row -> accum.union(getRowSaddlePoints(i, row))
+  }
 
   fun getRowSaddlePoints(i: Int, row: List<Int>): Set<MatrixCoordinate> {
     val rowMax = row.max()
@@ -12,9 +14,5 @@ class Matrix(val matrix: List<List<Int>>) {
         points.union(setOf(MatrixCoordinate(i + 1, j + 1)))
       else points
     }
-  }
-
-  init {
-    saddlePoints = matrix.foldIndexed(setOf<MatrixCoordinate>()) { i, accum, row -> accum.union(getRowSaddlePoints(i, row)) }
   }
 }

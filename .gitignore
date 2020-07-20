@@ -25,3 +25,4 @@ obj/
 out/
 *.iml
 *.properties
+memcheck.*

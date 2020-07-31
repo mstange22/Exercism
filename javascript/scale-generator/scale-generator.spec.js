@@ -11,6 +11,11 @@ describe('ScaleGenerator', () => {
       const expected = ['F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E']
       expect(new Scale('F').chromatic()).toEqual(expected)
     })
+
+    test('Another chromatic scale with flats', () => {
+      const expected = ['Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F']
+      expect(new Scale('Gb').chromatic()).toEqual(expected)
+    })
   })
 
   describe('Scales with specified intervals', () => {

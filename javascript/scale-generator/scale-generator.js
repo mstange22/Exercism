@@ -13,15 +13,19 @@ export class Scale {
   }
 
   chromatic() {
-    return usesFlats.includes(this.tonic) ? flats : sharps;
+    const scale = usesFlats.includes(this.tonic) ? flats : sharps;
+    let scalePos = scale.indexOf(this.tonic)
+    return scale.map((_, i) => scale[(scalePos + i) % scale.length])
   }
 
   interval(intervals) {
     const currTonic = this.tonic[0].toUpperCase() + this.tonic.slice(1);
-    let scalePos = this.chromatic().indexOf(currTonic);
+    const scale = usesFlats.includes(this.tonic) ? flats : sharps;
+    let scalePos = scale.indexOf(currTonic);
+
     return [...intervals].map((step) => {
-      const nextNote = this.chromatic()[scalePos]
-      scalePos = (scalePos + steps[step]) % this.chromatic().length;
+      const nextNote = scale[scalePos]
+      scalePos = (scalePos + steps[step]) % scale.length;
       return nextNote
     });
   }

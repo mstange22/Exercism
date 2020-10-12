@@ -13,15 +13,7 @@ class RobotFactory {
                 }
             }
         }
-        // randomize robot names with Fisher-Yates shuffle
-        (0 until names.size).forEach { it ->
-            // find random index from remaining names
-            val randomIndex = (it until names.size).random()
-            // swap current name with name at random index
-            val temp = names[it]
-            names[it] = names[randomIndex]
-            names[randomIndex] = temp
-         }
+        names.shuffle()
     }
 }
 
@@ -30,7 +22,7 @@ class Robot {
         val robots = RobotFactory()
     }
 
-    var myIndex: Int
+    private var myIndex: Int
 
     init {
         myIndex = robots.index++

@@ -1,12 +1,12 @@
 object MatchingBrackets {
 
-    val brackets = hashMapOf('[' to ']', '{' to '}', '(' to ')' )
+    val brackets = mapOf('[' to ']', '{' to '}', '(' to ')' )
 
     fun isValid(input: String): Boolean {
         val stack = arrayListOf<Char>()
-        input.forEach { c -> 
+        for (c in input) {
             if (brackets.values.contains(c)) {
-                if (stack.size == 0 || stack.removeAt(stack.size - 1) != c) {
+                if (stack.size == 0 || stack.removeAt(stack.lastIndex) != c) {
                     return false
                 }
             } else if (brackets.keys.contains(c)) {
